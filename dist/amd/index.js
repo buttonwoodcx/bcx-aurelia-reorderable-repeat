@@ -7,6 +7,7 @@ define(['exports', 'aurelia-pal', './reorderable-repeat', './reorderable-directi
   exports.ReorderableAfterReordering = exports.ReorderableDndHandlerSelector = exports.ReorderableDndPreview = exports.ReorderableDirection = exports.ReorderableRepeat = undefined;
   exports.configure = configure;
 
+
   var css = '\n.reorderable-repeat-dragging-me {\n  visibility: hidden;\n}\n';
 
   function configure(config) {
