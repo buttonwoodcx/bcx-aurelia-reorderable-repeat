@@ -1,12 +1,12 @@
 # bcx-aurelia-reorderable-repeat
 
-An Aurelia repeat support drag & drop reordering.
+An Aurelia repeater support drag & drop reordering automatically.
 
 Read documentation [here](https://buttonwoodcx.github.io/bcx-aurelia-dnd/#/bcx-aurelia-reorderable-repeat)
 
-TODO, documentation, test, turn on travis-ci.
+TODO, test, turn on travis-ci.
 
-## Building The Code (kept from [skeleton-plugin](https://github.com/aurelia/skeleton-plugin) readme)
+## Building The Code (kept from skeleton-plugin readme)
 
 To build the code, follow these steps.
 
@@ -30,7 +30,7 @@ To build the code, follow these steps.
 
 6. See `gulpfile.js` for other tasks related to generating the docs and linting.
 
-## Running The Tests
+## Running The Tests (kept from skeleton-plugin readme)
 
 To run the unit tests, first ensure that you have followed the steps above in order to install all dependencies and successfully build the library. Once you have done that, proceed with these additional steps:
 
