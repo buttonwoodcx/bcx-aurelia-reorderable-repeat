@@ -11,6 +11,7 @@ System.config({
     "aurelia-bootstrapper": "npm:aurelia-bootstrapper@1.0.1",
     "aurelia-dependency-injection": "npm:aurelia-dependency-injection@1.3.1",
     "aurelia-event-aggregator": "npm:aurelia-event-aggregator@1.0.1",
+    "aurelia-pal": "npm:aurelia-pal@1.3.0",
     "aurelia-pal-browser": "npm:aurelia-pal-browser@1.2.1",
     "aurelia-polyfills": "npm:aurelia-polyfills@1.0.0",
     "aurelia-task-queue": "npm:aurelia-task-queue@1.2.0",
