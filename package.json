@@ -101,5 +101,8 @@
         "in your view, replace \"repeat.for=\" with \"reorderable-repeat.for=\" in place you want to support drag&drop reordering support"
       ]
     }
+  },
+  "scripts": {
+    "postversion": "git push && git push --tags"
   }
 }
