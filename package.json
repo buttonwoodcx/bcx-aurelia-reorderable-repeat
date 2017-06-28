@@ -83,5 +83,21 @@
     "aurelia-templating": "^1.0.0",
     "aurelia-templating-resources": "^1.0.0",
     "bcx-aurelia-dnd": "^0.2.3"
+  },
+  "aurelia": {
+    "dependencies": [
+      "bcx-aurelia-dnd",
+      {
+        "name": "bcx-aurelia-reorderable-repeat",
+        "main": "index",
+        "path": "../node_modules/bcx-aurelia-reorderable-repeat/dist/amd"
+      }
+    ],
+    "import": {
+      "tutorial": [
+        "load plugin in your main file, aurelia.use.plugin('aurelia-dragula')",
+        "in your view, replace \"repeat.for=\" with \"reorderable-repeat.for=\" in place you want to support drag&drop reordering support"
+      ]
+    }
   }
 }
