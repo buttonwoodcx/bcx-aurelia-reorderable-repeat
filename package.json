@@ -103,6 +103,7 @@
     }
   },
   "scripts": {
+    "preversion": "gulp build",
     "postversion": "git push && git push --tags"
   }
 }
