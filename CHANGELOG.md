@@ -1,6 +1,10 @@
 # Changelog
 
-## 0.1.1 - 28/Jun/2017
+## 0.1.3 - 10/Jul/2017
+
+  * upgrade bcx-aurelia-dnd to v0.2.5 which removes SimpleArrayRepeatStrategy.
+
+## 0.1.2 - 28/Jun/2017
 
   * upgrade bcx-aurelia-dnd to v0.2.4.
 
