@@ -31,8 +31,6 @@ import {TaskQueue} from 'aurelia-task-queue';
 
 let seed = 0;
 
-let ref = 0;
-
 const classes = (function() {
   let cache = {};
   let start = '(?:^|\\s)';
@@ -254,7 +252,6 @@ export class ReorderableRepeat extends AbstractRepeater {
   view(index) { return this.viewSlot.children[index]; }
   matcher() { return this.matcherBinding ? this.matcherBinding.sourceExpression.evaluate(this.scope, this.matcherBinding.lookupFunctions) : null; }
 
-  // SimpleArrayRepeatStrategy right now only uses addView() and removeAllViews()
   addView(bindingContext, overrideContext) {
     let view = this.viewFactory.create();
     window.ttview = view;
@@ -288,6 +285,25 @@ export class ReorderableRepeat extends AbstractRepeater {
   removeView(index, returnToCache, skipAnimation) {
     this._unRegisterDnd(this.view(index));
     return this.viewSlot.removeAt(index, returnToCache, skipAnimation);
+  }
+
+  updateBindings(view) {
+    this._unRegisterDnd(view);
+
+    let j = view.bindings.length;
+    while (j--) {
+      updateOneTimeBinding(view.bindings[j]);
+    }
+    j = view.controllers.length;
+    while (j--) {
+      let k = view.controllers[j].boundProperties.length;
+      while (k--) {
+        let binding = view.controllers[j].boundProperties[k].binding;
+        updateOneTimeBinding(binding);
+      }
+    }
+
+    this._registerDnd(view);
   }
 
   _additionalAttribute(view, attribute) {

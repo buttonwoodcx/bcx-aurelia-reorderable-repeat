@@ -74,8 +74,6 @@ function _initializerWarningHelper(descriptor, context) {
 
 var seed = 0;
 
-var ref = 0;
-
 var classes = function () {
   var cache = {};
   var start = '(?:^|\\s)';
@@ -326,6 +324,25 @@ var ReorderableRepeat = exports.ReorderableRepeat = (_dec = (0, _aureliaTemplati
   ReorderableRepeat.prototype.removeView = function removeView(index, returnToCache, skipAnimation) {
     this._unRegisterDnd(this.view(index));
     return this.viewSlot.removeAt(index, returnToCache, skipAnimation);
+  };
+
+  ReorderableRepeat.prototype.updateBindings = function updateBindings(view) {
+    this._unRegisterDnd(view);
+
+    var j = view.bindings.length;
+    while (j--) {
+      (0, _aureliaTemplatingResources.updateOneTimeBinding)(view.bindings[j]);
+    }
+    j = view.controllers.length;
+    while (j--) {
+      var k = view.controllers[j].boundProperties.length;
+      while (k--) {
+        var binding = view.controllers[j].boundProperties[k].binding;
+        (0, _aureliaTemplatingResources.updateOneTimeBinding)(binding);
+      }
+    }
+
+    this._registerDnd(view);
   };
 
   ReorderableRepeat.prototype._additionalAttribute = function _additionalAttribute(view, attribute) {

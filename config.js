@@ -19,7 +19,7 @@ System.config({
     "aurelia-templating-resources": "npm:aurelia-templating-resources@1.4.0",
     "babel": "npm:babel-core@5.8.38",
     "babel-runtime": "npm:babel-runtime@5.8.38",
-    "bcx-aurelia-dnd": "npm:bcx-aurelia-dnd@0.2.4",
+    "bcx-aurelia-dnd": "npm:bcx-aurelia-dnd@0.2.5",
     "core-js": "npm:core-js@1.2.7",
     "github:jspm/nodelibs-assert@0.1.0": {
       "assert": "npm:assert@1.4.1"
@@ -163,7 +163,7 @@ System.config({
     "npm:babel-runtime@5.8.38": {
       "process": "github:jspm/nodelibs-process@0.1.2"
     },
-    "npm:bcx-aurelia-dnd@0.2.4": {
+    "npm:bcx-aurelia-dnd@0.2.5": {
       "aurelia-event-aggregator": "npm:aurelia-event-aggregator@1.0.1"
     },
     "npm:buffer@5.0.6": {

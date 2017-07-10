@@ -54,8 +54,6 @@ import { TaskQueue } from 'aurelia-task-queue';
 
 let seed = 0;
 
-let ref = 0;
-
 const classes = function () {
   let cache = {};
   let start = '(?:^|\\s)';
@@ -277,6 +275,25 @@ export let ReorderableRepeat = (_dec = customAttribute('reorderable-repeat'), _d
   removeView(index, returnToCache, skipAnimation) {
     this._unRegisterDnd(this.view(index));
     return this.viewSlot.removeAt(index, returnToCache, skipAnimation);
+  }
+
+  updateBindings(view) {
+    this._unRegisterDnd(view);
+
+    let j = view.bindings.length;
+    while (j--) {
+      updateOneTimeBinding(view.bindings[j]);
+    }
+    j = view.controllers.length;
+    while (j--) {
+      let k = view.controllers[j].boundProperties.length;
+      while (k--) {
+        let binding = view.controllers[j].boundProperties[k].binding;
+        updateOneTimeBinding(binding);
+      }
+    }
+
+    this._registerDnd(view);
   }
 
   _additionalAttribute(view, attribute) {

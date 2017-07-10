@@ -3,7 +3,7 @@
 System.register(['aurelia-dependency-injection', 'aurelia-binding', 'aurelia-templating', 'aurelia-templating-resources', './reorderable-repeat-strategy-locator', 'bcx-aurelia-dnd', 'aurelia-event-aggregator', 'aurelia-task-queue'], function (_export, _context) {
   "use strict";
 
-  var inject, ObserverLocator, observable, BindingEngine, BindingBehavior, ValueConverter, BoundViewFactory, TargetInstruction, ViewSlot, ViewResources, customAttribute, bindable, templateController, getItemsSourceExpression, unwrapExpression, isOneTime, updateOneTimeBinding, viewsRequireLifecycle, AbstractRepeater, ReorderableRepeatStrategyLocator, DndService, EventAggregator, TaskQueue, _dec, _dec2, _class, _desc, _value, _class2, _descriptor, _descriptor2, _descriptor3, _descriptor4, seed, ref, classes, ReorderableRepeat;
+  var inject, ObserverLocator, observable, BindingEngine, BindingBehavior, ValueConverter, BoundViewFactory, TargetInstruction, ViewSlot, ViewResources, customAttribute, bindable, templateController, getItemsSourceExpression, unwrapExpression, isOneTime, updateOneTimeBinding, viewsRequireLifecycle, AbstractRepeater, ReorderableRepeatStrategyLocator, DndService, EventAggregator, TaskQueue, _dec, _dec2, _class, _desc, _value, _class2, _descriptor, _descriptor2, _descriptor3, _descriptor4, seed, classes, ReorderableRepeat;
 
   function _initDefineProp(target, property, descriptor, context) {
     if (!descriptor) return;
@@ -113,7 +113,6 @@ System.register(['aurelia-dependency-injection', 'aurelia-binding', 'aurelia-tem
     }],
     execute: function () {
       seed = 0;
-      ref = 0;
 
       classes = function () {
         var cache = {};
@@ -365,6 +364,25 @@ System.register(['aurelia-dependency-injection', 'aurelia-binding', 'aurelia-tem
         ReorderableRepeat.prototype.removeView = function removeView(index, returnToCache, skipAnimation) {
           this._unRegisterDnd(this.view(index));
           return this.viewSlot.removeAt(index, returnToCache, skipAnimation);
+        };
+
+        ReorderableRepeat.prototype.updateBindings = function updateBindings(view) {
+          this._unRegisterDnd(view);
+
+          var j = view.bindings.length;
+          while (j--) {
+            updateOneTimeBinding(view.bindings[j]);
+          }
+          j = view.controllers.length;
+          while (j--) {
+            var k = view.controllers[j].boundProperties.length;
+            while (k--) {
+              var binding = view.controllers[j].boundProperties[k].binding;
+              updateOneTimeBinding(binding);
+            }
+          }
+
+          this._registerDnd(view);
         };
 
         ReorderableRepeat.prototype._additionalAttribute = function _additionalAttribute(view, attribute) {

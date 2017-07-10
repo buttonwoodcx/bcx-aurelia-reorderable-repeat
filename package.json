@@ -84,7 +84,7 @@
     "aurelia-task-queue": "^1.0.0",
     "aurelia-templating": "^1.0.0",
     "aurelia-templating-resources": "^1.0.0",
-    "bcx-aurelia-dnd": "^0.2.4"
+    "bcx-aurelia-dnd": "^0.2.5"
   },
   "aurelia": {
     "import": {
