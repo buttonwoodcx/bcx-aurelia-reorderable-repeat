@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.5 - 21/Jul/2017
+
+  * remove accidentally added local tgz package.
+
 ## 0.1.4 - 21/Jul/2017
 
   * support duplicated items in primitive array (like ['one', 'one', 'two']).
