@@ -363,7 +363,7 @@ export let ReorderableRepeat = (_dec = customAttribute('reorderable-repeat'), _d
     }
   }
 
-  _dndHover(location, item, direction) {
+  _dndHover(location, index, direction) {
     const { mouseEndAt, targetElementRect } = location;
     const x = mouseEndAt.x - targetElementRect.x;
     const y = mouseEndAt.y - targetElementRect.y;
@@ -381,9 +381,9 @@ export let ReorderableRepeat = (_dec = customAttribute('reorderable-repeat'), _d
       }
 
     if (inLeastHalf) {
-      this._updateIntention(item, true);
+      this._updateIntention(index, true);
     } else {
-      this._updateIntention(item, false);
+      this._updateIntention(index, false);
     }
   }
 
@@ -391,6 +391,7 @@ export let ReorderableRepeat = (_dec = customAttribute('reorderable-repeat'), _d
     const { local } = this;
     const el = view.firstChild;
     const item = view.bindingContext[local];
+    const index = view.overrideContext.$index;
     const handlerSelector = this._dndHandlerSelector(view);
     let handler;
     if (handlerSelector) {
@@ -400,15 +401,15 @@ export let ReorderableRepeat = (_dec = customAttribute('reorderable-repeat'), _d
     const _previewFunc = this._dndPreviewFunc(view);
 
     this.dndService.addSource({
-      dndModel: () => ({ type: this.type, item }),
-      dndPreview: _previewFunc && (model => _previewFunc(model.item, view)),
+      dndModel: () => ({ type: this.type, index }),
+      dndPreview: _previewFunc && (() => _previewFunc(item, view)),
       dndElement: el
     }, handler && { handler });
 
     this.dndService.addTarget({
       dndElement: el,
       dndCanDrop: model => {
-        const canDrop = model.type === this.type && model.item !== item;
+        const canDrop = model.type === this.type && (this.intention ? this.intention.toIndex !== index : model.index !== index);
 
         if (model.type === this.type && !canDrop) {
           this.taskQueue.queueMicroTask(() => {
@@ -418,7 +419,7 @@ export let ReorderableRepeat = (_dec = customAttribute('reorderable-repeat'), _d
         return canDrop;
       },
       dndHover: location => {
-        this._dndHover(location, item, direction);
+        this._dndHover(location, index, direction);
       },
       dndDrop() {}
     });
@@ -430,13 +431,11 @@ export let ReorderableRepeat = (_dec = customAttribute('reorderable-repeat'), _d
     this.dndService.removeTarget(view.firstChild);
   }
 
-  _updateIntention(target, beforeTarget) {
+  _updateIntention(targetIndex, beforeTarget) {
     const { isProcessing, model } = this.dndService;
     if (!isProcessing) return;
     if (model.type !== this.type) return;
 
-    const { patchedItems } = this;
-    const targetIndex = patchedItems.indexOf(target);
     if (targetIndex < 0) return;
 
     let originalIndex;
@@ -446,7 +445,7 @@ export let ReorderableRepeat = (_dec = customAttribute('reorderable-repeat'), _d
       originalIndex = this.intention.fromIndex;
       currentIndex = this.intention.toIndex;
     } else {
-      originalIndex = patchedItems.indexOf(model.item);
+      originalIndex = model.index;
       if (originalIndex < 0) return;
       currentIndex = originalIndex;
     }

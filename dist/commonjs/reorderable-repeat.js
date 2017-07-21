@@ -416,7 +416,7 @@ var ReorderableRepeat = exports.ReorderableRepeat = (_dec = (0, _aureliaTemplati
     }
   };
 
-  ReorderableRepeat.prototype._dndHover = function _dndHover(location, item, direction) {
+  ReorderableRepeat.prototype._dndHover = function _dndHover(location, index, direction) {
     var mouseEndAt = location.mouseEndAt,
         targetElementRect = location.targetElementRect;
 
@@ -436,9 +436,9 @@ var ReorderableRepeat = exports.ReorderableRepeat = (_dec = (0, _aureliaTemplati
       }
 
     if (inLeastHalf) {
-      this._updateIntention(item, true);
+      this._updateIntention(index, true);
     } else {
-      this._updateIntention(item, false);
+      this._updateIntention(index, false);
     }
   };
 
@@ -449,6 +449,7 @@ var ReorderableRepeat = exports.ReorderableRepeat = (_dec = (0, _aureliaTemplati
 
     var el = view.firstChild;
     var item = view.bindingContext[local];
+    var index = view.overrideContext.$index;
     var handlerSelector = this._dndHandlerSelector(view);
     var handler = void 0;
     if (handlerSelector) {
@@ -459,10 +460,10 @@ var ReorderableRepeat = exports.ReorderableRepeat = (_dec = (0, _aureliaTemplati
 
     this.dndService.addSource({
       dndModel: function dndModel() {
-        return { type: _this6.type, item: item };
+        return { type: _this6.type, index: index };
       },
-      dndPreview: _previewFunc && function (model) {
-        return _previewFunc(model.item, view);
+      dndPreview: _previewFunc && function () {
+        return _previewFunc(item, view);
       },
       dndElement: el
     }, handler && { handler: handler });
@@ -470,7 +471,7 @@ var ReorderableRepeat = exports.ReorderableRepeat = (_dec = (0, _aureliaTemplati
     this.dndService.addTarget({
       dndElement: el,
       dndCanDrop: function dndCanDrop(model) {
-        var canDrop = model.type === _this6.type && model.item !== item;
+        var canDrop = model.type === _this6.type && (_this6.intention ? _this6.intention.toIndex !== index : model.index !== index);
 
         if (model.type === _this6.type && !canDrop) {
           _this6.taskQueue.queueMicroTask(function () {
@@ -480,7 +481,7 @@ var ReorderableRepeat = exports.ReorderableRepeat = (_dec = (0, _aureliaTemplati
         return canDrop;
       },
       dndHover: function dndHover(location) {
-        _this6._dndHover(location, item, direction);
+        _this6._dndHover(location, index, direction);
       },
       dndDrop: function dndDrop() {}
     });
@@ -492,7 +493,7 @@ var ReorderableRepeat = exports.ReorderableRepeat = (_dec = (0, _aureliaTemplati
     this.dndService.removeTarget(view.firstChild);
   };
 
-  ReorderableRepeat.prototype._updateIntention = function _updateIntention(target, beforeTarget) {
+  ReorderableRepeat.prototype._updateIntention = function _updateIntention(targetIndex, beforeTarget) {
     var _dndService = this.dndService,
         isProcessing = _dndService.isProcessing,
         model = _dndService.model;
@@ -500,9 +501,6 @@ var ReorderableRepeat = exports.ReorderableRepeat = (_dec = (0, _aureliaTemplati
     if (!isProcessing) return;
     if (model.type !== this.type) return;
 
-    var patchedItems = this.patchedItems;
-
-    var targetIndex = patchedItems.indexOf(target);
     if (targetIndex < 0) return;
 
     var originalIndex = void 0;
@@ -512,7 +510,7 @@ var ReorderableRepeat = exports.ReorderableRepeat = (_dec = (0, _aureliaTemplati
       originalIndex = this.intention.fromIndex;
       currentIndex = this.intention.toIndex;
     } else {
-      originalIndex = patchedItems.indexOf(model.item);
+      originalIndex = model.index;
       if (originalIndex < 0) return;
       currentIndex = originalIndex;
     }

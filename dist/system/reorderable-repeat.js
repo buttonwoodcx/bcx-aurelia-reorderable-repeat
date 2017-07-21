@@ -456,7 +456,7 @@ System.register(['aurelia-dependency-injection', 'aurelia-binding', 'aurelia-tem
           }
         };
 
-        ReorderableRepeat.prototype._dndHover = function _dndHover(location, item, direction) {
+        ReorderableRepeat.prototype._dndHover = function _dndHover(location, index, direction) {
           var mouseEndAt = location.mouseEndAt,
               targetElementRect = location.targetElementRect;
 
@@ -476,9 +476,9 @@ System.register(['aurelia-dependency-injection', 'aurelia-binding', 'aurelia-tem
             }
 
           if (inLeastHalf) {
-            this._updateIntention(item, true);
+            this._updateIntention(index, true);
           } else {
-            this._updateIntention(item, false);
+            this._updateIntention(index, false);
           }
         };
 
@@ -489,6 +489,7 @@ System.register(['aurelia-dependency-injection', 'aurelia-binding', 'aurelia-tem
 
           var el = view.firstChild;
           var item = view.bindingContext[local];
+          var index = view.overrideContext.$index;
           var handlerSelector = this._dndHandlerSelector(view);
           var handler = void 0;
           if (handlerSelector) {
@@ -499,10 +500,10 @@ System.register(['aurelia-dependency-injection', 'aurelia-binding', 'aurelia-tem
 
           this.dndService.addSource({
             dndModel: function dndModel() {
-              return { type: _this6.type, item: item };
+              return { type: _this6.type, index: index };
             },
-            dndPreview: _previewFunc && function (model) {
-              return _previewFunc(model.item, view);
+            dndPreview: _previewFunc && function () {
+              return _previewFunc(item, view);
             },
             dndElement: el
           }, handler && { handler: handler });
@@ -510,7 +511,7 @@ System.register(['aurelia-dependency-injection', 'aurelia-binding', 'aurelia-tem
           this.dndService.addTarget({
             dndElement: el,
             dndCanDrop: function dndCanDrop(model) {
-              var canDrop = model.type === _this6.type && model.item !== item;
+              var canDrop = model.type === _this6.type && (_this6.intention ? _this6.intention.toIndex !== index : model.index !== index);
 
               if (model.type === _this6.type && !canDrop) {
                 _this6.taskQueue.queueMicroTask(function () {
@@ -520,7 +521,7 @@ System.register(['aurelia-dependency-injection', 'aurelia-binding', 'aurelia-tem
               return canDrop;
             },
             dndHover: function dndHover(location) {
-              _this6._dndHover(location, item, direction);
+              _this6._dndHover(location, index, direction);
             },
             dndDrop: function dndDrop() {}
           });
@@ -532,7 +533,7 @@ System.register(['aurelia-dependency-injection', 'aurelia-binding', 'aurelia-tem
           this.dndService.removeTarget(view.firstChild);
         };
 
-        ReorderableRepeat.prototype._updateIntention = function _updateIntention(target, beforeTarget) {
+        ReorderableRepeat.prototype._updateIntention = function _updateIntention(targetIndex, beforeTarget) {
           var _dndService = this.dndService,
               isProcessing = _dndService.isProcessing,
               model = _dndService.model;
@@ -540,9 +541,6 @@ System.register(['aurelia-dependency-injection', 'aurelia-binding', 'aurelia-tem
           if (!isProcessing) return;
           if (model.type !== this.type) return;
 
-          var patchedItems = this.patchedItems;
-
-          var targetIndex = patchedItems.indexOf(target);
           if (targetIndex < 0) return;
 
           var originalIndex = void 0;
@@ -552,7 +550,7 @@ System.register(['aurelia-dependency-injection', 'aurelia-binding', 'aurelia-tem
             originalIndex = this.intention.fromIndex;
             currentIndex = this.intention.toIndex;
           } else {
-            originalIndex = patchedItems.indexOf(model.item);
+            originalIndex = model.index;
             if (originalIndex < 0) return;
             currentIndex = originalIndex;
           }
