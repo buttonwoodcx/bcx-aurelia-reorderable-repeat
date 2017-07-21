@@ -1,4 +1,4 @@
-define(['exports', 'aurelia-templating-resources'], function (exports, _aureliaTemplatingResources) {
+define(['exports', './simple-array-repeat-strategy'], function (exports, _simpleArrayRepeatStrategy) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
@@ -20,7 +20,7 @@ define(['exports', 'aurelia-templating-resources'], function (exports, _aureliaT
       this.strategies = [];
       this.addStrategy(function (items) {
         return items instanceof Array;
-      }, new _aureliaTemplatingResources.ArrayRepeatStrategy());
+      }, new _simpleArrayRepeatStrategy.SimpleArrayRepeatStrategy());
     }
 
     ReorderableRepeatStrategyLocator.prototype.addStrategy = function addStrategy(matcher, strategy) {

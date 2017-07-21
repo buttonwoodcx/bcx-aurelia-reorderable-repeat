@@ -1,9 +1,9 @@
 'use strict';
 
-System.register(['aurelia-templating-resources'], function (_export, _context) {
+System.register(['./simple-array-repeat-strategy'], function (_export, _context) {
   "use strict";
 
-  var ArrayRepeatStrategy, ReorderableRepeatStrategyLocator;
+  var SimpleArrayRepeatStrategy, ReorderableRepeatStrategyLocator;
 
   function _classCallCheck(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
@@ -12,8 +12,8 @@ System.register(['aurelia-templating-resources'], function (_export, _context) {
   }
 
   return {
-    setters: [function (_aureliaTemplatingResources) {
-      ArrayRepeatStrategy = _aureliaTemplatingResources.ArrayRepeatStrategy;
+    setters: [function (_simpleArrayRepeatStrategy) {
+      SimpleArrayRepeatStrategy = _simpleArrayRepeatStrategy.SimpleArrayRepeatStrategy;
     }],
     execute: function () {
       _export('ReorderableRepeatStrategyLocator', ReorderableRepeatStrategyLocator = function () {
@@ -24,7 +24,7 @@ System.register(['aurelia-templating-resources'], function (_export, _context) {
           this.strategies = [];
           this.addStrategy(function (items) {
             return items instanceof Array;
-          }, new ArrayRepeatStrategy());
+          }, new SimpleArrayRepeatStrategy());
         }
 
         ReorderableRepeatStrategyLocator.prototype.addStrategy = function addStrategy(matcher, strategy) {

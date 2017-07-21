@@ -5,7 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.ReorderableRepeatStrategyLocator = undefined;
 
-var _aureliaTemplatingResources = require('aurelia-templating-resources');
+var _simpleArrayRepeatStrategy = require('./simple-array-repeat-strategy');
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -17,7 +17,7 @@ var ReorderableRepeatStrategyLocator = exports.ReorderableRepeatStrategyLocator 
     this.strategies = [];
     this.addStrategy(function (items) {
       return items instanceof Array;
-    }, new _aureliaTemplatingResources.ArrayRepeatStrategy());
+    }, new _simpleArrayRepeatStrategy.SimpleArrayRepeatStrategy());
   }
 
   ReorderableRepeatStrategyLocator.prototype.addStrategy = function addStrategy(matcher, strategy) {

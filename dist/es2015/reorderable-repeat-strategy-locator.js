@@ -1,10 +1,10 @@
-import { ArrayRepeatStrategy } from 'aurelia-templating-resources';
+import { SimpleArrayRepeatStrategy } from './simple-array-repeat-strategy';
 
 export let ReorderableRepeatStrategyLocator = class ReorderableRepeatStrategyLocator {
   constructor() {
     this.matchers = [];
     this.strategies = [];
-    this.addStrategy(items => items instanceof Array, new ArrayRepeatStrategy());
+    this.addStrategy(items => items instanceof Array, new SimpleArrayRepeatStrategy());
   }
 
   addStrategy(matcher, strategy) {
