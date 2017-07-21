@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.4 - 21/Jul/2017
+
+  * support duplicated items in primitive array (like ['one', 'one', 'two']).
+  * bring back SimpleArrayRepeatStrategy to support the above feature.
+
 ## 0.1.3 - 10/Jul/2017
 
   * upgrade bcx-aurelia-dnd to v0.2.5 which removes SimpleArrayRepeatStrategy.
