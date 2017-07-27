@@ -8,7 +8,6 @@ gulp.task('test', function(done) {
   new Karma({
     configFile: __dirname + '/../../karma.conf.js',
     singleRun: true,
-    browsers: ['PhantomJS']
   }, done).start();
 });
 
