@@ -1,4 +1,4 @@
-# bcx-aurelia-reorderable-repeat
+# bcx-aurelia-reorderable-repeat [![Build Status](https://travis-ci.org/buttonwoodcx/bcx-aurelia-reorderable-repeat.svg?branch=master)](https://travis-ci.org/buttonwoodcx/bcx-aurelia-reorderable-repeat)
 
 An Aurelia repeater supports drag & drop reordering automatically.
 
