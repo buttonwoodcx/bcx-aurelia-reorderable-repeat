@@ -55,3 +55,26 @@ export class ComponentTester {
     });
   }
 }
+
+// async queue
+export function createAssertionQueue() {
+  let queue = [];
+
+  let next;
+  next = () => {
+    if (queue.length) {
+      let func = queue.pop();
+      setTimeout(() => {
+        func();
+        next();
+      });
+    }
+  };
+
+  return func => {
+    queue.push(func);
+    if (queue.length === 1) {
+      next();
+    }
+  };
+}
