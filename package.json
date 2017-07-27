@@ -44,6 +44,7 @@
     "karma-coverage": "^1.1.1",
     "karma-jasmine": "^1.1.0",
     "karma-jspm": "2.2.2",
+    "karma-phantomjs-launcher": "^1.0.4",
     "object.assign": "^4.0.4",
     "require-dir": "^0.3.1",
     "run-sequence": "^1.2.2",
@@ -65,7 +66,7 @@
       "aurelia-task-queue": "^1.0.0",
       "aurelia-templating": "^1.0.0",
       "aurelia-templating-resources": "^1.0.0",
-      "bcx-aurelia-dnd": "^0.2.4"
+      "bcx-aurelia-dnd": "^0.2.5"
     },
     "devDependencies": {
       "aurelia-bootstrapper": "^1.0.0",
@@ -104,6 +105,8 @@
   },
   "scripts": {
     "preversion": "gulp build",
-    "postversion": "git push && git push --tags"
+    "postversion": "git push && git push --tags",
+    "pretest": "gulp lint",
+    "test": "gulp test"
   }
 }

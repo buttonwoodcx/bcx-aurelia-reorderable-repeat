@@ -7,7 +7,8 @@ var Karma = require('karma').Server;
 gulp.task('test', function(done) {
   new Karma({
     configFile: __dirname + '/../../karma.conf.js',
-    singleRun: true
+    singleRun: true,
+    browsers: ['PhantomJS']
   }, done).start();
 });
 
