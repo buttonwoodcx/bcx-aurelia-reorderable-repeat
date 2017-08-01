@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.6 - 01/AUG/2017
+
+  * no src change. first cut of testing.
+
 ## 0.1.5 - 21/Jul/2017
 
   * remove accidentally added local tgz package.
