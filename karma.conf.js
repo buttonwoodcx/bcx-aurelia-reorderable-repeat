@@ -13,7 +13,11 @@ module.exports = function(config) {
 
     jspm: {
       // Edit this to your needs
-      loadFiles: ['test/setup.js', 'test/unit/**/*.js', 'test/integration/**/*.js'],
+      loadFiles: [
+        'test/setup.js',
+        'test/unit/**/*.js',
+        'test/integration/**/*.js'
+      ],
       serveFiles: ['src/**/*.js', 'test/component-tester.js'],
       paths: {
         '*': '*',

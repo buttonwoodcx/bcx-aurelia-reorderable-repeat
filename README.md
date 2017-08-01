@@ -4,8 +4,6 @@ An Aurelia repeater supports drag & drop reordering automatically.
 
 Read documentation [here](https://buttonwoodcx.github.io/bcx-aurelia-dnd/#/bcx-aurelia-reorderable-repeat)
 
-TODO, test, turn on travis-ci.
-
 ## Building The Code (kept from skeleton-plugin readme)
 
 To build the code, follow these steps.
