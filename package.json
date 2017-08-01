@@ -75,7 +75,8 @@
       "aurelia-polyfills": "^1.0.0",
       "babel": "babel-core@^5.8.22",
       "babel-runtime": "^5.8.20",
-      "core-js": "^1.1.4"
+      "core-js": "^1.1.4",
+      "jquery": "^3.0.0"
     }
   },
   "dependencies": {
