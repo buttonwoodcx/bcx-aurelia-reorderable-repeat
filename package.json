@@ -1,7 +1,7 @@
 {
   "name": "bcx-aurelia-reorderable-repeat",
   "version": "0.1.6",
-  "description": "A starter kit for building an Aurelia plugin.",
+  "description": "An Aurelia repeater supports drag & drop reordering automatically.",
   "keywords": [
     "aurelia",
     "reorderable-repeat"
