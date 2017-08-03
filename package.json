@@ -4,7 +4,9 @@
   "description": "An Aurelia repeater supports drag & drop reordering automatically.",
   "keywords": [
     "aurelia",
-    "reorderable-repeat"
+    "reorderable-repeat",
+    "reordering",
+    "reorder"
   ],
   "homepage": "https://github.com/buttonwoodcx/bcx-aurelia-reorderable-repeat",
   "bugs": {
