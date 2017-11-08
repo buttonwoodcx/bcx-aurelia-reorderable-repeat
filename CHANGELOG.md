@@ -1,3 +1,13 @@
+<a name="0.2.1"></a>
+## [0.2.1](https://github.com/buttonwoodcx/bcx-aurelia-reorderable-repeat/compare/v0.2.0...v0.2.1) (2017-11-08)
+
+
+### Features
+
+* use standard-changelog to auto generate changelog. ([514c30e](https://github.com/buttonwoodcx/bcx-aurelia-reorderable-repeat/commit/514c30e))
+
+
+
 ## 0.2.0 - 08/Nov/2017
 
   * upgrade bcx-aurelia-dnd dep to support touch devices.
