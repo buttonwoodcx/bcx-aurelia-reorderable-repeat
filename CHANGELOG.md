@@ -1,5 +1,3 @@
-# Changelog
-
 ## 0.2.0 - 08/Nov/2017
 
   * upgrade bcx-aurelia-dnd dep to support touch devices.

@@ -52,6 +52,7 @@
     "object.assign": "^4.0.4",
     "require-dir": "^0.3.2",
     "run-sequence": "^2.1.0",
+    "standard-changelog": "^1.0.4",
     "vinyl-paths": "^2.1.0",
     "yargs": "^8.0.2"
   },
@@ -110,7 +111,8 @@
   },
   "scripts": {
     "preversion": "gulp build",
-    "postversion": "git push && git push --tags",
+    "version": "standard-changelog && git add CHANGELOG.md",
+    "postversion": "git push && git push --tags && npm publish",
     "pretest": "gulp lint",
     "test": "gulp test"
   }
