@@ -110,7 +110,7 @@
     }
   },
   "scripts": {
-    "preversion": "gulp build",
+    "preversion": "gulp build && npm test",
     "version": "standard-changelog && git add CHANGELOG.md",
     "postversion": "git push && git push --tags && npm publish",
     "pretest": "gulp lint",
