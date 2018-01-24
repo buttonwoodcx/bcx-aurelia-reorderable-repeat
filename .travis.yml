@@ -4,14 +4,7 @@ node_js:
 - '8'
 cache:
   yarn: true
-addons:
-  chrome: stable
-  apt:
-    packages:
-    - xvfb
 before_install:
-- export DISPLAY=':99.0'
-- Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
 - npm i -g jspm
 - jspm config registries.github.auth $JSPM_GITHUB_AUTH_TOKEN
 - jspm install
