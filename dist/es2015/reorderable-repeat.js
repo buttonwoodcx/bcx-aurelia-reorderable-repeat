@@ -135,9 +135,15 @@ export let ReorderableRepeat = (_dec = customAttribute('reorderable-repeat'), _d
     this.matcherBinding = this._captureAndRemoveMatcherBinding();
     this._subsribers = [this.bindingEngine.collectionObserver(this.items).subscribe(this._itemsMutated.bind(this)), this.ea.subscribe('dnd:willStart', () => {
       this.intention = null;
-      this.views().forEach(v => classes.rm(v.firstChild, 'reorderable-repeat-dragging-me'));
+      this.views().forEach(v => {
+        classes.rm(v.firstChild, 'reorderable-repeat-reordering');
+        classes.rm(v.firstChild, 'reorderable-repeat-dragging-me');
+      });
     }), this.ea.subscribe('dnd:didEnd', () => {
-      this.views().forEach(v => classes.rm(v.firstChild, 'reorderable-repeat-dragging-me'));
+      this.views().forEach(v => {
+        classes.rm(v.firstChild, 'reorderable-repeat-reordering');
+        classes.rm(v.firstChild, 'reorderable-repeat-dragging-me');
+      });
 
       if (!this.intention) return;
       const { fromIndex, toIndex } = this.intention;
@@ -411,6 +417,10 @@ export let ReorderableRepeat = (_dec = customAttribute('reorderable-repeat'), _d
       dndCanDrop: model => {
         const canDrop = model.type === this.type && (this.intention ? this.intention.toIndex !== index : model.index !== index);
 
+        this.taskQueue.queueMicroTask(() => {
+          classes.add(el, 'reorderable-repeat-reordering');
+        });
+
         if (model.type === this.type && !canDrop) {
           this.taskQueue.queueMicroTask(() => {
             classes.add(el, 'reorderable-repeat-dragging-me');
@@ -426,6 +436,7 @@ export let ReorderableRepeat = (_dec = customAttribute('reorderable-repeat'), _d
   }
 
   _unRegisterDnd(view) {
+    classes.rm(view.firstChild, 'reorderable-repeat-reordering');
     classes.rm(view.firstChild, 'reorderable-repeat-dragging-me');
     this.dndService.removeSource(view.firstChild);
     this.dndService.removeTarget(view.firstChild);

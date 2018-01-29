@@ -163,11 +163,13 @@ var ReorderableRepeat = exports.ReorderableRepeat = (_dec = (0, _aureliaTemplati
     this._subsribers = [this.bindingEngine.collectionObserver(this.items).subscribe(this._itemsMutated.bind(this)), this.ea.subscribe('dnd:willStart', function () {
       _this2.intention = null;
       _this2.views().forEach(function (v) {
-        return classes.rm(v.firstChild, 'reorderable-repeat-dragging-me');
+        classes.rm(v.firstChild, 'reorderable-repeat-reordering');
+        classes.rm(v.firstChild, 'reorderable-repeat-dragging-me');
       });
     }), this.ea.subscribe('dnd:didEnd', function () {
       _this2.views().forEach(function (v) {
-        return classes.rm(v.firstChild, 'reorderable-repeat-dragging-me');
+        classes.rm(v.firstChild, 'reorderable-repeat-reordering');
+        classes.rm(v.firstChild, 'reorderable-repeat-dragging-me');
       });
 
       if (!_this2.intention) return;
@@ -473,6 +475,10 @@ var ReorderableRepeat = exports.ReorderableRepeat = (_dec = (0, _aureliaTemplati
       dndCanDrop: function dndCanDrop(model) {
         var canDrop = model.type === _this6.type && (_this6.intention ? _this6.intention.toIndex !== index : model.index !== index);
 
+        _this6.taskQueue.queueMicroTask(function () {
+          classes.add(el, 'reorderable-repeat-reordering');
+        });
+
         if (model.type === _this6.type && !canDrop) {
           _this6.taskQueue.queueMicroTask(function () {
             classes.add(el, 'reorderable-repeat-dragging-me');
@@ -488,6 +494,7 @@ var ReorderableRepeat = exports.ReorderableRepeat = (_dec = (0, _aureliaTemplati
   };
 
   ReorderableRepeat.prototype._unRegisterDnd = function _unRegisterDnd(view) {
+    classes.rm(view.firstChild, 'reorderable-repeat-reordering');
     classes.rm(view.firstChild, 'reorderable-repeat-dragging-me');
     this.dndService.removeSource(view.firstChild);
     this.dndService.removeTarget(view.firstChild);

@@ -1,3 +1,13 @@
+<a name="0.2.3"></a>
+## [0.2.3](https://github.com/buttonwoodcx/bcx-aurelia-reorderable-repeat/compare/v0.2.2...v0.2.3) (2018-01-29)
+
+
+### Bug Fixes
+
+* fix missing commit of dist files during version release. ([fd423a1](https://github.com/buttonwoodcx/bcx-aurelia-reorderable-repeat/commit/fd423a1))
+
+
+
 <a name="0.2.2"></a>
 ## [0.2.2](https://github.com/buttonwoodcx/bcx-aurelia-reorderable-repeat/compare/v0.2.1...v0.2.2) (2018-01-29)
 
