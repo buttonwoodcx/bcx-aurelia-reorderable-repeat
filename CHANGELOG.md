@@ -1,3 +1,13 @@
+<a name="0.2.2"></a>
+## [0.2.2](https://github.com/buttonwoodcx/bcx-aurelia-reorderable-repeat/compare/v0.2.1...v0.2.2) (2018-01-29)
+
+
+### Features
+
+* add css class "reorderable-repeat-reordering" to all views involved during reordering. ([6c5beda](https://github.com/buttonwoodcx/bcx-aurelia-reorderable-repeat/commit/6c5beda))
+
+
+
 <a name="0.2.1"></a>
 ## [0.2.1](https://github.com/buttonwoodcx/bcx-aurelia-reorderable-repeat/compare/v0.2.0...v0.2.1) (2017-11-08)
 
