@@ -72,6 +72,9 @@ describe('reorderable-repeat: objects', () => {
         expect($(reorderableRepeat.view(0).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
         expect($(reorderableRepeat.view(1).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
         expect($(reorderableRepeat.view(2).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
+        expect($(reorderableRepeat.view(0).firstChild).hasClass('reorderable-repeat-reordering')).toBeFalsy();
+        expect($(reorderableRepeat.view(1).firstChild).hasClass('reorderable-repeat-reordering')).toBeFalsy();
+        expect($(reorderableRepeat.view(2).firstChild).hasClass('reorderable-repeat-reordering')).toBeFalsy();
         expect(reorderableRepeat.dndService.isProcessing).toBeFalsy();
       });
       nq(() => {
@@ -84,6 +87,9 @@ describe('reorderable-repeat: objects', () => {
         expect($(reorderableRepeat.view(0).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeTruthy();
         expect($(reorderableRepeat.view(1).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
         expect($(reorderableRepeat.view(2).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
+        expect($(reorderableRepeat.view(0).firstChild).hasClass('reorderable-repeat-reordering')).toBeTruthy();
+        expect($(reorderableRepeat.view(1).firstChild).hasClass('reorderable-repeat-reordering')).toBeTruthy();
+        expect($(reorderableRepeat.view(2).firstChild).hasClass('reorderable-repeat-reordering')).toBeTruthy();
         expect(reorderableRepeat.view(0).bindingContext.obj).toEqual({name: 'one'});
         expect(reorderableRepeat.view(1).bindingContext.obj).toEqual({name: 'two'});
         expect(reorderableRepeat.view(2).bindingContext.obj).toEqual({name: 'three'});
@@ -100,6 +106,9 @@ describe('reorderable-repeat: objects', () => {
         expect($(reorderableRepeat.view(0).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeTruthy();
         expect($(reorderableRepeat.view(1).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
         expect($(reorderableRepeat.view(2).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
+        expect($(reorderableRepeat.view(0).firstChild).hasClass('reorderable-repeat-reordering')).toBeTruthy();
+        expect($(reorderableRepeat.view(1).firstChild).hasClass('reorderable-repeat-reordering')).toBeTruthy();
+        expect($(reorderableRepeat.view(2).firstChild).hasClass('reorderable-repeat-reordering')).toBeTruthy();
         expect(reorderableRepeat.view(0).bindingContext.obj).toEqual({name: 'one'});
         expect(reorderableRepeat.view(1).bindingContext.obj).toEqual({name: 'two'});
         expect(reorderableRepeat.view(2).bindingContext.obj).toEqual({name: 'three'});
@@ -116,6 +125,9 @@ describe('reorderable-repeat: objects', () => {
         expect($(reorderableRepeat.view(0).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
         expect($(reorderableRepeat.view(1).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeTruthy();
         expect($(reorderableRepeat.view(2).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
+        expect($(reorderableRepeat.view(0).firstChild).hasClass('reorderable-repeat-reordering')).toBeTruthy();
+        expect($(reorderableRepeat.view(1).firstChild).hasClass('reorderable-repeat-reordering')).toBeTruthy();
+        expect($(reorderableRepeat.view(2).firstChild).hasClass('reorderable-repeat-reordering')).toBeTruthy();
         expect(reorderableRepeat.view(0).bindingContext.obj).toEqual({name: 'two'});
         expect(reorderableRepeat.view(1).bindingContext.obj).toEqual({name: 'one'});
         expect(reorderableRepeat.view(2).bindingContext.obj).toEqual({name: 'three'});
@@ -132,6 +144,9 @@ describe('reorderable-repeat: objects', () => {
         expect($(reorderableRepeat.view(0).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
         expect($(reorderableRepeat.view(1).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeTruthy();
         expect($(reorderableRepeat.view(2).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
+        expect($(reorderableRepeat.view(0).firstChild).hasClass('reorderable-repeat-reordering')).toBeTruthy();
+        expect($(reorderableRepeat.view(1).firstChild).hasClass('reorderable-repeat-reordering')).toBeTruthy();
+        expect($(reorderableRepeat.view(2).firstChild).hasClass('reorderable-repeat-reordering')).toBeTruthy();
         expect(reorderableRepeat.view(0).bindingContext.obj).toEqual({name: 'two'});
         expect(reorderableRepeat.view(1).bindingContext.obj).toEqual({name: 'one'});
         expect(reorderableRepeat.view(2).bindingContext.obj).toEqual({name: 'three'});
@@ -148,6 +163,9 @@ describe('reorderable-repeat: objects', () => {
         expect($(reorderableRepeat.view(0).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeTruthy();
         expect($(reorderableRepeat.view(1).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
         expect($(reorderableRepeat.view(2).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
+        expect($(reorderableRepeat.view(0).firstChild).hasClass('reorderable-repeat-reordering')).toBeTruthy();
+        expect($(reorderableRepeat.view(1).firstChild).hasClass('reorderable-repeat-reordering')).toBeTruthy();
+        expect($(reorderableRepeat.view(2).firstChild).hasClass('reorderable-repeat-reordering')).toBeTruthy();
         expect(reorderableRepeat.view(0).bindingContext.obj).toEqual({name: 'one'});
         expect(reorderableRepeat.view(1).bindingContext.obj).toEqual({name: 'two'});
         expect(reorderableRepeat.view(2).bindingContext.obj).toEqual({name: 'three'});
@@ -164,6 +182,9 @@ describe('reorderable-repeat: objects', () => {
         expect($(reorderableRepeat.view(0).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
         expect($(reorderableRepeat.view(1).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
         expect($(reorderableRepeat.view(2).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeTruthy();
+        expect($(reorderableRepeat.view(0).firstChild).hasClass('reorderable-repeat-reordering')).toBeTruthy();
+        expect($(reorderableRepeat.view(1).firstChild).hasClass('reorderable-repeat-reordering')).toBeTruthy();
+        expect($(reorderableRepeat.view(2).firstChild).hasClass('reorderable-repeat-reordering')).toBeTruthy();
         expect(reorderableRepeat.view(0).bindingContext.obj).toEqual({name: 'two'});
         expect(reorderableRepeat.view(1).bindingContext.obj).toEqual({name: 'three'});
         expect(reorderableRepeat.view(2).bindingContext.obj).toEqual({name: 'one'});
@@ -181,6 +202,9 @@ describe('reorderable-repeat: objects', () => {
         expect($(reorderableRepeat.view(0).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
         expect($(reorderableRepeat.view(1).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
         expect($(reorderableRepeat.view(2).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
+        expect($(reorderableRepeat.view(0).firstChild).hasClass('reorderable-repeat-reordering')).toBeFalsy();
+        expect($(reorderableRepeat.view(1).firstChild).hasClass('reorderable-repeat-reordering')).toBeFalsy();
+        expect($(reorderableRepeat.view(2).firstChild).hasClass('reorderable-repeat-reordering')).toBeFalsy();
         expect(reorderableRepeat.view(0).bindingContext.obj).toEqual({name: 'two'});
         expect(reorderableRepeat.view(1).bindingContext.obj).toEqual({name: 'three'});
         expect(reorderableRepeat.view(2).bindingContext.obj).toEqual({name: 'one'});
@@ -205,6 +229,9 @@ describe('reorderable-repeat: objects', () => {
         expect($(reorderableRepeat.view(0).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
         expect($(reorderableRepeat.view(1).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
         expect($(reorderableRepeat.view(2).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
+        expect($(reorderableRepeat.view(0).firstChild).hasClass('reorderable-repeat-reordering')).toBeFalsy();
+        expect($(reorderableRepeat.view(1).firstChild).hasClass('reorderable-repeat-reordering')).toBeFalsy();
+        expect($(reorderableRepeat.view(2).firstChild).hasClass('reorderable-repeat-reordering')).toBeFalsy();
         expect(reorderableRepeat.dndService.isProcessing).toBeFalsy();
       });
       nq(() => {
@@ -217,6 +244,9 @@ describe('reorderable-repeat: objects', () => {
         expect($(reorderableRepeat.view(0).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeTruthy();
         expect($(reorderableRepeat.view(1).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
         expect($(reorderableRepeat.view(2).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
+        expect($(reorderableRepeat.view(0).firstChild).hasClass('reorderable-repeat-reordering')).toBeTruthy();
+        expect($(reorderableRepeat.view(1).firstChild).hasClass('reorderable-repeat-reordering')).toBeTruthy();
+        expect($(reorderableRepeat.view(2).firstChild).hasClass('reorderable-repeat-reordering')).toBeTruthy();
         expect(reorderableRepeat.view(0).bindingContext.obj).toEqual({name: 'one'});
         expect(reorderableRepeat.view(1).bindingContext.obj).toEqual({name: 'one'});
         expect(reorderableRepeat.view(2).bindingContext.obj).toEqual({name: 'three'});
@@ -233,6 +263,9 @@ describe('reorderable-repeat: objects', () => {
         expect($(reorderableRepeat.view(0).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeTruthy();
         expect($(reorderableRepeat.view(1).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
         expect($(reorderableRepeat.view(2).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
+        expect($(reorderableRepeat.view(0).firstChild).hasClass('reorderable-repeat-reordering')).toBeTruthy();
+        expect($(reorderableRepeat.view(1).firstChild).hasClass('reorderable-repeat-reordering')).toBeTruthy();
+        expect($(reorderableRepeat.view(2).firstChild).hasClass('reorderable-repeat-reordering')).toBeTruthy();
         expect(reorderableRepeat.view(0).bindingContext.obj).toEqual({name: 'one'});
         expect(reorderableRepeat.view(1).bindingContext.obj).toEqual({name: 'one'});
         expect(reorderableRepeat.view(2).bindingContext.obj).toEqual({name: 'three'});
@@ -249,6 +282,9 @@ describe('reorderable-repeat: objects', () => {
         expect($(reorderableRepeat.view(0).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
         expect($(reorderableRepeat.view(1).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeTruthy();
         expect($(reorderableRepeat.view(2).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
+        expect($(reorderableRepeat.view(0).firstChild).hasClass('reorderable-repeat-reordering')).toBeTruthy();
+        expect($(reorderableRepeat.view(1).firstChild).hasClass('reorderable-repeat-reordering')).toBeTruthy();
+        expect($(reorderableRepeat.view(2).firstChild).hasClass('reorderable-repeat-reordering')).toBeTruthy();
         expect(reorderableRepeat.view(0).bindingContext.obj).toEqual({name: 'one'});
         expect(reorderableRepeat.view(1).bindingContext.obj).toEqual({name: 'one'});
         expect(reorderableRepeat.view(2).bindingContext.obj).toEqual({name: 'three'});
@@ -265,6 +301,9 @@ describe('reorderable-repeat: objects', () => {
         expect($(reorderableRepeat.view(0).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
         expect($(reorderableRepeat.view(1).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeTruthy();
         expect($(reorderableRepeat.view(2).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
+        expect($(reorderableRepeat.view(0).firstChild).hasClass('reorderable-repeat-reordering')).toBeTruthy();
+        expect($(reorderableRepeat.view(1).firstChild).hasClass('reorderable-repeat-reordering')).toBeTruthy();
+        expect($(reorderableRepeat.view(2).firstChild).hasClass('reorderable-repeat-reordering')).toBeTruthy();
         expect(reorderableRepeat.view(0).bindingContext.obj).toEqual({name: 'one'});
         expect(reorderableRepeat.view(1).bindingContext.obj).toEqual({name: 'one'});
         expect(reorderableRepeat.view(2).bindingContext.obj).toEqual({name: 'three'});
@@ -281,6 +320,9 @@ describe('reorderable-repeat: objects', () => {
         expect($(reorderableRepeat.view(0).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeTruthy();
         expect($(reorderableRepeat.view(1).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
         expect($(reorderableRepeat.view(2).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
+        expect($(reorderableRepeat.view(0).firstChild).hasClass('reorderable-repeat-reordering')).toBeTruthy();
+        expect($(reorderableRepeat.view(1).firstChild).hasClass('reorderable-repeat-reordering')).toBeTruthy();
+        expect($(reorderableRepeat.view(2).firstChild).hasClass('reorderable-repeat-reordering')).toBeTruthy();
         expect(reorderableRepeat.view(0).bindingContext.obj).toEqual({name: 'one'});
         expect(reorderableRepeat.view(1).bindingContext.obj).toEqual({name: 'one'});
         expect(reorderableRepeat.view(2).bindingContext.obj).toEqual({name: 'three'});
@@ -297,6 +339,9 @@ describe('reorderable-repeat: objects', () => {
         expect($(reorderableRepeat.view(0).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
         expect($(reorderableRepeat.view(1).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
         expect($(reorderableRepeat.view(2).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeTruthy();
+        expect($(reorderableRepeat.view(0).firstChild).hasClass('reorderable-repeat-reordering')).toBeTruthy();
+        expect($(reorderableRepeat.view(1).firstChild).hasClass('reorderable-repeat-reordering')).toBeTruthy();
+        expect($(reorderableRepeat.view(2).firstChild).hasClass('reorderable-repeat-reordering')).toBeTruthy();
         expect(reorderableRepeat.view(0).bindingContext.obj).toEqual({name: 'one'});
         expect(reorderableRepeat.view(1).bindingContext.obj).toEqual({name: 'three'});
         expect(reorderableRepeat.view(2).bindingContext.obj).toEqual({name: 'one'});
@@ -314,6 +359,9 @@ describe('reorderable-repeat: objects', () => {
         expect($(reorderableRepeat.view(0).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
         expect($(reorderableRepeat.view(1).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
         expect($(reorderableRepeat.view(2).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
+        expect($(reorderableRepeat.view(0).firstChild).hasClass('reorderable-repeat-reordering')).toBeFalsy();
+        expect($(reorderableRepeat.view(1).firstChild).hasClass('reorderable-repeat-reordering')).toBeFalsy();
+        expect($(reorderableRepeat.view(2).firstChild).hasClass('reorderable-repeat-reordering')).toBeFalsy();
         expect(reorderableRepeat.view(0).bindingContext.obj).toEqual({name: 'one'});
         expect(reorderableRepeat.view(1).bindingContext.obj).toEqual({name: 'three'});
         expect(reorderableRepeat.view(2).bindingContext.obj).toEqual({name: 'one'});

@@ -142,10 +142,16 @@ export class ReorderableRepeat extends AbstractRepeater {
       this.bindingEngine.collectionObserver(this.items).subscribe(this._itemsMutated.bind(this)),
       this.ea.subscribe('dnd:willStart', () => {
         this.intention = null;
-        this.views().forEach(v => classes.rm(v.firstChild, 'reorderable-repeat-dragging-me'));
+        this.views().forEach(v => {
+          classes.rm(v.firstChild, 'reorderable-repeat-reordering');
+          classes.rm(v.firstChild, 'reorderable-repeat-dragging-me');
+        });
       }),
       this.ea.subscribe('dnd:didEnd', () => {
-        this.views().forEach(v => classes.rm(v.firstChild, 'reorderable-repeat-dragging-me'));
+        this.views().forEach(v => {
+          classes.rm(v.firstChild, 'reorderable-repeat-reordering');
+          classes.rm(v.firstChild, 'reorderable-repeat-dragging-me');
+        });
 
         if (!this.intention) return;
         const {fromIndex, toIndex} = this.intention;
@@ -433,6 +439,10 @@ export class ReorderableRepeat extends AbstractRepeater {
         const canDrop = model.type === this.type &&
                         (this.intention ? (this.intention.toIndex !== index) : (model.index !== index));
 
+        this.taskQueue.queueMicroTask(() => {
+          classes.add(el, 'reorderable-repeat-reordering');
+        });
+
         if (model.type === this.type && !canDrop) {
           // hack style
           // I am under dragging
@@ -450,6 +460,7 @@ export class ReorderableRepeat extends AbstractRepeater {
   }
 
   _unRegisterDnd(view) {
+    classes.rm(view.firstChild, 'reorderable-repeat-reordering');
     classes.rm(view.firstChild, 'reorderable-repeat-dragging-me');
     this.dndService.removeSource(view.firstChild);
     this.dndService.removeTarget(view.firstChild);
