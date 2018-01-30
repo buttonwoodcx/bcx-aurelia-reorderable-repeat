@@ -133,7 +133,8 @@ export let ReorderableRepeat = (_dec = customAttribute('reorderable-repeat'), _d
   bind(bindingContext, overrideContext) {
     this.scope = { bindingContext, overrideContext };
     this.matcherBinding = this._captureAndRemoveMatcherBinding();
-    this._subsribers = [this.bindingEngine.collectionObserver(this.items).subscribe(this._itemsMutated.bind(this)), this.ea.subscribe('dnd:willStart', () => {
+    this.arrayObserver = this.bindingEngine.collectionObserver(this.items).subscribe(this._itemsMutated.bind(this));
+    this._subsribers = [this.ea.subscribe('dnd:willStart', () => {
       this.intention = null;
       this.views().forEach(v => {
         classes.rm(v.firstChild, 'reorderable-repeat-reordering');
@@ -167,7 +168,12 @@ export let ReorderableRepeat = (_dec = customAttribute('reorderable-repeat'), _d
     this.items = null;
     this.matcherBinding = null;
     this.viewSlot.removeAll(true);
+    if (this.arrayObserver) {
+      this.arrayObserver.dispose();
+      this.arrayObserver = null;
+    }
     this._subsribers.forEach(s => s.dispose());
+    this._subsribers = [];
   }
 
   intentionChanged(newIntention) {
@@ -181,10 +187,17 @@ export let ReorderableRepeat = (_dec = customAttribute('reorderable-repeat'), _d
     }
   }
 
-  itemsChanged() {
+  itemsChanged(newVal, oldVal) {
     if (!this.scope) {
       return;
     }
+
+    if (this.arrayObserver) {
+      this.arrayObserver.dispose();
+      this.arrayObserver = null;
+    }
+
+    this.arrayObserver = this.bindingEngine.collectionObserver(this.items).subscribe(this._itemsMutated.bind(this));
 
     if (this.intention === null) {
       this.patchedItems = [...this.items];

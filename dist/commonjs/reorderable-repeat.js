@@ -160,7 +160,8 @@ var ReorderableRepeat = exports.ReorderableRepeat = (_dec = (0, _aureliaTemplati
 
     this.scope = { bindingContext: bindingContext, overrideContext: overrideContext };
     this.matcherBinding = this._captureAndRemoveMatcherBinding();
-    this._subsribers = [this.bindingEngine.collectionObserver(this.items).subscribe(this._itemsMutated.bind(this)), this.ea.subscribe('dnd:willStart', function () {
+    this.arrayObserver = this.bindingEngine.collectionObserver(this.items).subscribe(this._itemsMutated.bind(this));
+    this._subsribers = [this.ea.subscribe('dnd:willStart', function () {
       _this2.intention = null;
       _this2.views().forEach(function (v) {
         classes.rm(v.firstChild, 'reorderable-repeat-reordering');
@@ -197,9 +198,14 @@ var ReorderableRepeat = exports.ReorderableRepeat = (_dec = (0, _aureliaTemplati
     this.items = null;
     this.matcherBinding = null;
     this.viewSlot.removeAll(true);
+    if (this.arrayObserver) {
+      this.arrayObserver.dispose();
+      this.arrayObserver = null;
+    }
     this._subsribers.forEach(function (s) {
       return s.dispose();
     });
+    this._subsribers = [];
   };
 
   ReorderableRepeat.prototype.intentionChanged = function intentionChanged(newIntention) {
@@ -215,10 +221,17 @@ var ReorderableRepeat = exports.ReorderableRepeat = (_dec = (0, _aureliaTemplati
     }
   };
 
-  ReorderableRepeat.prototype.itemsChanged = function itemsChanged() {
+  ReorderableRepeat.prototype.itemsChanged = function itemsChanged(newVal, oldVal) {
     if (!this.scope) {
       return;
     }
+
+    if (this.arrayObserver) {
+      this.arrayObserver.dispose();
+      this.arrayObserver = null;
+    }
+
+    this.arrayObserver = this.bindingEngine.collectionObserver(this.items).subscribe(this._itemsMutated.bind(this));
 
     if (this.intention === null) {
       this.patchedItems = [].concat(this.items);

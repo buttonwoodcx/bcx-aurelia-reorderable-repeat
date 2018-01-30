@@ -1,3 +1,13 @@
+<a name="0.2.4"></a>
+## [0.2.4](https://github.com/buttonwoodcx/bcx-aurelia-reorderable-repeat/compare/v0.2.3...v0.2.4) (2018-01-30)
+
+
+### Bug Fixes
+
+* renew arrayObserver after items are replaced. ([71c2981](https://github.com/buttonwoodcx/bcx-aurelia-reorderable-repeat/commit/71c2981))
+
+
+
 <a name="0.2.3"></a>
 ## [0.2.3](https://github.com/buttonwoodcx/bcx-aurelia-reorderable-repeat/compare/v0.2.2...v0.2.3) (2018-01-29)
 
