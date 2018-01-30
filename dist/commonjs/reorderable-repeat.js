@@ -488,9 +488,11 @@ var ReorderableRepeat = exports.ReorderableRepeat = (_dec = (0, _aureliaTemplati
       dndCanDrop: function dndCanDrop(model) {
         var canDrop = model.type === _this6.type && (_this6.intention ? _this6.intention.toIndex !== index : model.index !== index);
 
-        _this6.taskQueue.queueMicroTask(function () {
-          classes.add(el, 'reorderable-repeat-reordering');
-        });
+        if (model.type === _this6.type) {
+          _this6.taskQueue.queueMicroTask(function () {
+            classes.add(el, 'reorderable-repeat-reordering');
+          });
+        }
 
         if (model.type === _this6.type && !canDrop) {
           _this6.taskQueue.queueMicroTask(function () {

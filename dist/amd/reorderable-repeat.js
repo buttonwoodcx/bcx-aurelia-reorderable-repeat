@@ -497,9 +497,11 @@ define(['exports', 'aurelia-dependency-injection', 'aurelia-binding', 'aurelia-t
         dndCanDrop: function dndCanDrop(model) {
           var canDrop = model.type === _this6.type && (_this6.intention ? _this6.intention.toIndex !== index : model.index !== index);
 
-          _this6.taskQueue.queueMicroTask(function () {
-            classes.add(el, 'reorderable-repeat-reordering');
-          });
+          if (model.type === _this6.type) {
+            _this6.taskQueue.queueMicroTask(function () {
+              classes.add(el, 'reorderable-repeat-reordering');
+            });
+          }
 
           if (model.type === _this6.type && !canDrop) {
             _this6.taskQueue.queueMicroTask(function () {
