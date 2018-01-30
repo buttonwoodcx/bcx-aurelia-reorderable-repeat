@@ -451,9 +451,11 @@ export class ReorderableRepeat extends AbstractRepeater {
         const canDrop = model.type === this.type &&
                         (this.intention ? (this.intention.toIndex !== index) : (model.index !== index));
 
-        this.taskQueue.queueMicroTask(() => {
-          classes.add(el, 'reorderable-repeat-reordering');
-        });
+        if (model.type === this.type) {
+          this.taskQueue.queueMicroTask(() => {
+            classes.add(el, 'reorderable-repeat-reordering');
+          });
+        }
 
         if (model.type === this.type && !canDrop) {
           // hack style
