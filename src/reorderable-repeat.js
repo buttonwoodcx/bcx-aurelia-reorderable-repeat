@@ -196,7 +196,7 @@ export class ReorderableRepeat extends AbstractRepeater {
   /**
   * Invoked everytime the item property changes.
   */
-  itemsChanged() {
+  itemsChanged(newVal, oldVal) {
     // still bound?
     if (!this.scope) {
       return;
