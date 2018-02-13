@@ -1,3 +1,13 @@
+<a name="0.3.1"></a>
+## [0.3.1](https://github.com/buttonwoodcx/bcx-aurelia-reorderable-repeat/compare/v0.3.0...v0.3.1) (2018-02-13)
+
+
+### Bug Fixes
+
+* fix messed up deps in v0.3.0. ([ec6ea23](https://github.com/buttonwoodcx/bcx-aurelia-reorderable-repeat/commit/ec6ea23))
+
+
+
 <a name="0.3.0"></a>
 # [0.3.0](https://github.com/buttonwoodcx/bcx-aurelia-reorderable-repeat/compare/v0.2.5...v0.3.0) (2018-02-13)
 
