@@ -1,3 +1,8 @@
+<a name="0.3.0"></a>
+# [0.3.0](https://github.com/buttonwoodcx/bcx-aurelia-reorderable-repeat/compare/v0.2.5...v0.3.0) (2018-02-13)
+
+
+
 <a name="0.2.5"></a>
 ## [0.2.5](https://github.com/buttonwoodcx/bcx-aurelia-reorderable-repeat/compare/v0.2.4...v0.2.5) (2018-01-30)
 
