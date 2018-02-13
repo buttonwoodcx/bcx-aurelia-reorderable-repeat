@@ -1203,9 +1203,9 @@ bcrypt-pbkdf@^1.0.0:
   dependencies:
     tweetnacl "^0.14.3"
 
-bcx-aurelia-dnd@^0.4.0:
-  version "0.4.0"
-  resolved "https://registry.yarnpkg.com/bcx-aurelia-dnd/-/bcx-aurelia-dnd-0.4.0.tgz#5f81d53449d4447c4f5acb78884d8ad3873aa481"
+bcx-aurelia-dnd@^0.4.1:
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/bcx-aurelia-dnd/-/bcx-aurelia-dnd-0.4.1.tgz#d8ada5f44a6567b58740d6961725e99d1a9a7cdb"
   dependencies:
     aurelia-event-aggregator "^1.0.1"
 
