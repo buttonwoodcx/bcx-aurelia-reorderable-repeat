@@ -2,9 +2,15 @@
 
 An Aurelia repeater supports drag & drop reordering automatically.
 
-Read documentation [here](https://buttonwoodcx.github.io/bcx-aurelia-dnd/#/bcx-aurelia-reorderable-repeat)
+## Usage
 
-## Building The Code (kept from skeleton-plugin readme)
+* With aurelia-cli, just do `au install bcx-aurelia-reorderable-repeat`.
+* In you app main js file, `aurelia.use.plugin('bcx-aurelia-reorderable-repeat');`.
+* Simply use `reorderable-repeat.for="item of items"` in your view template. That's it!
+
+Read full documentation [here](https://buttonwoodcx.github.io/bcx-aurelia-dnd/#/bcx-aurelia-reorderable-repeat)
+
+## Building The Code (from skeleton-plugin readme)
 
 To build the code, follow these steps.
 
@@ -28,7 +34,7 @@ To build the code, follow these steps.
 
 6. See `gulpfile.js` for other tasks related to generating the docs and linting.
 
-## Running The Tests (kept from skeleton-plugin readme)
+## Running The Tests (from skeleton-plugin readme)
 
 To run the unit tests, first ensure that you have followed the steps above in order to install all dependencies and successfully build the library. Once you have done that, proceed with these additional steps:
 
