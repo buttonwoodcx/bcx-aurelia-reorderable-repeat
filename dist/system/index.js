@@ -3,11 +3,11 @@
 System.register(['aurelia-pal', './reorderable-repeat', './reorderable-direction', './reorderable-dnd-preview', './reorderable-dnd-handler-selector', './reorderable-after-reordering'], function (_export, _context) {
   "use strict";
 
-  var DOM, ReorderableRepeat, ReorderableDirection, ReorderableDndPreview, ReorderableDndHandlerSelector, ReorderableAfterReordering, css;
+  var DOM, PLATFORM, ReorderableRepeat, ReorderableDirection, ReorderableDndPreview, ReorderableDndHandlerSelector, ReorderableAfterReordering, css;
   function configure(config) {
     DOM.injectStyles(css);
 
-    config.globalResources(['./reorderable-repeat', './reorderable-direction', './reorderable-dnd-preview', './reorderable-dnd-handler-selector', './reorderable-after-reordering']);
+    config.globalResources([PLATFORM.moduleName('./reorderable-repeat'), PLATFORM.moduleName('./reorderable-direction'), PLATFORM.moduleName('./reorderable-dnd-preview'), PLATFORM.moduleName('./reorderable-dnd-handler-selector'), PLATFORM.moduleName('./reorderable-after-reordering')]);
   }
 
   _export('configure', configure);
@@ -15,6 +15,7 @@ System.register(['aurelia-pal', './reorderable-repeat', './reorderable-direction
   return {
     setters: [function (_aureliaPal) {
       DOM = _aureliaPal.DOM;
+      PLATFORM = _aureliaPal.PLATFORM;
     }, function (_reorderableRepeat) {
       ReorderableRepeat = _reorderableRepeat.ReorderableRepeat;
     }, function (_reorderableDirection) {

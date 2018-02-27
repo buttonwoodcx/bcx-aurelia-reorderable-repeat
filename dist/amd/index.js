@@ -13,7 +13,7 @@ define(['exports', 'aurelia-pal', './reorderable-repeat', './reorderable-directi
   function configure(config) {
     _aureliaPal.DOM.injectStyles(css);
 
-    config.globalResources(['./reorderable-repeat', './reorderable-direction', './reorderable-dnd-preview', './reorderable-dnd-handler-selector', './reorderable-after-reordering']);
+    config.globalResources([_aureliaPal.PLATFORM.moduleName('./reorderable-repeat'), _aureliaPal.PLATFORM.moduleName('./reorderable-direction'), _aureliaPal.PLATFORM.moduleName('./reorderable-dnd-preview'), _aureliaPal.PLATFORM.moduleName('./reorderable-dnd-handler-selector'), _aureliaPal.PLATFORM.moduleName('./reorderable-after-reordering')]);
   }
 
   exports.ReorderableRepeat = _reorderableRepeat.ReorderableRepeat;

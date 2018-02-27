@@ -1,3 +1,13 @@
+<a name="0.3.4"></a>
+## [0.3.4](https://github.com/buttonwoodcx/bcx-aurelia-reorderable-repeat/compare/v0.3.3...v0.3.4) (2018-02-27)
+
+
+### Bug Fixes
+
+* support webpack properly. ([8360b33](https://github.com/buttonwoodcx/bcx-aurelia-reorderable-repeat/commit/8360b33))
+
+
+
 <a name="0.3.3"></a>
 ## [0.3.3](https://github.com/buttonwoodcx/bcx-aurelia-reorderable-repeat/compare/v0.3.2...v0.3.3) (2018-02-16)
 
