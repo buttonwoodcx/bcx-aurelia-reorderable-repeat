@@ -1,4 +1,4 @@
-import { DOM } from 'aurelia-pal';
+import {DOM, PLATFORM} from 'aurelia-pal';
 
 import {ReorderableRepeat} from './reorderable-repeat';
 import {ReorderableDirection} from './reorderable-direction';
@@ -16,11 +16,11 @@ export function configure(config) {
   DOM.injectStyles(css);
 
   config.globalResources([
-    './reorderable-repeat',
-    './reorderable-direction',
-    './reorderable-dnd-preview',
-    './reorderable-dnd-handler-selector',
-    './reorderable-after-reordering'
+    PLATFORM.moduleName('./reorderable-repeat'),
+    PLATFORM.moduleName('./reorderable-direction'),
+    PLATFORM.moduleName('./reorderable-dnd-preview'),
+    PLATFORM.moduleName('./reorderable-dnd-handler-selector'),
+    PLATFORM.moduleName('./reorderable-after-reordering'),
   ]);
 }
 
