@@ -5,7 +5,7 @@ An Aurelia repeater supports drag & drop reordering automatically.
 ## Usage
 
 * With aurelia-cli, just do `au install bcx-aurelia-reorderable-repeat`.
-* In you app main js file, `aurelia.use.plugin('bcx-aurelia-reorderable-repeat');`.
+* In you app main.js file, `aurelia.use.plugin(PLATFORM.moduleName('bcx-aurelia-reorderable-repeat'));`.
 * Simply use `reorderable-repeat.for="item of items"` in your view template. That's it!
 
 Read full documentation [here](https://buttonwoodcx.github.io/bcx-aurelia-dnd/#/bcx-aurelia-reorderable-repeat)
