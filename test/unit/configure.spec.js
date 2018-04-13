@@ -1,5 +1,4 @@
-/* global describe, it, beforeEach, expect */
-import {configure} from '../../src/index';
+import {configure} from '../../src/resources/index';
 
 class ConfigStub {
   globalResources(...resources) {

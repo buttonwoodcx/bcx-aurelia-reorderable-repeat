@@ -1,0 +1,32 @@
+.box {
+  margin: 0;
+  padding: 1rem;
+  width: 20rem;
+  border: 1px solid gray;
+}
+
+.box2.reorderable-repeat-dragging-me {
+  visibility: inherit;
+  color: transparent;
+  background-color: lightgray;
+}
+
+.box2.reorderable-repeat-dragging-me .handler {
+  visibility: hidden;
+}
+
+.box2 {
+  position: relative;
+  padding-left: 3rem;
+}
+
+.box2 .handler {
+  position: absolute;
+  margin-top: -0.5rem;
+  top: 50%;
+  left: 1rem;
+  width: 1rem;
+  height: 1rem;
+  border: 1px solid gray;
+  cursor: pointer;
+}

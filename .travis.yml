@@ -4,10 +4,3 @@ node_js:
 - '8'
 cache:
   yarn: true
-before_install:
-- npm i -g jspm
-- jspm config registries.github.auth $JSPM_GITHUB_AUTH_TOKEN
-- jspm install
-env:
-  global:
-    secure: IiXy3WI38WbKfP5OhqsPhNrnOXIxlVBh4SWLOKDPNuYguhqZFPSo6Kcy/xP/FVnq5khRH9gdgw3vTu9pVAz+PMHkOVWtTNaFd3R/v8I16TIeizcZ737MaWbmE8wJmfrE1h73TguU7Jh9yxdY2cwvXbNDwITF/Z/i5a163X3PI4X1LWXReqomQo4S4uivQcqN1k+R0sneGCjM8c5El++GbnJAIdvFrvCy7gInoQrhnmAQCPaSrY6N3xDAgkpkc6wkkzby0eih1L/d1wD908gg+Bstj2Gjgw2TVf0zk5gYhzjUf7Kf8GwT2AgigXuwciB4opaHIX2bqMi0AJ049EhBJj3i/dx99vsKJqDVbRFNrMy7/KB+4mTXxiVaELflB7IvX+szWpu617ihSQkD1fhz/3PeYZDsEO93T5L2XZg/tgfIXqFIiVLPjNZgLmv014EpvwbP/MmMMFNBMq21kSFJ8EaYk7gz13wcgDSN8+mLsE1/zl75/C84FPLujqZH1NspcKQD08ASkJenHp8fxPkZbx0Icegw64b75/UsgoorIeH8msY7XbVShvBK6h/LerC5qAo7752le6IYqfyqG+kx2OtnjgIvq9+9lZ+yo4+8r9D/ZPKp5qC08yMuJmyEsgWzxz+6mecyd7tAZIiyJGCEU+qHZecKn2E5LTWJ6LsJJOw=

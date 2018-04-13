@@ -1,0 +1,22 @@
+<template>
+  <require from="./app.css"></require>
+  <div style="margin: 1rem;">
+    <h2>String Array</h2>
+
+    <div class="box" reorderable-repeat.for="s of stringArray">
+      ${s}
+    </div>
+
+    <h2>Object Array</h2>
+
+    <div
+      class="box box2"
+      reorderable-repeat.for="o of objArray"
+      reorderable-after-reordering="objArrayReordered"
+      reorderable-dnd-handler-selector=".handler"
+    >
+      <div class="handler"></div>
+      ${o.name}
+    </div>
+  </div>
+</template>

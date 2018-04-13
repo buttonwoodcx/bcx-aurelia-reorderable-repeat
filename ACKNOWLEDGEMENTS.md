@@ -1,4 +1,4 @@
-This project was bootstrapped from [aurelia-skeleton-plugin](https://github.com/aurelia/skeleton-plugin).
+This project was bootstrapped from [aurelia-cli](https://github.com/aurelia/cli).
 Below is required notice from the project.
 
 ---
