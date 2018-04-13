@@ -102,7 +102,8 @@
     "pretest": "npm run lint",
     "test": "au test",
     "preversion": "npm test",
-    "version": "au build-plugin && git add -A dist && standard-changelog && git add CHANGELOG.md",
+    "version": "standard-changelog && git add CHANGELOG.md",
+    "prepare": "au build-plugin",
     "postversion": "git push && git push --tags && npm publish"
   }
 }

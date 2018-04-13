@@ -32,16 +32,12 @@ export default gulp.series(
 );
 
 // build plugin js files
-function buildPlugin() {
+export function transpilePlugin() {
   return gulp.src(project.plugin.source.js)
     .pipe(plumber({errorHandler: notify.onError('Error: <%= error.message %>')}))
-    // .pipe(sourcemaps.init())
+    // .pipe(sourcemaps.init())``
     .pipe(babel()) // use default cjs format
+    // .pipe(gulpUglify())
     // .pipe(sourcemaps.write())
     .pipe(gulp.dest(project.plugin.output));
 }
-
-export const transpilePlugin = gulp.series(
-  configureEnvironment,
-  buildPlugin
-);
