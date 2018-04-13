@@ -8,6 +8,7 @@ export class App {
   ];
 
   objArrayReordered(objArray) {
+    /* eslint no-console: 0 */
     console.log(JSON.stringify(objArray));
   }
 }
