@@ -1,3 +1,13 @@
+<a name="0.3.5"></a>
+## [0.3.5](https://github.com/buttonwoodcx/bcx-aurelia-reorderable-repeat/compare/v0.3.4...v0.3.5) (2018-04-13)
+
+
+### Features
+
+* switch to cli based setup ([995549b](https://github.com/buttonwoodcx/bcx-aurelia-reorderable-repeat/commit/995549b))
+
+
+
 <a name="0.3.4"></a>
 ## [0.3.4](https://github.com/buttonwoodcx/bcx-aurelia-reorderable-repeat/compare/v0.3.3...v0.3.4) (2018-02-27)
 
