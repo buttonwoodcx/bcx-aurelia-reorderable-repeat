@@ -15,7 +15,9 @@
   "license": "MIT",
   "author": "Chunpeng Huo",
   "main": "dist/index.js",
-  "files": ["dist/**/*"],
+  "files": [
+    "dist/**/*"
+  ],
   "repository": {
     "type": "git",
     "url": "http://github.com/buttonwoodcx/bcx-aurelia-reorderable-repeat"
@@ -56,8 +58,10 @@
     "karma-babel-preprocessor": "^7.0.0",
     "karma-chrome-launcher": "^2.2.0",
     "karma-jasmine": "^1.1.1",
+    "karma-phantomjs-launcher": "^1.0.4",
     "karma-sourcemap-loader": "^0.3.7",
     "minimatch": "^3.0.4",
+    "phantomjs": "^2.1.7",
     "requirejs": "^2.3.5",
     "standard-changelog": "^1.0.18",
     "text": "github:requirejs/text#latest",
