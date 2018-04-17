@@ -25,7 +25,7 @@
   "devDependencies": {
     "aurelia-animator-css": "^1.0.4",
     "aurelia-bootstrapper": "^2.2.0",
-    "aurelia-cli": "https://github.com/huochunpeng/cli.git#at10",
+    "aurelia-cli": "huochunpeng/cli.git#at10",
     "aurelia-testing": "^1.0.0-beta.4.0.0",
     "aurelia-tools": "^2.0.0",
     "babel-eslint": "^8.2.2",
@@ -43,7 +43,7 @@
     "connect-history-api-fallback": "^1.5.0",
     "debounce": "^1.1.0",
     "del": "^3.0.0",
-    "gulp": "github:gulpjs/gulp#4.0",
+    "gulp": "^4.0.0",
     "gulp-babel": "^7.0.1",
     "gulp-changed-in-place": "^2.3.0",
     "gulp-eslint": "^4.0.2",
@@ -64,7 +64,7 @@
     "phantomjs": "^2.1.7",
     "requirejs": "^2.3.5",
     "standard-changelog": "^1.0.18",
-    "text": "github:requirejs/text#latest",
+    "text": "requirejs/text#latest",
     "through2": "^2.0.3",
     "uglify-js": "^3.3.15",
     "vinyl-fs": "^3.0.2"

@@ -35,7 +35,7 @@ export default gulp.series(
 export function transpilePlugin() {
   return gulp.src(project.plugin.source.js)
     .pipe(plumber({errorHandler: notify.onError('Error: <%= error.message %>')}))
-    // .pipe(sourcemaps.init())``
+    // .pipe(sourcemaps.init())
     .pipe(babel()) // use default cjs format
     // .pipe(gulpUglify())
     // .pipe(sourcemaps.write())
