@@ -1,3 +1,14 @@
+<a name="0.4.1"></a>
+## [0.4.1](https://github.com/buttonwoodcx/bcx-aurelia-reorderable-repeat/compare/v0.4.0...v0.4.1) (2018-04-26)
+
+
+### Features
+
+* update link to newest doc site. ([83b66e3](https://github.com/buttonwoodcx/bcx-aurelia-reorderable-repeat/commit/83b66e3))
+* upgrade bcx-aurelia-dnd to v0.4.6 for better compatibility with Aurelia custom element ([700b518](https://github.com/buttonwoodcx/bcx-aurelia-reorderable-repeat/commit/700b518))
+
+
+
 <a name="0.4.0"></a>
 # [0.4.0](https://github.com/buttonwoodcx/bcx-aurelia-reorderable-repeat/compare/v0.3.5...v0.4.0) (2018-04-13)
 
