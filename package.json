@@ -63,6 +63,7 @@
     "minimatch": "^3.0.4",
     "phantomjs": "^2.1.7",
     "requirejs": "^2.3.5",
+    "source-map": "^0.5.7",
     "standard-changelog": "^1.0.18",
     "text": "requirejs/text#latest",
     "through2": "^2.0.3",
@@ -79,7 +80,7 @@
   },
   "dependencies": {
     "aurelia-event-aggregator": "^1.0.0",
-    "bcx-aurelia-dnd": "^0.4.2"
+    "bcx-aurelia-dnd": "^0.4.6"
   },
   "aurelia": {
     "import": {

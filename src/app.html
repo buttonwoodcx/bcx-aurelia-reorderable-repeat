@@ -1,5 +1,7 @@
 <template>
   <require from="./app.css"></require>
+  <require from="./obj-info"></require>
+
   <div style="margin: 1rem;">
     <h2>String Array</h2>
 
@@ -17,6 +19,12 @@
     >
       <div class="handler"></div>
       ${o.name}
+    </div>
+
+    <h2>Repeat on custom element (unknown HTML tag)</h2>
+
+    <div style="width: 100px;">
+      <obj-info reorderable-repeat.for="o of objArray" obj.bind="o"></obj-info>
     </div>
   </div>
 </template>
