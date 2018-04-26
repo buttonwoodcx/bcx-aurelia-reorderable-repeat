@@ -26,5 +26,28 @@
     <div style="width: 100px;">
       <obj-info reorderable-repeat.for="o of objArray" obj.bind="o"></obj-info>
     </div>
+
+    <h2>Group of repeator, support across lists reordering</h2>
+
+    <div style="display: flex;">
+      <div style="margin: 1rem;">
+        <div class="box"
+             reorderable-repeat.for="s of fruits"
+             reorderable-after-reordering="fruitsOrdered"
+             reorderable-group="lifes">${s}</div>
+      </div>
+      <div style="margin: 1rem;">
+        <div class="box"
+             reorderable-repeat.for="s of animals"
+             reorderable-after-reordering="animalsOrdered"
+             reorderable-group="lifes">${s}</div>
+      </div>
+      <div style="margin: 1rem;">
+        <div class="box"
+             reorderable-repeat.for="s of insects"
+             reorderable-after-reordering="insectsOrdered"
+             reorderable-group="lifes">${s}</div>
+      </div>
+    </div>
   </div>
 </template>

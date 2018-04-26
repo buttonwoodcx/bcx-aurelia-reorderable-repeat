@@ -1,11 +1,12 @@
 .box {
+  box-sizing: border-box;
   margin: 0;
   padding: 1rem;
-  width: 20rem;
+  width: 10rem;
   border: 1px solid gray;
 }
 
-.box2.reorderable-repeat-dragging-me {
+.box.reorderable-repeat-dragging-me {
   visibility: inherit;
   color: transparent;
   background-color: lightgray;

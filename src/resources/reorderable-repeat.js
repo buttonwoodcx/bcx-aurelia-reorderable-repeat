@@ -29,6 +29,7 @@ import {DndService} from 'bcx-aurelia-dnd';
 import {EventAggregator} from 'aurelia-event-aggregator';
 import {TaskQueue} from 'aurelia-task-queue';
 
+let sault = 'bmd1aX';
 let seed = 0;
 
 const classes = (function() {
@@ -62,7 +63,7 @@ const classes = (function() {
 }());
 
 /**
-* Binding to iterate over iterable objects (Array, Map and Number) to genereate a template for each iteration.
+* Binding to iterate over Array to genereate a template for each iteration.
 */
 @customAttribute('reorderable-repeat')
 @templateController
@@ -99,7 +100,7 @@ export class ReorderableRepeat extends AbstractRepeater {
       viewsRequireLifecycle: viewsRequireLifecycle(viewFactory)
     });
 
-    this.type = 'reorder-' + seed;
+    this._repeatorId = sault + seed;
     seed += 1;
 
     this.ea = ea;
@@ -154,17 +155,34 @@ export class ReorderableRepeat extends AbstractRepeater {
         });
 
         if (!this.intention) return;
-        const {fromIndex, toIndex} = this.intention;
+        const {item, fromIndex, fromRepeatorId, toIndex, toRepeatorId} = this.intention;
         this.intention = null;
 
-        if (fromIndex === toIndex) return;
+        const repeatorId = this._repeatorId;
+        if (repeatorId !== fromRepeatorId && repeatorId !== toRepeatorId) return;
 
-        const item = this.items[fromIndex];
-        this.items.splice(fromIndex, 1);
-        this.items.splice(toIndex, 0, item);
+        // no change
+        if (fromRepeatorId === toRepeatorId && fromIndex === toIndex) return;
+
+        if (repeatorId === fromRepeatorId) {
+          this.items.splice(fromIndex, 1);
+        }
+
+        if (repeatorId === toRepeatorId) {
+          this.items.splice(toIndex, 0, item);
+        }
 
         const afterReordering = this._reorderableAfterReorderingFunc();
         if (afterReordering) afterReordering(this.items);
+      }),
+      this.ea.subscribe('reorderable-group:intention-changed', intention => {
+        if (intention.type !== this.type) return;
+
+        // avoid double trigger of intentionChanged;
+        if (intention.toRepeatorId === this._repeatorId) return;
+
+        // sync intention from other repeator
+        this.intention = intention;
       })
     ];
     this.patchedItems = [...this.items];
@@ -189,18 +207,25 @@ export class ReorderableRepeat extends AbstractRepeater {
 
   intentionChanged(newIntention) {
     if (newIntention) {
-      const {fromIndex, toIndex} = newIntention;
+      const repeatorId = this._repeatorId;
+
+      const {item, fromIndex, fromRepeatorId, toIndex, toRepeatorId} = newIntention;
+
       let patched = [...this.items];
-      const item = this.items[fromIndex];
-      patched.splice(fromIndex, 1);
-      patched.splice(toIndex, 0, item);
+
+      if (repeatorId === fromRepeatorId) {
+        patched.splice(fromIndex, 1);
+      }
+
+      if (repeatorId === toRepeatorId) {
+        patched.splice(toIndex, 0, item);
+      }
+
       this.patchedItems = patched;
     }
   }
 
-  /**
-  * Invoked everytime the item property changes.
-  */
+  // every time the items property changes.
   itemsChanged(newVal, oldVal) {
     // still bound?
     if (!this.scope) {
@@ -221,6 +246,7 @@ export class ReorderableRepeat extends AbstractRepeater {
     }
   }
 
+  // every time the items array add/delete.
   _itemsMutated() {
     if (this.intention === null) {
       this.patchedItems = [...this.items];
@@ -333,6 +359,17 @@ export class ReorderableRepeat extends AbstractRepeater {
             undefined;
   }
 
+  _reorderableGroup(view) {
+    let attr = this._additionalAttribute(view, 'reorderable-group');
+    if (attr && attr.sourceExpression) {
+      attr = attr.sourceExpression.evaluate(this.scope);
+    }
+
+    if (typeof attr === 'string') {
+      return attr.toLowerCase();
+    }
+  }
+
   _reorderableDirection(view) {
     let attr = this._additionalAttribute(view, 'reorderable-direction');
     if (attr && attr.sourceExpression) {
@@ -391,7 +428,6 @@ export class ReorderableRepeat extends AbstractRepeater {
       }
       throw new Error("'reorderable-after-reordering' must be a function or evaluate to one");
     } else if (func.sourceExpression) {
-      // TODO test preview
       return () => func.sourceExpression.evaluate(this.scope);
     } else {
       throw new Error("'reorderable-after-reordering' must be a function or evaluate to one");
@@ -436,11 +472,23 @@ export class ReorderableRepeat extends AbstractRepeater {
     if (handlerSelector) {
       handler = view.firstChild.querySelector(handlerSelector);
     }
+
+    const repeatorId = this._repeatorId;
+    let type;
+
+    if (this.type) {
+      type = this.type;
+    } else {
+      const group = this._reorderableGroup(view);
+      type = group ? (sault + group) : repeatorId;
+      this.type = type;
+    }
+
     const direction = this._reorderableDirection(view);
     const _previewFunc = this._dndPreviewFunc(view);
 
     this.dndService.addSource({
-      dndModel: () => ({type: this.type, index}),
+      dndModel: () => ({type: type, index, item, repeatorId: repeatorId}),
       dndPreview: _previewFunc && (() => _previewFunc(item, view)),
       dndElement: el
     }, handler && {handler});
@@ -448,17 +496,36 @@ export class ReorderableRepeat extends AbstractRepeater {
     this.dndService.addTarget({
       dndElement: el,
       dndCanDrop: (model) => {
-        const canDrop = model.type === this.type &&
-                        (this.intention ? (this.intention.toIndex !== index) : (model.index !== index));
+        const inSameGroup = model.repeatorId === repeatorId;
 
-        if (model.type === this.type) {
+        let canDrop = true;
+
+        if (model.type !== type) {
+          canDrop = false;
+        } else if (inSameGroup) {
+          if (this.intention) {
+            if (this.intention.toIndex === index) {
+              canDrop = false;
+            }
+          } else if (model.index === index) {
+            canDrop = false;
+          }
+        } else {
+          // across repeators in same group
+          if (this.intention && this.intention.toRepeatorId === repeatorId) {
+            if (this.intention.toIndex === index) {
+              canDrop = false;
+            }
+          }
+        }
+
+        if (model.type === type) {
           this.taskQueue.queueMicroTask(() => {
             classes.add(el, 'reorderable-repeat-reordering');
           });
         }
 
-        if (model.type === this.type && !canDrop) {
-          // hack style
+        if (model.type === type && !canDrop && item === model.item) {
           // I am under dragging
           this.taskQueue.queueMicroTask(() => {
             classes.add(el, 'reorderable-repeat-dragging-me');
@@ -485,18 +552,34 @@ export class ReorderableRepeat extends AbstractRepeater {
     if (!isProcessing) return;
     if (model.type !== this.type) return;
 
+    const repeatorId = this._repeatorId;
+    const isUsingGroup = model.type !== model.repeatorId;
+    const inSameGroup = model.repeatorId === repeatorId;
+
     if (targetIndex < 0) return;
 
     let originalIndex;
     let currentIndex;
     let nextIndex;
-    if (this.intention) {
-      originalIndex = this.intention.fromIndex;
-      currentIndex = this.intention.toIndex;
+
+    if (inSameGroup) {
+      if (this.intention) {
+        originalIndex = this.intention.fromIndex;
+        currentIndex = this.intention.toIndex;
+      } else {
+        originalIndex = model.index;
+        if (originalIndex < 0) return;
+        currentIndex = originalIndex;
+      }
     } else {
-      originalIndex = model.index;
-      if (originalIndex < 0) return;
-      currentIndex = originalIndex;
+      if (this.intention && this.intention.toRepeatorId === repeatorId) {
+        originalIndex = this.intention.fromIndex;
+        currentIndex = this.intention.toIndex;
+      } else {
+        originalIndex = model.index;
+        if (originalIndex < 0) return;
+        currentIndex = targetIndex;
+      }
     }
 
     if (currentIndex < targetIndex) {
@@ -506,7 +589,7 @@ export class ReorderableRepeat extends AbstractRepeater {
       } else {
         nextIndex = targetIndex;
       }
-    } else /* if (currentIndex > targetIndex) */ { // no need to check, currentIndex never === targetIndex
+    } else /* if (currentIndex > targetIndex) or across repeators */ {
       // grabbed item is currently below target
       if (beforeTarget) {
         nextIndex = targetIndex;
@@ -517,11 +600,22 @@ export class ReorderableRepeat extends AbstractRepeater {
 
     if (!this.intention ||
         this.intention.fromIndex !== originalIndex ||
-        this.intention.toIndex !== nextIndex) {
+        this.intention.fromRepeatorId !== model.repeatorId ||
+        this.intention.toIndex !== nextIndex ||
+        this.intention.toRepeatorId !== repeatorId) {
       this.intention = {
+        type: model.type,
+        item: model.item,
         fromIndex: originalIndex,
-        toIndex: nextIndex
+        fromRepeatorId: model.repeatorId,
+        toIndex: nextIndex,
+        toRepeatorId: repeatorId
       };
+
+      if (isUsingGroup) {
+        // let other repeators know
+        this.ea.publish('reorderable-group:intention-changed', this.intention);
+      }
     }
   }
 

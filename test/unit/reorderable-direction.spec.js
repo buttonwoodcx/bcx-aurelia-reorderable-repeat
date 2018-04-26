@@ -28,30 +28,29 @@ describe('reorderable-direction:', () => {
       .boundTo({items: [{name: 'one'}, {name: 'two'}, {name: 'three'}]});
 
     component.create(bootstrap).then(() => {
-      const reorderableRepeat = component.viewModel;
       const viewModel = component.viewModel;
 
       nq(() => {
-        expect(reorderableRepeat.viewCount()).toEqual(3);
-        expect($(reorderableRepeat.view(0).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
-        expect($(reorderableRepeat.view(1).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
-        expect($(reorderableRepeat.view(2).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
-        expect(reorderableRepeat.dndService.isProcessing).toBeFalsy();
+        expect(viewModel.viewCount()).toEqual(3);
+        expect($(viewModel.view(0).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
+        expect($(viewModel.view(1).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
+        expect($(viewModel.view(2).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
+        expect(viewModel.dndService.isProcessing).toBeFalsy();
       });
       nq(() => {
-        fireEvent(reorderableRepeat.view(0).firstChild, 'mousedown', {which: 1, clientX: 20, clientY: 20});
+        fireEvent(viewModel.view(0).firstChild, 'mousedown', {which: 1, clientX: 20, clientY: 20});
         // first small movement, this is where dnd starts
         fireEvent(documentElement, 'mousemove', {which: 1, clientX: 20, clientY: 21});
       });
       nq(() => {
-        expect(reorderableRepeat.viewCount()).toEqual(3);
-        expect($(reorderableRepeat.view(0).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeTruthy();
-        expect($(reorderableRepeat.view(1).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
-        expect($(reorderableRepeat.view(2).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
-        expect(reorderableRepeat.view(0).bindingContext.obj).toEqual({name: 'one'});
-        expect(reorderableRepeat.view(1).bindingContext.obj).toEqual({name: 'two'});
-        expect(reorderableRepeat.view(2).bindingContext.obj).toEqual({name: 'three'});
-        expect(reorderableRepeat.dndService.isProcessing).toBeTruthy();
+        expect(viewModel.viewCount()).toEqual(3);
+        expect($(viewModel.view(0).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeTruthy();
+        expect($(viewModel.view(1).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
+        expect($(viewModel.view(2).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
+        expect(viewModel.view(0).bindingContext.obj).toEqual({name: 'one'});
+        expect(viewModel.view(1).bindingContext.obj).toEqual({name: 'two'});
+        expect(viewModel.view(2).bindingContext.obj).toEqual({name: 'three'});
+        expect(viewModel.dndService.isProcessing).toBeTruthy();
         expect(viewModel.items).toEqual([{name: 'one'}, {name: 'two'}, {name: 'three'}]);
       });
       nq(() => {
@@ -60,14 +59,14 @@ describe('reorderable-direction:', () => {
       });
       nq(() => {
         // no change yet.
-        expect(reorderableRepeat.viewCount()).toEqual(3);
-        expect($(reorderableRepeat.view(0).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeTruthy();
-        expect($(reorderableRepeat.view(1).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
-        expect($(reorderableRepeat.view(2).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
-        expect(reorderableRepeat.view(0).bindingContext.obj).toEqual({name: 'one'});
-        expect(reorderableRepeat.view(1).bindingContext.obj).toEqual({name: 'two'});
-        expect(reorderableRepeat.view(2).bindingContext.obj).toEqual({name: 'three'});
-        expect(reorderableRepeat.dndService.isProcessing).toBeTruthy();
+        expect(viewModel.viewCount()).toEqual(3);
+        expect($(viewModel.view(0).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeTruthy();
+        expect($(viewModel.view(1).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
+        expect($(viewModel.view(2).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
+        expect(viewModel.view(0).bindingContext.obj).toEqual({name: 'one'});
+        expect(viewModel.view(1).bindingContext.obj).toEqual({name: 'two'});
+        expect(viewModel.view(2).bindingContext.obj).toEqual({name: 'three'});
+        expect(viewModel.dndService.isProcessing).toBeTruthy();
         expect(viewModel.items).toEqual([{name: 'one'}, {name: 'two'}, {name: 'three'}]);
       });
       nq(() => {
@@ -76,14 +75,14 @@ describe('reorderable-direction:', () => {
       });
       nq(() => {
         // swapped.
-        expect(reorderableRepeat.viewCount()).toEqual(3);
-        expect($(reorderableRepeat.view(0).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
-        expect($(reorderableRepeat.view(1).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeTruthy();
-        expect($(reorderableRepeat.view(2).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
-        expect(reorderableRepeat.view(0).bindingContext.obj).toEqual({name: 'two'});
-        expect(reorderableRepeat.view(1).bindingContext.obj).toEqual({name: 'one'});
-        expect(reorderableRepeat.view(2).bindingContext.obj).toEqual({name: 'three'});
-        expect(reorderableRepeat.dndService.isProcessing).toBeTruthy();
+        expect(viewModel.viewCount()).toEqual(3);
+        expect($(viewModel.view(0).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
+        expect($(viewModel.view(1).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeTruthy();
+        expect($(viewModel.view(2).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
+        expect(viewModel.view(0).bindingContext.obj).toEqual({name: 'two'});
+        expect(viewModel.view(1).bindingContext.obj).toEqual({name: 'one'});
+        expect(viewModel.view(2).bindingContext.obj).toEqual({name: 'three'});
+        expect(viewModel.dndService.isProcessing).toBeTruthy();
         expect(viewModel.items).toEqual([{name: 'one'}, {name: 'two'}, {name: 'three'}]);
       });
       nq(() => {
@@ -92,14 +91,14 @@ describe('reorderable-direction:', () => {
       });
       nq(() => {
         // no change yet.
-        expect(reorderableRepeat.viewCount()).toEqual(3);
-        expect($(reorderableRepeat.view(0).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
-        expect($(reorderableRepeat.view(1).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeTruthy();
-        expect($(reorderableRepeat.view(2).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
-        expect(reorderableRepeat.view(0).bindingContext.obj).toEqual({name: 'two'});
-        expect(reorderableRepeat.view(1).bindingContext.obj).toEqual({name: 'one'});
-        expect(reorderableRepeat.view(2).bindingContext.obj).toEqual({name: 'three'});
-        expect(reorderableRepeat.dndService.isProcessing).toBeTruthy();
+        expect(viewModel.viewCount()).toEqual(3);
+        expect($(viewModel.view(0).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
+        expect($(viewModel.view(1).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeTruthy();
+        expect($(viewModel.view(2).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
+        expect(viewModel.view(0).bindingContext.obj).toEqual({name: 'two'});
+        expect(viewModel.view(1).bindingContext.obj).toEqual({name: 'one'});
+        expect(viewModel.view(2).bindingContext.obj).toEqual({name: 'three'});
+        expect(viewModel.dndService.isProcessing).toBeTruthy();
         expect(viewModel.items).toEqual([{name: 'one'}, {name: 'two'}, {name: 'three'}]);
       });
       nq(() => {
@@ -108,14 +107,14 @@ describe('reorderable-direction:', () => {
       });
       nq(() => {
         // reorder again.
-        expect(reorderableRepeat.viewCount()).toEqual(3);
-        expect($(reorderableRepeat.view(0).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeTruthy();
-        expect($(reorderableRepeat.view(1).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
-        expect($(reorderableRepeat.view(2).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
-        expect(reorderableRepeat.view(0).bindingContext.obj).toEqual({name: 'one'});
-        expect(reorderableRepeat.view(1).bindingContext.obj).toEqual({name: 'two'});
-        expect(reorderableRepeat.view(2).bindingContext.obj).toEqual({name: 'three'});
-        expect(reorderableRepeat.dndService.isProcessing).toBeTruthy();
+        expect(viewModel.viewCount()).toEqual(3);
+        expect($(viewModel.view(0).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeTruthy();
+        expect($(viewModel.view(1).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
+        expect($(viewModel.view(2).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
+        expect(viewModel.view(0).bindingContext.obj).toEqual({name: 'one'});
+        expect(viewModel.view(1).bindingContext.obj).toEqual({name: 'two'});
+        expect(viewModel.view(2).bindingContext.obj).toEqual({name: 'three'});
+        expect(viewModel.dndService.isProcessing).toBeTruthy();
         expect(viewModel.items).toEqual([{name: 'one'}, {name: 'two'}, {name: 'three'}]);
       });
       nq(() => {
@@ -124,14 +123,14 @@ describe('reorderable-direction:', () => {
       });
       nq(() => {
         // reorder again.
-        expect(reorderableRepeat.viewCount()).toEqual(3);
-        expect($(reorderableRepeat.view(0).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
-        expect($(reorderableRepeat.view(1).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
-        expect($(reorderableRepeat.view(2).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeTruthy();
-        expect(reorderableRepeat.view(0).bindingContext.obj).toEqual({name: 'two'});
-        expect(reorderableRepeat.view(1).bindingContext.obj).toEqual({name: 'three'});
-        expect(reorderableRepeat.view(2).bindingContext.obj).toEqual({name: 'one'});
-        expect(reorderableRepeat.dndService.isProcessing).toBeTruthy();
+        expect(viewModel.viewCount()).toEqual(3);
+        expect($(viewModel.view(0).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
+        expect($(viewModel.view(1).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
+        expect($(viewModel.view(2).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeTruthy();
+        expect(viewModel.view(0).bindingContext.obj).toEqual({name: 'two'});
+        expect(viewModel.view(1).bindingContext.obj).toEqual({name: 'three'});
+        expect(viewModel.view(2).bindingContext.obj).toEqual({name: 'one'});
+        expect(viewModel.dndService.isProcessing).toBeTruthy();
         expect(viewModel.items).toEqual([{name: 'one'}, {name: 'two'}, {name: 'three'}]);
       });
       nq(() => {
@@ -141,14 +140,14 @@ describe('reorderable-direction:', () => {
       nq(() => {
         // reorder viewmodel.
         expect(viewModel.items).toEqual([{name: 'two'}, {name: 'three'}, {name: 'one'}]);
-        expect(reorderableRepeat.viewCount()).toEqual(3);
-        expect($(reorderableRepeat.view(0).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
-        expect($(reorderableRepeat.view(1).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
-        expect($(reorderableRepeat.view(2).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
-        expect(reorderableRepeat.view(0).bindingContext.obj).toEqual({name: 'two'});
-        expect(reorderableRepeat.view(1).bindingContext.obj).toEqual({name: 'three'});
-        expect(reorderableRepeat.view(2).bindingContext.obj).toEqual({name: 'one'});
-        expect(reorderableRepeat.dndService.isProcessing).toBeFalsy();
+        expect(viewModel.viewCount()).toEqual(3);
+        expect($(viewModel.view(0).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
+        expect($(viewModel.view(1).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
+        expect($(viewModel.view(2).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
+        expect(viewModel.view(0).bindingContext.obj).toEqual({name: 'two'});
+        expect(viewModel.view(1).bindingContext.obj).toEqual({name: 'three'});
+        expect(viewModel.view(2).bindingContext.obj).toEqual({name: 'one'});
+        expect(viewModel.dndService.isProcessing).toBeFalsy();
       });
       nq(done);
     });
@@ -168,30 +167,29 @@ describe('reorderable-direction:', () => {
       .boundTo({items: [{name: 'one'}, {name: 'two'}, {name: 'three'}]});
 
     component.create(bootstrap).then(() => {
-      const reorderableRepeat = component.viewModel;
       const viewModel = component.viewModel;
 
       nq(() => {
-        expect(reorderableRepeat.viewCount()).toEqual(3);
-        expect($(reorderableRepeat.view(0).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
-        expect($(reorderableRepeat.view(1).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
-        expect($(reorderableRepeat.view(2).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
-        expect(reorderableRepeat.dndService.isProcessing).toBeFalsy();
+        expect(viewModel.viewCount()).toEqual(3);
+        expect($(viewModel.view(0).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
+        expect($(viewModel.view(1).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
+        expect($(viewModel.view(2).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
+        expect(viewModel.dndService.isProcessing).toBeFalsy();
       });
       nq(() => {
-        fireEvent(reorderableRepeat.view(0).firstChild, 'mousedown', {which: 1, clientX: 180, clientY: 20});
+        fireEvent(viewModel.view(0).firstChild, 'mousedown', {which: 1, clientX: 180, clientY: 20});
         // first small movement, this is where dnd starts
         fireEvent(documentElement, 'mousemove', {which: 1, clientX: 180, clientY: 21});
       });
       nq(() => {
-        expect(reorderableRepeat.viewCount()).toEqual(3);
-        expect($(reorderableRepeat.view(0).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeTruthy();
-        expect($(reorderableRepeat.view(1).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
-        expect($(reorderableRepeat.view(2).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
-        expect(reorderableRepeat.view(0).bindingContext.obj).toEqual({name: 'one'});
-        expect(reorderableRepeat.view(1).bindingContext.obj).toEqual({name: 'two'});
-        expect(reorderableRepeat.view(2).bindingContext.obj).toEqual({name: 'three'});
-        expect(reorderableRepeat.dndService.isProcessing).toBeTruthy();
+        expect(viewModel.viewCount()).toEqual(3);
+        expect($(viewModel.view(0).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeTruthy();
+        expect($(viewModel.view(1).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
+        expect($(viewModel.view(2).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
+        expect(viewModel.view(0).bindingContext.obj).toEqual({name: 'one'});
+        expect(viewModel.view(1).bindingContext.obj).toEqual({name: 'two'});
+        expect(viewModel.view(2).bindingContext.obj).toEqual({name: 'three'});
+        expect(viewModel.dndService.isProcessing).toBeTruthy();
         expect(viewModel.items).toEqual([{name: 'one'}, {name: 'two'}, {name: 'three'}]);
       });
       nq(() => {
@@ -200,14 +198,14 @@ describe('reorderable-direction:', () => {
       });
       nq(() => {
         // no change yet.
-        expect(reorderableRepeat.viewCount()).toEqual(3);
-        expect($(reorderableRepeat.view(0).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeTruthy();
-        expect($(reorderableRepeat.view(1).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
-        expect($(reorderableRepeat.view(2).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
-        expect(reorderableRepeat.view(0).bindingContext.obj).toEqual({name: 'one'});
-        expect(reorderableRepeat.view(1).bindingContext.obj).toEqual({name: 'two'});
-        expect(reorderableRepeat.view(2).bindingContext.obj).toEqual({name: 'three'});
-        expect(reorderableRepeat.dndService.isProcessing).toBeTruthy();
+        expect(viewModel.viewCount()).toEqual(3);
+        expect($(viewModel.view(0).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeTruthy();
+        expect($(viewModel.view(1).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
+        expect($(viewModel.view(2).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
+        expect(viewModel.view(0).bindingContext.obj).toEqual({name: 'one'});
+        expect(viewModel.view(1).bindingContext.obj).toEqual({name: 'two'});
+        expect(viewModel.view(2).bindingContext.obj).toEqual({name: 'three'});
+        expect(viewModel.dndService.isProcessing).toBeTruthy();
         expect(viewModel.items).toEqual([{name: 'one'}, {name: 'two'}, {name: 'three'}]);
       });
       nq(() => {
@@ -216,14 +214,14 @@ describe('reorderable-direction:', () => {
       });
       nq(() => {
         // swapped.
-        expect(reorderableRepeat.viewCount()).toEqual(3);
-        expect($(reorderableRepeat.view(0).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
-        expect($(reorderableRepeat.view(1).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeTruthy();
-        expect($(reorderableRepeat.view(2).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
-        expect(reorderableRepeat.view(0).bindingContext.obj).toEqual({name: 'two'});
-        expect(reorderableRepeat.view(1).bindingContext.obj).toEqual({name: 'one'});
-        expect(reorderableRepeat.view(2).bindingContext.obj).toEqual({name: 'three'});
-        expect(reorderableRepeat.dndService.isProcessing).toBeTruthy();
+        expect(viewModel.viewCount()).toEqual(3);
+        expect($(viewModel.view(0).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
+        expect($(viewModel.view(1).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeTruthy();
+        expect($(viewModel.view(2).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
+        expect(viewModel.view(0).bindingContext.obj).toEqual({name: 'two'});
+        expect(viewModel.view(1).bindingContext.obj).toEqual({name: 'one'});
+        expect(viewModel.view(2).bindingContext.obj).toEqual({name: 'three'});
+        expect(viewModel.dndService.isProcessing).toBeTruthy();
         expect(viewModel.items).toEqual([{name: 'one'}, {name: 'two'}, {name: 'three'}]);
       });
       nq(() => {
@@ -232,14 +230,14 @@ describe('reorderable-direction:', () => {
       });
       nq(() => {
         // no change yet.
-        expect(reorderableRepeat.viewCount()).toEqual(3);
-        expect($(reorderableRepeat.view(0).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
-        expect($(reorderableRepeat.view(1).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeTruthy();
-        expect($(reorderableRepeat.view(2).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
-        expect(reorderableRepeat.view(0).bindingContext.obj).toEqual({name: 'two'});
-        expect(reorderableRepeat.view(1).bindingContext.obj).toEqual({name: 'one'});
-        expect(reorderableRepeat.view(2).bindingContext.obj).toEqual({name: 'three'});
-        expect(reorderableRepeat.dndService.isProcessing).toBeTruthy();
+        expect(viewModel.viewCount()).toEqual(3);
+        expect($(viewModel.view(0).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
+        expect($(viewModel.view(1).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeTruthy();
+        expect($(viewModel.view(2).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
+        expect(viewModel.view(0).bindingContext.obj).toEqual({name: 'two'});
+        expect(viewModel.view(1).bindingContext.obj).toEqual({name: 'one'});
+        expect(viewModel.view(2).bindingContext.obj).toEqual({name: 'three'});
+        expect(viewModel.dndService.isProcessing).toBeTruthy();
         expect(viewModel.items).toEqual([{name: 'one'}, {name: 'two'}, {name: 'three'}]);
       });
       nq(() => {
@@ -248,14 +246,14 @@ describe('reorderable-direction:', () => {
       });
       nq(() => {
         // reorder again.
-        expect(reorderableRepeat.viewCount()).toEqual(3);
-        expect($(reorderableRepeat.view(0).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeTruthy();
-        expect($(reorderableRepeat.view(1).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
-        expect($(reorderableRepeat.view(2).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
-        expect(reorderableRepeat.view(0).bindingContext.obj).toEqual({name: 'one'});
-        expect(reorderableRepeat.view(1).bindingContext.obj).toEqual({name: 'two'});
-        expect(reorderableRepeat.view(2).bindingContext.obj).toEqual({name: 'three'});
-        expect(reorderableRepeat.dndService.isProcessing).toBeTruthy();
+        expect(viewModel.viewCount()).toEqual(3);
+        expect($(viewModel.view(0).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeTruthy();
+        expect($(viewModel.view(1).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
+        expect($(viewModel.view(2).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
+        expect(viewModel.view(0).bindingContext.obj).toEqual({name: 'one'});
+        expect(viewModel.view(1).bindingContext.obj).toEqual({name: 'two'});
+        expect(viewModel.view(2).bindingContext.obj).toEqual({name: 'three'});
+        expect(viewModel.dndService.isProcessing).toBeTruthy();
         expect(viewModel.items).toEqual([{name: 'one'}, {name: 'two'}, {name: 'three'}]);
       });
       nq(() => {
@@ -264,14 +262,14 @@ describe('reorderable-direction:', () => {
       });
       nq(() => {
         // reorder again.
-        expect(reorderableRepeat.viewCount()).toEqual(3);
-        expect($(reorderableRepeat.view(0).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
-        expect($(reorderableRepeat.view(1).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
-        expect($(reorderableRepeat.view(2).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeTruthy();
-        expect(reorderableRepeat.view(0).bindingContext.obj).toEqual({name: 'two'});
-        expect(reorderableRepeat.view(1).bindingContext.obj).toEqual({name: 'three'});
-        expect(reorderableRepeat.view(2).bindingContext.obj).toEqual({name: 'one'});
-        expect(reorderableRepeat.dndService.isProcessing).toBeTruthy();
+        expect(viewModel.viewCount()).toEqual(3);
+        expect($(viewModel.view(0).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
+        expect($(viewModel.view(1).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
+        expect($(viewModel.view(2).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeTruthy();
+        expect(viewModel.view(0).bindingContext.obj).toEqual({name: 'two'});
+        expect(viewModel.view(1).bindingContext.obj).toEqual({name: 'three'});
+        expect(viewModel.view(2).bindingContext.obj).toEqual({name: 'one'});
+        expect(viewModel.dndService.isProcessing).toBeTruthy();
         expect(viewModel.items).toEqual([{name: 'one'}, {name: 'two'}, {name: 'three'}]);
       });
       nq(() => {
@@ -281,14 +279,14 @@ describe('reorderable-direction:', () => {
       nq(() => {
         // reorder viewmodel.
         expect(viewModel.items).toEqual([{name: 'two'}, {name: 'three'}, {name: 'one'}]);
-        expect(reorderableRepeat.viewCount()).toEqual(3);
-        expect($(reorderableRepeat.view(0).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
-        expect($(reorderableRepeat.view(1).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
-        expect($(reorderableRepeat.view(2).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
-        expect(reorderableRepeat.view(0).bindingContext.obj).toEqual({name: 'two'});
-        expect(reorderableRepeat.view(1).bindingContext.obj).toEqual({name: 'three'});
-        expect(reorderableRepeat.view(2).bindingContext.obj).toEqual({name: 'one'});
-        expect(reorderableRepeat.dndService.isProcessing).toBeFalsy();
+        expect(viewModel.viewCount()).toEqual(3);
+        expect($(viewModel.view(0).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
+        expect($(viewModel.view(1).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
+        expect($(viewModel.view(2).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
+        expect(viewModel.view(0).bindingContext.obj).toEqual({name: 'two'});
+        expect(viewModel.view(1).bindingContext.obj).toEqual({name: 'three'});
+        expect(viewModel.view(2).bindingContext.obj).toEqual({name: 'one'});
+        expect(viewModel.dndService.isProcessing).toBeFalsy();
       });
       nq(done);
     });

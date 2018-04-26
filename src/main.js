@@ -5,7 +5,7 @@ export function configure(aurelia) {
     .standardConfiguration()
     .feature('resources');
 
-  aurelia.use.developmentLogging(environment.debug ? 'debug' : 'warn');
+  aurelia.use.developmentLogging(environment.debug ? 'info' : 'warn');
 
   if (environment.testing) {
     aurelia.use.plugin('aurelia-testing');

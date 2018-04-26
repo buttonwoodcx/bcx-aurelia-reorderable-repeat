@@ -1,5 +1,5 @@
 // async queue
-export function createAssertionQueue() {
+export function createAssertionQueue(timeout = 0) {
   let queue = [];
 
   let next;
@@ -9,7 +9,7 @@ export function createAssertionQueue() {
         let func = queue.shift();
         func();
         next();
-      });
+      }, timeout);
     }
   };
 

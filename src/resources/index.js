@@ -2,6 +2,7 @@ import {DOM, PLATFORM} from 'aurelia-pal';
 
 import {ReorderableRepeat} from './reorderable-repeat';
 import {ReorderableDirection} from './reorderable-direction';
+import {ReorderableGroup} from './reorderable-direction';
 import {ReorderableDndPreview} from './reorderable-dnd-preview';
 import {ReorderableDndHandlerSelector} from './reorderable-dnd-handler-selector';
 import {ReorderableAfterReordering} from './reorderable-after-reordering';
@@ -18,6 +19,7 @@ export function configure(config) {
   config.globalResources([
     PLATFORM.moduleName('./reorderable-repeat'),
     PLATFORM.moduleName('./reorderable-direction'),
+    PLATFORM.moduleName('./reorderable-group'),
     PLATFORM.moduleName('./reorderable-dnd-preview'),
     PLATFORM.moduleName('./reorderable-dnd-handler-selector'),
     PLATFORM.moduleName('./reorderable-after-reordering'),
@@ -27,6 +29,7 @@ export function configure(config) {
 export {
   ReorderableRepeat,
   ReorderableDirection,
+  ReorderableGroup,
   ReorderableDndPreview,
   ReorderableDndHandlerSelector,
   ReorderableAfterReordering
