@@ -86,7 +86,7 @@ export class ReorderableGroupFor {
     const inSameGroup = model.repeaterId === this.repeaterId;
     const defaultTargetIndex = inSameGroup ? length - 1 : length;
 
-    if (this.intention && this.intention.toRepeaterId !== this.repeaterId) {
+    if (!this.intention || this.intention.toRepeaterId !== this.repeaterId) {
       this.ea.publish('reorderable-group:intention-changed', {
         type,
         item,
