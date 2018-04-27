@@ -178,7 +178,11 @@ export class ReorderableRepeat extends AbstractRepeater {
         }
 
         const afterReordering = this._reorderableAfterReorderingFunc();
-        if (afterReordering) afterReordering(this.items);
+        if (afterReordering) {
+          // in group mode, wait for all models updated
+          // before hitting callback
+          this.taskQueue.queueMicroTask(() => afterReordering(this.items));
+        }
       }),
       this.ea.subscribe('reorderable-group:intention-changed', intention => {
         if (intention.type !== this.type) return;

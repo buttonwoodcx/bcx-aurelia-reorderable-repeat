@@ -26,11 +26,11 @@ describe('reorderable-group:', () => {
       .withResources(['resources/reorderable-repeat', 'resources/reorderable-group', 'resources/reorderable-group-for'])
       .inView(`
           <div id="numbers" style="width: 50px; display: inline-block; vertical-align: top; padding-top: 50px;"
-               reorderable-group-for="items.bind: numbers; group: g">
+               reorderable-group-for.bind="numbers">
             <div style="height: 50px; width: 50px;" reorderable-repeat.for="o of numbers" reorderable-group="g">$\{o.value}</div>
           </div>
           <div id="letters" style="width: 50px; display: inline-block; vertical-align: top; padding-top: 50px;"
-               reorderable-group-for="items.bind: letters; group: g">
+               reorderable-group-for.bind="letters">
             <div style="height: 50px; width: 50px;" reorderable-repeat.for="o of letters" reorderable-group="g">$\{o.value}</div>
           </div>
         `)
@@ -182,11 +182,11 @@ describe('reorderable-group:', () => {
       .withResources(['resources/reorderable-repeat', 'resources/reorderable-group', 'resources/reorderable-group-for'])
       .inView(`
           <div id="numbers" style="width: 50px; display: inline-block; vertical-align: top; padding-top: 50px;"
-               reorderable-group-for="items.bind: numbers; group: g">
+               reorderable-group-for.bind="numbers">
             <div style="height: 50px; width: 50px;" reorderable-repeat.for="o of numbers" reorderable-group="g">$\{o.value}</div>
           </div>
           <div id="letters" style="width: 50px; display: inline-block; vertical-align: top; padding-top: 50px;"
-               reorderable-group-for="items.bind: letters; group: g">
+               reorderable-group-for.bind="letters">
             <div style="height: 50px; width: 50px;" reorderable-repeat.for="o of letters" reorderable-group="g">$\{o.value}</div>
           </div>
         `)

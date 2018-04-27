@@ -11,7 +11,7 @@ describe('ReorderableGroupMap', () => {
 
   it('ignores non-group-repeater', () => {
     map.add({type: 'id', repeaterId: 'id', items: numbers});
-    expect(map.getRepeaterId('id', numbers)).toBeUndefined();
+    expect(map.get(numbers)).toBeUndefined();
   });
 
   it('set and remove group repeater', () => {
@@ -19,15 +19,15 @@ describe('ReorderableGroupMap', () => {
     let r2 = {type: 'group', repeaterId: 'id2', items: letters};
     map.add(r1);
     map.add(r2);
-    expect(map.getRepeaterId('group', numbers)).toBe('id');
-    expect(map.getRepeaterId('group', letters)).toBe('id2');
+    expect(map.get(numbers)).toEqual({group: 'group', repeaterId: 'id'});
+    expect(map.get(letters)).toEqual({group: 'group', repeaterId: 'id2'});
 
     map.remove(r1);
-    expect(map.getRepeaterId('group', numbers)).toBeUndefined();
-    expect(map.getRepeaterId('group', letters)).toBe('id2');
+    expect(map.get(numbers)).toBeUndefined();
+    expect(map.get(letters)).toEqual({group: 'group', repeaterId: 'id2'});
 
     map.remove(r2);
-    expect(map.getRepeaterId('group', numbers)).toBeUndefined();
-    expect(map.getRepeaterId('group', letters)).toBeUndefined();
+    expect(map.get(numbers)).toBeUndefined();
+    expect(map.get(letters)).toBeUndefined();
   });
 });

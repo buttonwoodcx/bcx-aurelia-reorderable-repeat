@@ -1,21 +1,15 @@
 import {inject} from 'aurelia-dependency-injection';
-import {bindingMode} from 'aurelia-binding';
-import {bindable, customAttribute} from 'aurelia-templating';
+import {customAttribute} from 'aurelia-templating';
 import {DndService} from 'bcx-aurelia-dnd';
 import {EventAggregator} from 'aurelia-event-aggregator';
 // import {TaskQueue} from 'aurelia-task-queue';
-import repeaterDndType from './repeater-dnd-type';
 import {ReorderableGroupMap} from './reorderable-group-map';
 
-//Placeholder attribute to prohibit use of this attribute name in other places
-
-const example = 'reorderable-group-for="items.bind: arrayModel; group: group_name"';
+const example = 'reorderable-group-for.bind="arrayModel"';
 
 @customAttribute('reorderable-group-for')
 @inject(Element, EventAggregator, DndService, ReorderableGroupMap)
 export class ReorderableGroupFor {
-  @bindable group;
-  @bindable({defaultBindingMode: bindingMode.twoWay}) items;
   intention: null;
 
   constructor(element, ea, dndService, groupMap) {
@@ -27,32 +21,35 @@ export class ReorderableGroupFor {
   }
 
   bind() {
-    const {items, group} = this;
-    if (!Array.isArray(items)) {
+    const {value} = this;
+    if (!Array.isArray(value)) {
       throw new Error('reorderable-group-for needs items to be an array. e.g. ' + example);
     }
-
-    if (typeof group !== 'string' || !group) {
-      throw new Error('reorderable-group-for needs a group name. e.g. ' + example);
-    }
-    this.type = repeaterDndType(group);
 
     this._subsribers = [
       this.ea.subscribe('dnd:willStart', () => {
         if (!this.repeaterId) {
-          this.repeaterId = this.groupMap.getRepeaterId(this.type, this.items);
+          const repeaterInfo = this.groupMap.get(value);
+          if (repeaterInfo) {
+            this.group = repeaterInfo.group;
+            this.repeaterId = repeaterInfo.repeaterId;
+          } else {
+            this.group = null;
+            this.repeaterId = null;
+          }
         }
 
         this.resetIntention();
       }),
       this.ea.subscribe('dnd:didEnd', this.resetIntention),
       this.ea.subscribe('reorderable-group:intention-changed', intention => {
-        if (intention.type !== this.type) return;
+        if (intention.type !== this.group) return;
         // sync intention from other repeater
         this.intention = intention;
       })
     ];
   }
+
   unbind() {
     this._subsribers.forEach(s => s.dispose());
     this._subsribers = [];
@@ -72,7 +69,7 @@ export class ReorderableGroupFor {
   }
 
   dndCanDrop(model) {
-    return model.type === this.type;
+    return model.type === this.group;
   }
 
   dndHover() {
@@ -82,7 +79,7 @@ export class ReorderableGroupFor {
     if (!isHoveringShallowly) return;
 
     const {type, index, item, repeaterId} = model;
-    const length = this.items ? this.items.length : 0;
+    const length = this.value ? this.value.length : 0;
     const inSameGroup = model.repeaterId === this.repeaterId;
     const defaultTargetIndex = inSameGroup ? length - 1 : length;
 
