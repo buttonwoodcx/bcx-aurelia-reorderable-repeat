@@ -1,3 +1,7 @@
+import {inject} from 'aurelia-framework';
+import {EventAggregator} from 'aurelia-event-aggregator';
+
+@inject(EventAggregator)
 export class App {
   stringArray = ['A', 'A', 'B', 'C'];
 
@@ -26,5 +30,11 @@ export class App {
 
   insectsOrdered(list) {
     console.log('insects: ' + list);
+  }
+
+  constructor(ea) {
+    ea.subscribe('reorderable-group:intention-changed', intention => {
+      this.intention = intention;
+    });
   }
 }

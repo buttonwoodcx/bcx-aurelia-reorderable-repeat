@@ -4,13 +4,4 @@ import {customAttribute} from 'aurelia-templating';
 
 @customAttribute('reorderable-dnd-preview')
 export class ReorderableDndPreview {
-
-  constructor() {}
-
-  attached() {}
-
-  bind(bindingContext, overrideContext): void {
-    this.scope = { bindingContext, overrideContext };
-  }
-
 }

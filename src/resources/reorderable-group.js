@@ -4,13 +4,4 @@ import {customAttribute} from 'aurelia-templating';
 
 @customAttribute('reorderable-group')
 export class ReorderableGroup {
-
-  constructor() {}
-
-  attached() {}
-
-  bind(bindingContext, overrideContext): void {
-    this.scope = { bindingContext, overrideContext };
-  }
-
 }

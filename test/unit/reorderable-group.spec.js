@@ -25,10 +25,10 @@ describe('reorderable-group:', () => {
       .withResources(['resources/reorderable-repeat', 'resources/reorderable-group'])
       .inView(`
           <div id="numbers" style="width: 50px; display: inline-block; vertical-align: top;">
-            <div style="height: 50px; width: 50px;" reorderable-repeat.for="o of numbers" reorderable-group="g">\${o.value}</div>
+            <div style="height: 50px; width: 50px;" reorderable-repeat.for="o of numbers" reorderable-group="g">$\{o.value}</div>
           </div>
           <div id="letters" style="width: 50px; display: inline-block; vertical-align: top;">
-            <div style="height: 50px; width: 50px;" reorderable-repeat.for="o of letters" reorderable-group="g">\${o.value}</div>
+            <div style="height: 50px; width: 50px;" reorderable-repeat.for="o of letters" reorderable-group="g">$\{o.value}</div>
           </div>
         `)
       .boundTo(model);
@@ -38,7 +38,7 @@ describe('reorderable-group:', () => {
 
       nq(() => {
         const secondNumberDiv = doc.elementFromPoint(25, 75);
-        fireEvent(secondNumberDiv, 'mousedown', {which: 1, clientX: 9, clientY: 75});
+        fireEvent(secondNumberDiv, 'mousedown', {which: 1, clientX: 24, clientY: 75});
         // first small movement, this is where dnd starts
         fireEvent(documentElement, 'mousemove', {which: 1, clientX: 25, clientY: 75});
       });

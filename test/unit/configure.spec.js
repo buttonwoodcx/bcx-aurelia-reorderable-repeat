@@ -19,6 +19,7 @@ describe('the Aurelia configuration', () => {
       './reorderable-repeat',
       './reorderable-direction',
       './reorderable-group',
+      './reorderable-group-for',
       './reorderable-dnd-preview',
       './reorderable-dnd-handler-selector',
       './reorderable-after-reordering'

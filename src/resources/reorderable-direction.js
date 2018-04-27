@@ -4,13 +4,4 @@ import {customAttribute} from 'aurelia-templating';
 
 @customAttribute('reorderable-direction')
 export class ReorderableDirection {
-
-  constructor() {}
-
-  attached() {}
-
-  bind(bindingContext, overrideContext): void {
-    this.scope = { bindingContext, overrideContext };
-  }
-
 }

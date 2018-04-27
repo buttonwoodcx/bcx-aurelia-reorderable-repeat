@@ -24,14 +24,13 @@ describe('reorderable-repeat: primitive array', () => {
       .boundTo({items: []});
 
     component.create(bootstrap).then(() => {
-      const reorderableRepeat = component.viewModel;
       const viewModel = component.viewModel;
 
-      nq(() => expect(reorderableRepeat.viewCount()).toEqual(0));
+      nq(() => expect(viewModel.viewCount()).toEqual(0));
       nq(() => viewModel.items.push('lorem'));
       nq(() => {
-        expect(reorderableRepeat.viewCount()).toEqual(1);
-        expect(reorderableRepeat.view(0).bindingContext.obj).toEqual('lorem');
+        expect(viewModel.viewCount()).toEqual(1);
+        expect(viewModel.view(0).bindingContext.obj).toEqual('lorem');
       });
       nq(done);
     });
@@ -44,15 +43,14 @@ describe('reorderable-repeat: primitive array', () => {
       .boundTo({items: ['one', 'two', 'three']});
 
     component.create(bootstrap).then(() => {
-      const reorderableRepeat = component.viewModel;
       const viewModel = component.viewModel;
 
-      nq(() => expect(reorderableRepeat.viewCount()).toEqual(3));
+      nq(() => expect(viewModel.viewCount()).toEqual(3));
       nq(() => viewModel.items.splice(1,1));
       nq(() => {
-        expect(reorderableRepeat.viewCount()).toEqual(2);
-        expect(reorderableRepeat.view(0).bindingContext.obj).toEqual('one');
-        expect(reorderableRepeat.view(1).bindingContext.obj).toEqual('three');
+        expect(viewModel.viewCount()).toEqual(2);
+        expect(viewModel.view(0).bindingContext.obj).toEqual('one');
+        expect(viewModel.view(1).bindingContext.obj).toEqual('three');
       });
       nq(done);
     });
@@ -65,30 +63,29 @@ describe('reorderable-repeat: primitive array', () => {
       .boundTo({items: ['one', 'two', 'three']});
 
     component.create(bootstrap).then(() => {
-      const reorderableRepeat = component.viewModel;
       const viewModel = component.viewModel;
 
       nq(() => {
-        expect(reorderableRepeat.viewCount()).toEqual(3);
-        expect($(reorderableRepeat.view(0).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
-        expect($(reorderableRepeat.view(1).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
-        expect($(reorderableRepeat.view(2).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
-        expect(reorderableRepeat.dndService.isProcessing).toBeFalsy();
+        expect(viewModel.viewCount()).toEqual(3);
+        expect($(viewModel.view(0).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
+        expect($(viewModel.view(1).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
+        expect($(viewModel.view(2).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
+        expect(viewModel.dndService.isProcessing).toBeFalsy();
       });
       nq(() => {
-        fireEvent(reorderableRepeat.view(0).firstChild, 'mousedown', {which: 1, clientX: 20, clientY: 20});
+        fireEvent(viewModel.view(0).firstChild, 'mousedown', {which: 1, clientX: 20, clientY: 20});
         // first small movement, this is where dnd starts
         fireEvent(documentElement, 'mousemove', {which: 1, clientX: 20, clientY: 21});
       });
       nq(() => {
-        expect(reorderableRepeat.viewCount()).toEqual(3);
-        expect($(reorderableRepeat.view(0).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeTruthy();
-        expect($(reorderableRepeat.view(1).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
-        expect($(reorderableRepeat.view(2).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
-        expect(reorderableRepeat.view(0).bindingContext.obj).toBe('one');
-        expect(reorderableRepeat.view(1).bindingContext.obj).toBe('two');
-        expect(reorderableRepeat.view(2).bindingContext.obj).toBe('three');
-        expect(reorderableRepeat.dndService.isProcessing).toBeTruthy();
+        expect(viewModel.viewCount()).toEqual(3);
+        expect($(viewModel.view(0).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeTruthy();
+        expect($(viewModel.view(1).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
+        expect($(viewModel.view(2).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
+        expect(viewModel.view(0).bindingContext.obj).toBe('one');
+        expect(viewModel.view(1).bindingContext.obj).toBe('two');
+        expect(viewModel.view(2).bindingContext.obj).toBe('three');
+        expect(viewModel.dndService.isProcessing).toBeTruthy();
         expect(viewModel.items).toEqual(['one', 'two', 'three']);
       });
       nq(() => {
@@ -97,14 +94,14 @@ describe('reorderable-repeat: primitive array', () => {
       });
       nq(() => {
         // no change yet.
-        expect(reorderableRepeat.viewCount()).toEqual(3);
-        expect($(reorderableRepeat.view(0).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeTruthy();
-        expect($(reorderableRepeat.view(1).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
-        expect($(reorderableRepeat.view(2).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
-        expect(reorderableRepeat.view(0).bindingContext.obj).toBe('one');
-        expect(reorderableRepeat.view(1).bindingContext.obj).toBe('two');
-        expect(reorderableRepeat.view(2).bindingContext.obj).toBe('three');
-        expect(reorderableRepeat.dndService.isProcessing).toBeTruthy();
+        expect(viewModel.viewCount()).toEqual(3);
+        expect($(viewModel.view(0).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeTruthy();
+        expect($(viewModel.view(1).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
+        expect($(viewModel.view(2).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
+        expect(viewModel.view(0).bindingContext.obj).toBe('one');
+        expect(viewModel.view(1).bindingContext.obj).toBe('two');
+        expect(viewModel.view(2).bindingContext.obj).toBe('three');
+        expect(viewModel.dndService.isProcessing).toBeTruthy();
         expect(viewModel.items).toEqual(['one', 'two', 'three']);
       });
       nq(() => {
@@ -113,14 +110,14 @@ describe('reorderable-repeat: primitive array', () => {
       });
       nq(() => {
         // swapped.
-        expect(reorderableRepeat.viewCount()).toEqual(3);
-        expect($(reorderableRepeat.view(0).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
-        expect($(reorderableRepeat.view(1).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeTruthy();
-        expect($(reorderableRepeat.view(2).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
-        expect(reorderableRepeat.view(0).bindingContext.obj).toBe('two');
-        expect(reorderableRepeat.view(1).bindingContext.obj).toBe('one');
-        expect(reorderableRepeat.view(2).bindingContext.obj).toBe('three');
-        expect(reorderableRepeat.dndService.isProcessing).toBeTruthy();
+        expect(viewModel.viewCount()).toEqual(3);
+        expect($(viewModel.view(0).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
+        expect($(viewModel.view(1).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeTruthy();
+        expect($(viewModel.view(2).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
+        expect(viewModel.view(0).bindingContext.obj).toBe('two');
+        expect(viewModel.view(1).bindingContext.obj).toBe('one');
+        expect(viewModel.view(2).bindingContext.obj).toBe('three');
+        expect(viewModel.dndService.isProcessing).toBeTruthy();
         expect(viewModel.items).toEqual(['one', 'two', 'three']);
       });
       nq(() => {
@@ -129,14 +126,14 @@ describe('reorderable-repeat: primitive array', () => {
       });
       nq(() => {
         // no change yet.
-        expect(reorderableRepeat.viewCount()).toEqual(3);
-        expect($(reorderableRepeat.view(0).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
-        expect($(reorderableRepeat.view(1).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeTruthy();
-        expect($(reorderableRepeat.view(2).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
-        expect(reorderableRepeat.view(0).bindingContext.obj).toBe('two');
-        expect(reorderableRepeat.view(1).bindingContext.obj).toBe('one');
-        expect(reorderableRepeat.view(2).bindingContext.obj).toBe('three');
-        expect(reorderableRepeat.dndService.isProcessing).toBeTruthy();
+        expect(viewModel.viewCount()).toEqual(3);
+        expect($(viewModel.view(0).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
+        expect($(viewModel.view(1).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeTruthy();
+        expect($(viewModel.view(2).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
+        expect(viewModel.view(0).bindingContext.obj).toBe('two');
+        expect(viewModel.view(1).bindingContext.obj).toBe('one');
+        expect(viewModel.view(2).bindingContext.obj).toBe('three');
+        expect(viewModel.dndService.isProcessing).toBeTruthy();
         expect(viewModel.items).toEqual(['one', 'two', 'three']);
       });
       nq(() => {
@@ -145,14 +142,14 @@ describe('reorderable-repeat: primitive array', () => {
       });
       nq(() => {
         // reorder again.
-        expect(reorderableRepeat.viewCount()).toEqual(3);
-        expect($(reorderableRepeat.view(0).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeTruthy();
-        expect($(reorderableRepeat.view(1).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
-        expect($(reorderableRepeat.view(2).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
-        expect(reorderableRepeat.view(0).bindingContext.obj).toBe('one');
-        expect(reorderableRepeat.view(1).bindingContext.obj).toBe('two');
-        expect(reorderableRepeat.view(2).bindingContext.obj).toBe('three');
-        expect(reorderableRepeat.dndService.isProcessing).toBeTruthy();
+        expect(viewModel.viewCount()).toEqual(3);
+        expect($(viewModel.view(0).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeTruthy();
+        expect($(viewModel.view(1).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
+        expect($(viewModel.view(2).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
+        expect(viewModel.view(0).bindingContext.obj).toBe('one');
+        expect(viewModel.view(1).bindingContext.obj).toBe('two');
+        expect(viewModel.view(2).bindingContext.obj).toBe('three');
+        expect(viewModel.dndService.isProcessing).toBeTruthy();
         expect(viewModel.items).toEqual(['one', 'two', 'three']);
       });
       nq(() => {
@@ -161,14 +158,14 @@ describe('reorderable-repeat: primitive array', () => {
       });
       nq(() => {
         // reorder again.
-        expect(reorderableRepeat.viewCount()).toEqual(3);
-        expect($(reorderableRepeat.view(0).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
-        expect($(reorderableRepeat.view(1).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
-        expect($(reorderableRepeat.view(2).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeTruthy();
-        expect(reorderableRepeat.view(0).bindingContext.obj).toBe('two');
-        expect(reorderableRepeat.view(1).bindingContext.obj).toBe('three');
-        expect(reorderableRepeat.view(2).bindingContext.obj).toBe('one');
-        expect(reorderableRepeat.dndService.isProcessing).toBeTruthy();
+        expect(viewModel.viewCount()).toEqual(3);
+        expect($(viewModel.view(0).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
+        expect($(viewModel.view(1).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
+        expect($(viewModel.view(2).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeTruthy();
+        expect(viewModel.view(0).bindingContext.obj).toBe('two');
+        expect(viewModel.view(1).bindingContext.obj).toBe('three');
+        expect(viewModel.view(2).bindingContext.obj).toBe('one');
+        expect(viewModel.dndService.isProcessing).toBeTruthy();
         expect(viewModel.items).toEqual(['one', 'two', 'three']);
       });
       nq(() => {
@@ -178,14 +175,14 @@ describe('reorderable-repeat: primitive array', () => {
       nq(() => {
         // reorder viewmodel.
         expect(viewModel.items).toEqual(['two', 'three', 'one']);
-        expect(reorderableRepeat.viewCount()).toEqual(3);
-        expect($(reorderableRepeat.view(0).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
-        expect($(reorderableRepeat.view(1).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
-        expect($(reorderableRepeat.view(2).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
-        expect(reorderableRepeat.view(0).bindingContext.obj).toBe('two');
-        expect(reorderableRepeat.view(1).bindingContext.obj).toBe('three');
-        expect(reorderableRepeat.view(2).bindingContext.obj).toBe('one');
-        expect(reorderableRepeat.dndService.isProcessing).toBeFalsy();
+        expect(viewModel.viewCount()).toEqual(3);
+        expect($(viewModel.view(0).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
+        expect($(viewModel.view(1).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
+        expect($(viewModel.view(2).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
+        expect(viewModel.view(0).bindingContext.obj).toBe('two');
+        expect(viewModel.view(1).bindingContext.obj).toBe('three');
+        expect(viewModel.view(2).bindingContext.obj).toBe('one');
+        expect(viewModel.dndService.isProcessing).toBeFalsy();
       });
       nq(done);
     });
@@ -198,30 +195,29 @@ describe('reorderable-repeat: primitive array', () => {
       .boundTo({items: ['one', 'one', 'three']});
 
     component.create(bootstrap).then(() => {
-      const reorderableRepeat = component.viewModel;
       const viewModel = component.viewModel;
 
       nq(() => {
-        expect(reorderableRepeat.viewCount()).toEqual(3);
-        expect($(reorderableRepeat.view(0).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
-        expect($(reorderableRepeat.view(1).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
-        expect($(reorderableRepeat.view(2).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
-        expect(reorderableRepeat.dndService.isProcessing).toBeFalsy();
+        expect(viewModel.viewCount()).toEqual(3);
+        expect($(viewModel.view(0).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
+        expect($(viewModel.view(1).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
+        expect($(viewModel.view(2).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
+        expect(viewModel.dndService.isProcessing).toBeFalsy();
       });
       nq(() => {
-        fireEvent(reorderableRepeat.view(0).firstChild, 'mousedown', {which: 1, clientX: 20, clientY: 20});
+        fireEvent(viewModel.view(0).firstChild, 'mousedown', {which: 1, clientX: 20, clientY: 20});
         // first small movement, this is where dnd starts
         fireEvent(documentElement, 'mousemove', {which: 1, clientX: 20, clientY: 21});
       });
       nq(() => {
-        expect(reorderableRepeat.viewCount()).toEqual(3);
-        expect($(reorderableRepeat.view(0).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeTruthy();
-        expect($(reorderableRepeat.view(1).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
-        expect($(reorderableRepeat.view(2).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
-        expect(reorderableRepeat.view(0).bindingContext.obj).toBe('one');
-        expect(reorderableRepeat.view(1).bindingContext.obj).toBe('one');
-        expect(reorderableRepeat.view(2).bindingContext.obj).toBe('three');
-        expect(reorderableRepeat.dndService.isProcessing).toBeTruthy();
+        expect(viewModel.viewCount()).toEqual(3);
+        expect($(viewModel.view(0).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeTruthy();
+        expect($(viewModel.view(1).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
+        expect($(viewModel.view(2).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
+        expect(viewModel.view(0).bindingContext.obj).toBe('one');
+        expect(viewModel.view(1).bindingContext.obj).toBe('one');
+        expect(viewModel.view(2).bindingContext.obj).toBe('three');
+        expect(viewModel.dndService.isProcessing).toBeTruthy();
         expect(viewModel.items).toEqual(['one', 'one', 'three']);
       });
       nq(() => {
@@ -230,14 +226,14 @@ describe('reorderable-repeat: primitive array', () => {
       });
       nq(() => {
         // no change yet.
-        expect(reorderableRepeat.viewCount()).toEqual(3);
-        expect($(reorderableRepeat.view(0).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeTruthy();
-        expect($(reorderableRepeat.view(1).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
-        expect($(reorderableRepeat.view(2).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
-        expect(reorderableRepeat.view(0).bindingContext.obj).toBe('one');
-        expect(reorderableRepeat.view(1).bindingContext.obj).toBe('one');
-        expect(reorderableRepeat.view(2).bindingContext.obj).toBe('three');
-        expect(reorderableRepeat.dndService.isProcessing).toBeTruthy();
+        expect(viewModel.viewCount()).toEqual(3);
+        expect($(viewModel.view(0).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeTruthy();
+        expect($(viewModel.view(1).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
+        expect($(viewModel.view(2).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
+        expect(viewModel.view(0).bindingContext.obj).toBe('one');
+        expect(viewModel.view(1).bindingContext.obj).toBe('one');
+        expect(viewModel.view(2).bindingContext.obj).toBe('three');
+        expect(viewModel.dndService.isProcessing).toBeTruthy();
         expect(viewModel.items).toEqual(['one', 'one', 'three']);
       });
       nq(() => {
@@ -246,14 +242,14 @@ describe('reorderable-repeat: primitive array', () => {
       });
       nq(() => {
         // swapped 1st 'one' with 2nd 'one'.
-        expect(reorderableRepeat.viewCount()).toEqual(3);
-        expect($(reorderableRepeat.view(0).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
-        expect($(reorderableRepeat.view(1).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeTruthy();
-        expect($(reorderableRepeat.view(2).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
-        expect(reorderableRepeat.view(0).bindingContext.obj).toBe('one');
-        expect(reorderableRepeat.view(1).bindingContext.obj).toBe('one');
-        expect(reorderableRepeat.view(2).bindingContext.obj).toBe('three');
-        expect(reorderableRepeat.dndService.isProcessing).toBeTruthy();
+        expect(viewModel.viewCount()).toEqual(3);
+        expect($(viewModel.view(0).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
+        expect($(viewModel.view(1).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeTruthy();
+        expect($(viewModel.view(2).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
+        expect(viewModel.view(0).bindingContext.obj).toBe('one');
+        expect(viewModel.view(1).bindingContext.obj).toBe('one');
+        expect(viewModel.view(2).bindingContext.obj).toBe('three');
+        expect(viewModel.dndService.isProcessing).toBeTruthy();
         expect(viewModel.items).toEqual(['one', 'one', 'three']);
       });
       nq(() => {
@@ -262,14 +258,14 @@ describe('reorderable-repeat: primitive array', () => {
       });
       nq(() => {
         // no change yet.
-        expect(reorderableRepeat.viewCount()).toEqual(3);
-        expect($(reorderableRepeat.view(0).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
-        expect($(reorderableRepeat.view(1).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeTruthy();
-        expect($(reorderableRepeat.view(2).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
-        expect(reorderableRepeat.view(0).bindingContext.obj).toBe('one');
-        expect(reorderableRepeat.view(1).bindingContext.obj).toBe('one');
-        expect(reorderableRepeat.view(2).bindingContext.obj).toBe('three');
-        expect(reorderableRepeat.dndService.isProcessing).toBeTruthy();
+        expect(viewModel.viewCount()).toEqual(3);
+        expect($(viewModel.view(0).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
+        expect($(viewModel.view(1).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeTruthy();
+        expect($(viewModel.view(2).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
+        expect(viewModel.view(0).bindingContext.obj).toBe('one');
+        expect(viewModel.view(1).bindingContext.obj).toBe('one');
+        expect(viewModel.view(2).bindingContext.obj).toBe('three');
+        expect(viewModel.dndService.isProcessing).toBeTruthy();
         expect(viewModel.items).toEqual(['one', 'one', 'three']);
       });
       nq(() => {
@@ -278,14 +274,14 @@ describe('reorderable-repeat: primitive array', () => {
       });
       nq(() => {
         // reorder again.
-        expect(reorderableRepeat.viewCount()).toEqual(3);
-        expect($(reorderableRepeat.view(0).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeTruthy();
-        expect($(reorderableRepeat.view(1).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
-        expect($(reorderableRepeat.view(2).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
-        expect(reorderableRepeat.view(0).bindingContext.obj).toBe('one');
-        expect(reorderableRepeat.view(1).bindingContext.obj).toBe('one');
-        expect(reorderableRepeat.view(2).bindingContext.obj).toBe('three');
-        expect(reorderableRepeat.dndService.isProcessing).toBeTruthy();
+        expect(viewModel.viewCount()).toEqual(3);
+        expect($(viewModel.view(0).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeTruthy();
+        expect($(viewModel.view(1).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
+        expect($(viewModel.view(2).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
+        expect(viewModel.view(0).bindingContext.obj).toBe('one');
+        expect(viewModel.view(1).bindingContext.obj).toBe('one');
+        expect(viewModel.view(2).bindingContext.obj).toBe('three');
+        expect(viewModel.dndService.isProcessing).toBeTruthy();
         expect(viewModel.items).toEqual(['one', 'one', 'three']);
       });
       nq(() => {
@@ -294,14 +290,14 @@ describe('reorderable-repeat: primitive array', () => {
       });
       nq(() => {
         // reorder again.
-        expect(reorderableRepeat.viewCount()).toEqual(3);
-        expect($(reorderableRepeat.view(0).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
-        expect($(reorderableRepeat.view(1).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
-        expect($(reorderableRepeat.view(2).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeTruthy();
-        expect(reorderableRepeat.view(0).bindingContext.obj).toBe('one');
-        expect(reorderableRepeat.view(1).bindingContext.obj).toBe('three');
-        expect(reorderableRepeat.view(2).bindingContext.obj).toBe('one');
-        expect(reorderableRepeat.dndService.isProcessing).toBeTruthy();
+        expect(viewModel.viewCount()).toEqual(3);
+        expect($(viewModel.view(0).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
+        expect($(viewModel.view(1).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
+        expect($(viewModel.view(2).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeTruthy();
+        expect(viewModel.view(0).bindingContext.obj).toBe('one');
+        expect(viewModel.view(1).bindingContext.obj).toBe('three');
+        expect(viewModel.view(2).bindingContext.obj).toBe('one');
+        expect(viewModel.dndService.isProcessing).toBeTruthy();
         expect(viewModel.items).toEqual(['one', 'one', 'three']);
       });
       nq(() => {
@@ -311,14 +307,14 @@ describe('reorderable-repeat: primitive array', () => {
       nq(() => {
         // reorder viewmodel.
         expect(viewModel.items).toEqual(['one', 'three', 'one']);
-        expect(reorderableRepeat.viewCount()).toEqual(3);
-        expect($(reorderableRepeat.view(0).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
-        expect($(reorderableRepeat.view(1).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
-        expect($(reorderableRepeat.view(2).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
-        expect(reorderableRepeat.view(0).bindingContext.obj).toBe('one');
-        expect(reorderableRepeat.view(1).bindingContext.obj).toBe('three');
-        expect(reorderableRepeat.view(2).bindingContext.obj).toBe('one');
-        expect(reorderableRepeat.dndService.isProcessing).toBeFalsy();
+        expect(viewModel.viewCount()).toEqual(3);
+        expect($(viewModel.view(0).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
+        expect($(viewModel.view(1).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
+        expect($(viewModel.view(2).firstChild).hasClass('reorderable-repeat-dragging-me')).toBeFalsy();
+        expect(viewModel.view(0).bindingContext.obj).toBe('one');
+        expect(viewModel.view(1).bindingContext.obj).toBe('three');
+        expect(viewModel.view(2).bindingContext.obj).toBe('one');
+        expect(viewModel.dndService.isProcessing).toBeFalsy();
       });
       nq(done);
     });

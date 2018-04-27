@@ -29,24 +29,52 @@
 
     <h2>Group of repeator, support across lists reordering</h2>
 
-    <div style="display: flex;">
-      <div style="margin: 1rem;">
+    <div class="groups">
+      <div class="group" reorderable-group-for="items.bind: fruits; group: lifes">
+        <h4>Fruits</h4>
         <div class="box"
              reorderable-repeat.for="s of fruits"
              reorderable-after-reordering="fruitsOrdered"
              reorderable-group="lifes">${s}</div>
       </div>
-      <div style="margin: 1rem;">
+      <div class="group" reorderable-group-for="items.bind: animals; group: lifes">
+        <h4>Animals</h4>
         <div class="box"
              reorderable-repeat.for="s of animals"
              reorderable-after-reordering="animalsOrdered"
              reorderable-group="lifes">${s}</div>
       </div>
-      <div style="margin: 1rem;">
+      <div class="group" reorderable-group-for="items.bind: insects; group: lifes">
+        <h4>Insects</h4>
         <div class="box"
              reorderable-repeat.for="s of insects"
              reorderable-after-reordering="insectsOrdered"
              reorderable-group="lifes">${s}</div>
+      </div>
+      <div>
+        <h4>Debug</h4>
+        <table>
+          <tr>
+            <td>Type</td>
+            <td>${intention.type}</td>
+          </tr>
+          <tr>
+            <td>fromIndex</td>
+            <td>${intention.fromIndex}</td>
+          </tr>
+          <tr>
+            <td>fromRepeatorId</td>
+            <td> ${intention.fromRepeatorId}</td>
+          </tr>
+          <tr>
+            <td>toIndex</td>
+            <td>${intention.toIndex}</td>
+          </tr>
+          <tr>
+            <td>toRepeatorId</td>
+            <td>${intention.toRepeatorId}</td>
+          </tr>
+        </table>
       </div>
     </div>
   </div>

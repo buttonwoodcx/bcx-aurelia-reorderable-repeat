@@ -4,13 +4,4 @@ import {customAttribute} from 'aurelia-templating';
 
 @customAttribute('reorderable-dnd-handler-selector')
 export class ReorderableDndHandlerSelector {
-
-  constructor() {}
-
-  attached() {}
-
-  bind(bindingContext, overrideContext): void {
-    this.scope = { bindingContext, overrideContext };
-  }
-
 }
