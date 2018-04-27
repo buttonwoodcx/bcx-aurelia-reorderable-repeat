@@ -4,7 +4,7 @@ import {bindable, customAttribute} from 'aurelia-templating';
 import {DndService} from 'bcx-aurelia-dnd';
 import {EventAggregator} from 'aurelia-event-aggregator';
 // import {TaskQueue} from 'aurelia-task-queue';
-import repeatorDndType from './repeator-dnd-type';
+import repeaterDndType from './repeater-dnd-type';
 import {ReorderableGroupMap} from './reorderable-group-map';
 
 //Placeholder attribute to prohibit use of this attribute name in other places
@@ -35,12 +35,12 @@ export class ReorderableGroupFor {
     if (typeof group !== 'string' || !group) {
       throw new Error('reorderable-group-for needs a group name. e.g. ' + example);
     }
-    this.type = repeatorDndType(group);
+    this.type = repeaterDndType(group);
 
     this._subsribers = [
       this.ea.subscribe('dnd:willStart', () => {
-        if (!this.repeatorId) {
-          this.repeatorId = this.groupMap.getRepeatorId(this.type, this.items);
+        if (!this.repeaterId) {
+          this.repeaterId = this.groupMap.getRepeaterId(this.type, this.items);
         }
 
         this.resetIntention();
@@ -48,7 +48,7 @@ export class ReorderableGroupFor {
       this.ea.subscribe('dnd:didEnd', this.resetIntention),
       this.ea.subscribe('reorderable-group:intention-changed', intention => {
         if (intention.type !== this.type) return;
-        // sync intention from other repeator
+        // sync intention from other repeater
         this.intention = intention;
       })
     ];
@@ -76,24 +76,24 @@ export class ReorderableGroupFor {
   }
 
   dndHover() {
-    if (!this.repeatorId) return;
+    if (!this.repeaterId) return;
 
     const {isHoveringShallowly, model} = this.dnd;
     if (!isHoveringShallowly) return;
 
-    const {type, index, item, repeatorId} = model;
+    const {type, index, item, repeaterId} = model;
     const length = this.items ? this.items.length : 0;
-    const inSameGroup = model.repeatorId === this.repeatorId;
+    const inSameGroup = model.repeaterId === this.repeaterId;
     const defaultTargetIndex = inSameGroup ? length - 1 : length;
 
-    if (this.intention && this.intention.toRepeatorId !== this.repeatorId) {
+    if (this.intention && this.intention.toRepeaterId !== this.repeaterId) {
       this.ea.publish('reorderable-group:intention-changed', {
         type,
         item,
         fromIndex: index,
-        fromRepeatorId: repeatorId,
+        fromRepeaterId: repeaterId,
         toIndex: defaultTargetIndex, // move to last position
-        toRepeatorId: this.repeatorId
+        toRepeaterId: this.repeaterId
       });
     }
   }

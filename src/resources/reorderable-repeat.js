@@ -28,7 +28,7 @@ import {ReorderableRepeatStrategyLocator} from './reorderable-repeat-strategy-lo
 import {DndService} from 'bcx-aurelia-dnd';
 import {EventAggregator} from 'aurelia-event-aggregator';
 import {TaskQueue} from 'aurelia-task-queue';
-import repeatorDndType from './repeator-dnd-type';
+import repeaterDndType from './repeater-dnd-type';
 import {ReorderableGroupMap} from './reorderable-group-map';
 
 let seed = 0;
@@ -101,7 +101,7 @@ export class ReorderableRepeat extends AbstractRepeater {
       viewsRequireLifecycle: viewsRequireLifecycle(viewFactory)
     });
 
-    this.repeatorId = repeatorDndType(seed);
+    this.repeaterId = repeaterDndType(seed);
     seed += 1;
 
     this.ea = ea;
@@ -129,7 +129,7 @@ export class ReorderableRepeat extends AbstractRepeater {
     }
     this.viewsRequireLifecycle = viewsRequireLifecycle(viewFactory);
     const group = this._reorderableGroup();
-    this.type = group ? repeatorDndType(group) : this.repeatorId;
+    this.type = group ? repeaterDndType(group) : this.repeaterId;
   }
 
   call(context, changes) {
@@ -160,20 +160,20 @@ export class ReorderableRepeat extends AbstractRepeater {
         });
 
         if (!this.intention) return;
-        const {item, fromIndex, fromRepeatorId, toIndex, toRepeatorId} = this.intention;
+        const {item, fromIndex, fromRepeaterId, toIndex, toRepeaterId} = this.intention;
         this.intention = null;
 
-        const repeatorId = this.repeatorId;
-        if (repeatorId !== fromRepeatorId && repeatorId !== toRepeatorId) return;
+        const repeaterId = this.repeaterId;
+        if (repeaterId !== fromRepeaterId && repeaterId !== toRepeaterId) return;
 
         // no change
-        if (fromRepeatorId === toRepeatorId && fromIndex === toIndex) return;
+        if (fromRepeaterId === toRepeaterId && fromIndex === toIndex) return;
 
-        if (repeatorId === fromRepeatorId) {
+        if (repeaterId === fromRepeaterId) {
           this.items.splice(fromIndex, 1);
         }
 
-        if (repeatorId === toRepeatorId) {
+        if (repeaterId === toRepeaterId) {
           this.items.splice(toIndex, 0, item);
         }
 
@@ -187,11 +187,11 @@ export class ReorderableRepeat extends AbstractRepeater {
         if (this.intention &&
             intention.type === this.intention.type &&
             intention.fromIndex === this.intention.fromIndex &&
-            intention.fromRepeatorId === this.intention.fromRepeatorId &&
+            intention.fromRepeaterId === this.intention.fromRepeaterId &&
             intention.toIndex === this.intention.toIndex &&
-            intention.toRepeatorId === this.intention.toRepeatorId) return;
+            intention.toRepeaterId === this.intention.toRepeaterId) return;
 
-        // sync intention from other repeator
+        // sync intention from other repeater
         this.intention = intention;
       })
     ];
@@ -221,17 +221,17 @@ export class ReorderableRepeat extends AbstractRepeater {
 
   intentionChanged(newIntention) {
     if (newIntention) {
-      const repeatorId = this.repeatorId;
+      const repeaterId = this.repeaterId;
 
-      const {item, fromIndex, fromRepeatorId, toIndex, toRepeatorId} = newIntention;
+      const {item, fromIndex, fromRepeaterId, toIndex, toRepeaterId} = newIntention;
 
       let patched = [...this.items];
 
-      if (repeatorId === fromRepeatorId) {
+      if (repeaterId === fromRepeaterId) {
         patched.splice(fromIndex, 1);
       }
 
-      if (repeatorId === toRepeatorId) {
+      if (repeaterId === toRepeaterId) {
         patched.splice(toIndex, 0, item);
       }
 
@@ -448,7 +448,7 @@ export class ReorderableRepeat extends AbstractRepeater {
   _dndHover(location, index, direction) {
     // bypass hovering on itself
     if (this.intention &&
-        this.intention.toRepeatorId === this.repeatorId &&
+        this.intention.toRepeaterId === this.repeaterId &&
         this.intention.toIndex === index) {
       return;
     }
@@ -475,7 +475,7 @@ export class ReorderableRepeat extends AbstractRepeater {
     // check half size to avoid endless bouncing of swapping two items.
     if (inLeastHalf ||
         // or starting on itself
-        (!this.intention && model.repeatorId === this.repeatorId && index === model.index)) {
+        (!this.intention && model.repeaterId === this.repeaterId && index === model.index)) {
       // hover over top half, user wants to move smth before this item.
       this._updateIntention(index, true);
     } else {
@@ -496,13 +496,13 @@ export class ReorderableRepeat extends AbstractRepeater {
     }
 
     const type = this.type;
-    const repeatorId = this.repeatorId;
+    const repeaterId = this.repeaterId;
 
     const direction = this._reorderableDirection(view);
     const _previewFunc = this._dndPreviewFunc(view);
 
     this.dndService.addSource({
-      dndModel: () => ({type: type, index, item, repeatorId: repeatorId}),
+      dndModel: () => ({type: type, index, item, repeaterId: repeaterId}),
       dndPreview: _previewFunc && (() => _previewFunc(item, view)),
       dndElement: el
     }, handler && {handler});
@@ -513,7 +513,7 @@ export class ReorderableRepeat extends AbstractRepeater {
         if (model.type !== type) return false;
 
         const {intention} = this;
-        const inSameGroup = model.repeatorId === repeatorId;
+        const inSameGroup = model.repeaterId === repeaterId;
 
         this.taskQueue.queueMicroTask(() => {
           classes.add(el, 'reorderable-repeat-reordering');
@@ -522,7 +522,7 @@ export class ReorderableRepeat extends AbstractRepeater {
         let draggingMe;
 
         if (intention) {
-          draggingMe = intention.toRepeatorId === repeatorId &&
+          draggingMe = intention.toRepeaterId === repeaterId &&
                        intention.toIndex === index;
         } else if (inSameGroup) {
           draggingMe = model.index === index;
@@ -556,9 +556,9 @@ export class ReorderableRepeat extends AbstractRepeater {
     if (!isProcessing) return;
     if (model.type !== this.type) return;
 
-    const repeatorId = this.repeatorId;
-    const isUsingGroup = model.type !== model.repeatorId;
-    const inSameGroup = model.repeatorId === repeatorId;
+    const repeaterId = this.repeaterId;
+    const isUsingGroup = model.type !== model.repeaterId;
+    const inSameGroup = model.repeaterId === repeaterId;
 
     if (targetIndex < 0) return;
 
@@ -576,7 +576,7 @@ export class ReorderableRepeat extends AbstractRepeater {
         currentIndex = originalIndex;
       }
     } else {
-      if (this.intention && this.intention.toRepeatorId === repeatorId) {
+      if (this.intention && this.intention.toRepeaterId === repeaterId) {
         originalIndex = this.intention.fromIndex;
         currentIndex = this.intention.toIndex;
       } else {
@@ -593,7 +593,7 @@ export class ReorderableRepeat extends AbstractRepeater {
       } else {
         nextIndex = targetIndex;
       }
-    } else /* if (currentIndex > targetIndex) or across repeators */ {
+    } else /* if (currentIndex > targetIndex) or across repeaters */ {
       // grabbed item is currently below target
       if (beforeTarget) {
         nextIndex = targetIndex;
@@ -604,21 +604,21 @@ export class ReorderableRepeat extends AbstractRepeater {
 
     if (!this.intention ||
         this.intention.fromIndex !== originalIndex ||
-        this.intention.fromRepeatorId !== model.repeatorId ||
+        this.intention.fromRepeaterId !== model.repeaterId ||
         this.intention.toIndex !== nextIndex ||
-        this.intention.toRepeatorId !== repeatorId) {
+        this.intention.toRepeaterId !== repeaterId) {
 
       this.intention = {
         type: model.type,
         item: model.item,
         fromIndex: originalIndex,
-        fromRepeatorId: model.repeatorId,
+        fromRepeaterId: model.repeaterId,
         toIndex: nextIndex,
-        toRepeatorId: repeatorId
+        toRepeaterId: repeaterId
       };
 
       if (isUsingGroup) {
-        // let other repeators know
+        // let other repeaters know
         this.ea.publish('reorderable-group:intention-changed', this.intention);
       }
     }

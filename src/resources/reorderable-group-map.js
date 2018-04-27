@@ -2,29 +2,29 @@
 export class ReorderableGroupMap {
   groups = {};
 
-  add(repeator) {
+  add(repeater) {
     const {groups} = this;
-    const {type, repeatorId, items} = repeator;
-    if (type === repeatorId) return;
+    const {type, repeaterId, items} = repeater;
+    if (type === repeaterId) return;
 
     if (!groups[type]) {
       groups[type] = new WeakMap();
     }
 
-    groups[type].set(items, repeatorId);
+    groups[type].set(items, repeaterId);
   }
 
-  remove(repeator) {
+  remove(repeater) {
     const {groups} = this;
-    const {type, repeatorId, items} = repeator;
-    if (type === repeatorId) return;
+    const {type, repeaterId, items} = repeater;
+    if (type === repeaterId) return;
 
     if (groups[type]) {
       groups[type].delete(items);
     }
   }
 
-  getRepeatorId(group, items) {
+  getRepeaterId(group, items) {
     const {groups} = this;
     return groups[group] && groups[group].get(items);
   }

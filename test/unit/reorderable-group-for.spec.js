@@ -172,7 +172,7 @@ describe('reorderable-group:', () => {
     });
   });
 
-  it('inits intention if intention was not set or did not set toRepeator to this repeator', done => {
+  it('inits intention if intention was not set or did not set toRepeater to this repeater', done => {
     let model = {
       numbers: [{value: 1}, {value: 2}, {value: 3}],
       letters: [{value: 'a'}, {value: 'b'}]
