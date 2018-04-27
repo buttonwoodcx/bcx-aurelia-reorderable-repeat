@@ -1,3 +1,14 @@
+<a name="0.5.0"></a>
+# [0.5.0](https://github.com/buttonwoodcx/bcx-aurelia-reorderable-repeat/compare/v0.4.1...v0.5.0) (2018-04-27)
+
+
+### Features
+
+* reorderable-group to support multiple lists reordering. ([2ca12f7](https://github.com/buttonwoodcx/bcx-aurelia-reorderable-repeat/commit/2ca12f7))
+* reorderable-group-for to support placeholder for an empty repeator in group. ([dd1af6a](https://github.com/buttonwoodcx/bcx-aurelia-reorderable-repeat/commit/dd1af6a))
+
+
+
 <a name="0.4.1"></a>
 ## [0.4.1](https://github.com/buttonwoodcx/bcx-aurelia-reorderable-repeat/compare/v0.4.0...v0.4.1) (2018-04-26)
 
