@@ -2,7 +2,7 @@
 
 An Aurelia repeater supports drag & drop reordering automatically.
 
-> v0.4.0 has breaking change for aurelia-cli requirejs/systemjs user. After upgrade to v0.4.0, please run `au import bcx-aurelia-reorderable-repeat` to update `aureila.json` dependencies config. The main file in package.json is now `dist/index.js`, not `dist/amd/index.js`.
+> v0.4.0 has breaking change for aurelia-cli requirejs/systemjs user. For v0.3.x users, after upgrade to latest version, please run `au import bcx-aurelia-reorderable-repeat` to update `aureila.json` dependencies config. The main file in package.json is now `dist/index.js`, not `dist/amd/index.js`.
 
 ## Usage
 
