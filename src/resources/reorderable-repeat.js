@@ -298,10 +298,8 @@ export class ReorderableRepeat extends AbstractRepeater {
 
   addView(bindingContext, overrideContext) {
     let view = this.viewFactory.create();
-    window.ttview = view;
     view.bind(bindingContext, overrideContext);
     this.viewSlot.add(view);
-    window.ttview = view;
     this._registerDnd(view);
   }
 
