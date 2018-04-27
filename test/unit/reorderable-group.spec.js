@@ -2,7 +2,7 @@ import {createAssertionQueue, fireEvent} from './utils';
 import {StageComponent} from 'aurelia-testing';
 import {bootstrap} from 'aurelia-bootstrapper';
 
-const nq = createAssertionQueue(10);
+const nq = createAssertionQueue();
 const doc = document;
 const documentElement = doc.documentElement;
 describe('reorderable-group:', () => {
@@ -15,7 +15,7 @@ describe('reorderable-group:', () => {
     }
   });
 
-  fit('supports multiple repeats in one group', done => {
+  it('supports multiple repeats in one group', done => {
     let model = {
       numbers: [{value: 1}, {value: 2}, {value: 3}],
       letters: [{value: 'a'}, {value: 'b'}]
@@ -24,14 +24,13 @@ describe('reorderable-group:', () => {
     component = StageComponent
       .withResources(['resources/reorderable-repeat', 'resources/reorderable-group'])
       .inView(`
-        <div style="display: flex;">
-          <div id="numbers">
+          <div id="numbers" style="width: 50px; display: inline-block; vertical-align: top;">
             <div style="height: 50px; width: 50px;" reorderable-repeat.for="o of numbers" reorderable-group="g">\${o.value}</div>
           </div>
-          <div id="letters">
+          <div id="letters" style="width: 50px; display: inline-block; vertical-align: top;">
             <div style="height: 50px; width: 50px;" reorderable-repeat.for="o of letters" reorderable-group="g">\${o.value}</div>
           </div>
-        </div>`)
+        `)
       .boundTo(model);
 
     component.create(bootstrap).then(() => {

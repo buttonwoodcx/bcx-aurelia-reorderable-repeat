@@ -18,6 +18,7 @@ describe('the Aurelia configuration', () => {
     expect(mockedConfiguration.resources).toContain([
       './reorderable-repeat',
       './reorderable-direction',
+      './reorderable-group',
       './reorderable-dnd-preview',
       './reorderable-dnd-handler-selector',
       './reorderable-after-reordering'

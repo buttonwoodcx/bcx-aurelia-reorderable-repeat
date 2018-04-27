@@ -2,7 +2,7 @@ import {DOM, PLATFORM} from 'aurelia-pal';
 
 import {ReorderableRepeat} from './reorderable-repeat';
 import {ReorderableDirection} from './reorderable-direction';
-import {ReorderableGroup} from './reorderable-direction';
+import {ReorderableGroup} from './reorderable-group';
 import {ReorderableDndPreview} from './reorderable-dnd-preview';
 import {ReorderableDndHandlerSelector} from './reorderable-dnd-handler-selector';
 import {ReorderableAfterReordering} from './reorderable-after-reordering';
