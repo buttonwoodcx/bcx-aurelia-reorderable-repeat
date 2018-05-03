@@ -16,7 +16,7 @@
   "author": "Chunpeng Huo",
   "main": "dist/index.js",
   "files": [
-    "dist/**/*"
+    "dist"
   ],
   "repository": {
     "type": "git",
