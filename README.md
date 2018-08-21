@@ -9,7 +9,7 @@ An Aurelia repeater supports drag & drop reordering automatically.
 * with aurelia-cli `au install bcx-aurelia-reorderable-repeat`.
 * with webpack `npm i bcx-aurelia-reorderable-repeat`.
 
-In you app main.js file
+In your app main.js file
 
 ```js
 aurelia.use.plugin(PLATFORM.moduleName('bcx-aurelia-reorderable-repeat'));
