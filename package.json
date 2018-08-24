@@ -1,6 +1,6 @@
 {
   "name": "bcx-aurelia-reorderable-repeat",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "description": "An Aurelia repeater supports drag & drop reordering automatically.",
   "keywords": [
     "aurelia",
