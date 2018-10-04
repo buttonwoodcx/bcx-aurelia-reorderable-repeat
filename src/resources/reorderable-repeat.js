@@ -75,13 +75,13 @@ export class ReorderableRepeat extends AbstractRepeater {
   *
   * @property items
   */
-  @bindable items
+  @bindable items;
   /**
   * Local variable which gets assigned on each iteration.
   *
   * @property local
   */
-  @bindable local
+  @bindable local;
 
   @observable intention = null;
   @observable patchedItems;

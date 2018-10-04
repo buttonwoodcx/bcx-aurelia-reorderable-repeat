@@ -2,7 +2,6 @@ import {createFullOverrideContext} from 'aurelia-templating-resources';
 
 // dumbest array repeat strategy
 export class SimpleArrayRepeatStrategy {
-
   getCollectionObserver(observerLocator, items) {
     return observerLocator.getArrayObserver(items);
   }

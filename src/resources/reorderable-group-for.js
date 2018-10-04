@@ -10,7 +10,7 @@ const example = 'reorderable-group-for.bind="arrayModel"';
 @customAttribute('reorderable-group-for')
 @inject(Element, EventAggregator, DndService, ReorderableGroupMap)
 export class ReorderableGroupFor {
-  intention: null;
+  intention = null;
 
   constructor(element, ea, dndService, groupMap) {
     this.element = element;
