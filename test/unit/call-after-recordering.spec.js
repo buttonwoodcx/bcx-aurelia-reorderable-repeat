@@ -17,8 +17,10 @@ describe('reorderable-repeat: primitive array', () => {
 
   it('call after reordering with string', done => {
     let seenItems;
-    function action(items) {
+    let change;
+    function action(items, c) {
       seenItems = items;
+      change = c;
     }
 
     component = StageComponent
@@ -52,6 +54,7 @@ describe('reorderable-repeat: primitive array', () => {
       });
       nq(() => {
         expect(seenItems).toEqual([2, 1, 3]);
+        expect(change).toEqual({fromIndex: 0, toIndex: 1});
       });
       nq(done);
     });
