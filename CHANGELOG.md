@@ -1,3 +1,13 @@
+<a name="1.1.0"></a>
+# [1.1.0](https://github.com/buttonwoodcx/bcx-aurelia-reorderable-repeat/compare/v1.0.0...v1.1.0) (2018-10-06)
+
+
+### Features
+
+* add 2nd argument {fromIndex, toIndex} to after-reordering callback, only if the change is within a single list ([6a540d2](https://github.com/buttonwoodcx/bcx-aurelia-reorderable-repeat/commit/6a540d2))
+
+
+
 <a name="1.0.0"></a>
 # [1.0.0](https://github.com/buttonwoodcx/bcx-aurelia-reorderable-repeat/compare/v0.6.2...v1.0.0) (2018-10-04)
 
