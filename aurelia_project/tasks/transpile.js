@@ -5,12 +5,15 @@ import babel from 'gulp-babel';
 import sourcemaps from 'gulp-sourcemaps';
 import notify from 'gulp-notify';
 import rename from 'gulp-rename';
+import cache from 'gulp-cache';
 import project from '../aurelia.json';
-import {CLIOptions, build} from 'aurelia-cli';
+import {CLIOptions, build, Configuration} from 'aurelia-cli';
+
+let env = CLIOptions.getEnvironment();
+const buildOptions = new Configuration(project.build.options);
+const useCache = buildOptions.isApplicable('cache');
 
 function configureEnvironment() {
-  let env = CLIOptions.getEnvironment();
-
   return gulp.src(`aurelia_project/environments/${env}.js`)
     .pipe(changedInPlace({firstPass: true}))
     .pipe(rename('environment.js'))
@@ -18,11 +21,18 @@ function configureEnvironment() {
 }
 
 function buildJavaScript() {
+  let transpile = babel(project.transpiler.options);
+  if (useCache) {
+    // the cache directory is "gulp-cache/projName-env" inside folder require('os').tmpdir()
+    // use command 'au clear-cache' to purge all caches
+    transpile = cache(transpile, {name: project.name + '-' + env});
+  }
+
   return gulp.src(project.transpiler.source)
     .pipe(plumber({errorHandler: notify.onError('Error: <%= error.message %>')}))
     .pipe(changedInPlace({firstPass: true}))
     .pipe(sourcemaps.init())
-    .pipe(babel(project.transpiler.options))
+    .pipe(transpile)
     .pipe(build.bundle());
 }
 
@@ -32,11 +42,14 @@ export default gulp.series(
 );
 
 // build plugin js files
+// this will be slightly different if you use TypeScript
 export function transpilePlugin() {
   return gulp.src(project.plugin.source.js)
     .pipe(plumber({errorHandler: notify.onError('Error: <%= error.message %>')}))
     // .pipe(sourcemaps.init())
-    .pipe(babel()) // use default cjs format
+    .pipe(babel({
+      plugins: [['@babel/plugin-transform-modules-commonjs', {loose: true}]] // note we use commonjs format
+    }))
     // .pipe(gulpUglify())
     // .pipe(sourcemaps.write())
     .pipe(gulp.dest(project.plugin.output));
