@@ -1,3 +1,12 @@
+## [1.1.1](https://github.com/buttonwoodcx/bcx-aurelia-reorderable-repeat/compare/v1.1.0...v1.1.1) (2019-01-23)
+
+
+### Bug Fixes
+
+* **test:** forgot upgrading karam-babel ([4bccf65](https://github.com/buttonwoodcx/bcx-aurelia-reorderable-repeat/commit/4bccf65))
+
+
+
 <a name="1.1.0"></a>
 # [1.1.0](https://github.com/buttonwoodcx/bcx-aurelia-reorderable-repeat/compare/v1.0.0...v1.1.0) (2018-10-06)
 
