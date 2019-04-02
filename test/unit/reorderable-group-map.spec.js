@@ -1,4 +1,4 @@
-import {ReorderableGroupMap} from '../../src/resources/reorderable-group-map';
+import {ReorderableGroupMap} from 'resources/reorderable-group-map';
 
 describe('ReorderableGroupMap', () => {
   let map;

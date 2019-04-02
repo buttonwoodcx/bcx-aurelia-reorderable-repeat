@@ -1,11 +1,11 @@
-import {configure} from '../../src/resources/index';
-import {ReorderableRepeat} from '../../src/resources/reorderable-repeat';
-import {ReorderableDirection} from '../../src/resources/reorderable-direction';
-import {ReorderableGroup} from '../../src/resources/reorderable-group';
-import {ReorderableGroupFor} from '../../src/resources/reorderable-group-for';
-import {ReorderableDndPreview} from '../../src/resources/reorderable-dnd-preview';
-import {ReorderableDndHandlerSelector} from '../../src/resources/reorderable-dnd-handler-selector';
-import {ReorderableAfterReordering} from '../../src/resources/reorderable-after-reordering';
+import {configure} from 'resources/index';
+import {ReorderableRepeat} from 'resources/reorderable-repeat';
+import {ReorderableDirection} from 'resources/reorderable-direction';
+import {ReorderableGroup} from 'resources/reorderable-group';
+import {ReorderableGroupFor} from 'resources/reorderable-group-for';
+import {ReorderableDndPreview} from 'resources/reorderable-dnd-preview';
+import {ReorderableDndHandlerSelector} from 'resources/reorderable-dnd-handler-selector';
+import {ReorderableAfterReordering} from 'resources/reorderable-after-reordering';
 
 class ConfigStub {
   globalResources(...resources) {

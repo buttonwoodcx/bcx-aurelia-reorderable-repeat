@@ -1,8 +1,6 @@
 import gulp from 'gulp';
-import changedInPlace from 'gulp-changed-in-place';
 import plumber from 'gulp-plumber';
 import babel from 'gulp-babel';
-import sourcemaps from 'gulp-sourcemaps';
 import notify from 'gulp-notify';
 import rename from 'gulp-rename';
 import cache from 'gulp-cache';
@@ -14,8 +12,7 @@ const buildOptions = new Configuration(project.build.options);
 const useCache = buildOptions.isApplicable('cache');
 
 function configureEnvironment() {
-  return gulp.src(`aurelia_project/environments/${env}.js`)
-    .pipe(changedInPlace({firstPass: true}))
+  return gulp.src(`aurelia_project/environments/${env}.js`, {since: gulp.lastRun(configureEnvironment)})
     .pipe(rename('environment.js'))
     .pipe(gulp.dest(project.paths.root));
 }
@@ -28,10 +25,8 @@ function buildJavaScript() {
     transpile = cache(transpile, {name: project.name + '-' + env});
   }
 
-  return gulp.src(project.transpiler.source)
+  return gulp.src(project.transpiler.source, {sourcemaps: true, since: gulp.lastRun(buildJavaScript)})
     .pipe(plumber({errorHandler: notify.onError('Error: <%= error.message %>')}))
-    .pipe(changedInPlace({firstPass: true}))
-    .pipe(sourcemaps.init())
     .pipe(transpile)
     .pipe(build.bundle());
 }
@@ -41,16 +36,19 @@ export default gulp.series(
   buildJavaScript
 );
 
-// build plugin js files
-// this will be slightly different if you use TypeScript
-export function transpilePlugin() {
-  return gulp.src(project.plugin.source.js)
-    .pipe(plumber({errorHandler: notify.onError('Error: <%= error.message %>')}))
-    // .pipe(sourcemaps.init())
-    .pipe(babel({
-      plugins: [['@babel/plugin-transform-modules-commonjs', {loose: true}]] // note we use commonjs format
-    }))
-    // .pipe(gulpUglify())
-    // .pipe(sourcemaps.write())
-    .pipe(gulp.dest(project.plugin.output));
+export function buildPluginJavaScript(dest, format) {
+  return function processPluginJavaScript() {
+    let opts = {};
+    if (format === 'commonjs') {
+      opts = {
+        plugins: [
+          ['@babel/plugin-transform-modules-commonjs', {loose: true}]
+        ]
+      };
+    }
+    const transpile = babel(opts);
+    return gulp.src(project.plugin.source.js)
+      .pipe(transpile)
+      .pipe(gulp.dest(dest));
+  };
 }

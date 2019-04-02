@@ -1,9 +1,9 @@
-'use strict';
 const path = require('path');
 const project = require('./aurelia_project/aurelia.json');
+const karmaConfig = project.unitTestRunner;
 
 let testSrc = [
-  { pattern: project.unitTestRunner.source, included: false },
+  { pattern: karmaConfig.source, included: false },
   'test/aurelia-karma.js'
 ];
 
@@ -24,7 +24,7 @@ module.exports = function(config) {
     files: files,
     exclude: [],
     preprocessors: {
-      [project.unitTestRunner.source]: [project.transpiler.id],
+      [karmaConfig.source]: [project.transpiler.id],
       [appSrc]: ['sourcemap']
     },
     'babelPreprocessor': { options: transpilerOptions },

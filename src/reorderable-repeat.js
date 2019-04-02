@@ -373,12 +373,9 @@ export class ReorderableRepeat extends AbstractRepeater {
   }
 
   _additionalAttribute(view, attribute) {
-    return (view &&
-            view.firstChild &&
-            view.firstChild.au &&
-            view.firstChild.au[attribute]) ?
-            view.firstChild.au[attribute].instruction.attributes[attribute] :
-            undefined;
+    if (view && view.firstChild && view.firstChild.au && view.firstChild.au[attribute]) {
+      return view.firstChild.au[attribute].instruction.attributes[attribute];
+    }
   }
 
   _reorderableGroup() {
@@ -617,7 +614,6 @@ export class ReorderableRepeat extends AbstractRepeater {
         this.intention.fromRepeaterId !== model.repeaterId ||
         this.intention.toIndex !== nextIndex ||
         this.intention.toRepeaterId !== repeaterId) {
-
       this.intention = {
         type: model.type,
         item: model.item,
@@ -633,5 +629,4 @@ export class ReorderableRepeat extends AbstractRepeater {
       }
     }
   }
-
 }

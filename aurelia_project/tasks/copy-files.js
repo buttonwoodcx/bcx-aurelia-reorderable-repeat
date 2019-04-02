@@ -1,7 +1,6 @@
 import gulp from 'gulp';
 import path from 'path';
 import minimatch from 'minimatch';
-import changedInPlace from 'gulp-changed-in-place';
 import project from '../aurelia.json';
 
 export default function copyFiles(done) {
@@ -13,8 +12,7 @@ export default function copyFiles(done) {
   const instruction = getNormalizedInstruction();
   const files = Object.keys(instruction);
 
-  return gulp.src(files)
-    .pipe(changedInPlace({ firstPass: true }))
+  return gulp.src(files, {since: gulp.lastRun(copyFiles)})
     .pipe(gulp.dest(x => {
       const filePath = prepareFilePath(x.path);
       const key = files.find(f => minimatch(filePath, f));
@@ -34,7 +32,7 @@ function getNormalizedInstruction() {
 }
 
 function prepareFilePath(filePath) {
-  let preparedPath = filePath.replace(process.cwd(), '').substring(1);
+  let preparedPath = filePath.replace(process.cwd(), '').slice(1);
 
   //if we are running on windows we have to fix the path
   if (/^win/.test(process.platform)) {

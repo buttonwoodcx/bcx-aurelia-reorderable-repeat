@@ -16,6 +16,11 @@
       "name": "auto-install",
       "description": "auto install missing npm package using npm or yarn (set by aurelia.json packageManager, or existence of yarn.lock file).",
       "type": "boolean"
+    },
+    {
+      "name": "port",
+      "description": "Set port number of the dev server",
+      "type": "string"
     }
   ]
 }

@@ -1,5 +1,5 @@
 {
-  "name": "test",
+  "name": "karma",
   "description": "Runs all unit tests and reports the results.",
   "flags": [
     {

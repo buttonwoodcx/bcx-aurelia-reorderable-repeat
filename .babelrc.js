@@ -1,6 +1,8 @@
-module.exports = (api) => {
+module.exports = api => {
   api.cache.using(() => {
-    return 'babel:' + process.env.BABEL_TARGET + ' protractor:' + process.env.IN_PROTRACTOR;
+    // cache based on the two env vars
+    return 'babel:' + process.env.BABEL_TARGET +
+      ' protractor:' + process.env.IN_PROTRACTOR;
   });
 
   return {

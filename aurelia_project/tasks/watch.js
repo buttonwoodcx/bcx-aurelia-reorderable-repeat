@@ -2,12 +2,12 @@ import gulp from 'gulp';
 import minimatch from 'minimatch';
 import gulpWatch from 'gulp-watch';
 import debounce from 'debounce';
-import { build } from 'aurelia-cli';
 import project from '../aurelia.json';
 import transpile from './transpile';
 import processMarkup from './process-markup';
 import processCSS from './process-css';
 import copyFiles from './copy-files';
+import { build } from 'aurelia-cli';
 
 const debounceWaitTime = 100;
 let isBuilding = false;
@@ -52,7 +52,7 @@ let watchPath = (p) => {
 
 let processChange = (vinyl) => {
   if (vinyl.path && vinyl.cwd && vinyl.path.startsWith(vinyl.cwd)) {
-    let pathToAdd = vinyl.path.substr(vinyl.cwd.length + 1);
+    let pathToAdd = vinyl.path.slice(vinyl.cwd.length + 1);
     log(`Watcher: Adding path ${pathToAdd} to pending build changes...`);
     pendingRefreshPaths.push(pathToAdd);
     refresh();
@@ -72,7 +72,7 @@ let refresh = debounce(() => {
 
   // determine which tasks need to be executed
   // based on the files that have changed
-  for (let watcher of watches) {    
+  for (let watcher of watches) {
     if (Array.isArray(watcher.source)) {
       for(let source of watcher.source) {
         if (paths.find(path => minimatch(path, source))) {
