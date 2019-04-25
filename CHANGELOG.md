@@ -1,3 +1,12 @@
+## [1.2.1](https://github.com/buttonwoodcx/bcx-aurelia-reorderable-repeat/compare/v1.2.0...v1.2.1) (2019-04-25)
+
+
+### Bug Fixes
+
+* fix rendering performance issue on large array of objects ([f2bf6db](https://github.com/buttonwoodcx/bcx-aurelia-reorderable-repeat/commit/f2bf6db)), closes [#8](https://github.com/buttonwoodcx/bcx-aurelia-reorderable-repeat/issues/8)
+
+
+
 # [1.2.0](https://github.com/buttonwoodcx/bcx-aurelia-reorderable-repeat/compare/v1.1.1...v1.2.0) (2019-04-02)
 
 
