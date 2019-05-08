@@ -217,16 +217,17 @@ export class ReorderableRepeat extends AbstractRepeater {
   unbind() {
     this.groupMap.remove(this);
 
-    this.scope = null;
-    this.items = null;
-    this.matcherBinding = null;
-    this.viewSlot.removeAll(true);
     if (this.arrayObserver) {
       this.arrayObserver.dispose();
       this.arrayObserver = null;
     }
     this._subsribers.forEach(s => s.dispose());
     this._subsribers = [];
+
+    this.removeAllViews(true, !this.viewsRequireLifecycle);
+    this.scope = null;
+    this.items = null;
+    this.matcherBinding = null;
   }
 
   intentionChanged(newIntention) {
