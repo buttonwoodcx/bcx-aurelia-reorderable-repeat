@@ -46,7 +46,7 @@ describe('reorderable-repeat: primitive array', () => {
       const viewModel = component.viewModel;
 
       nq(() => expect(viewModel.viewCount()).toEqual(3));
-      nq(() => viewModel.items.splice(1,1));
+      nq(() => viewModel.items.splice(1, 1));
       nq(() => {
         expect(viewModel.viewCount()).toEqual(2);
         expect(viewModel.view(0).bindingContext.obj).toEqual('one');
