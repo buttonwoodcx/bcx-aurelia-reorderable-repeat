@@ -56,6 +56,32 @@ describe('reorderable-repeat: objects', () => {
     });
   });
 
+  it('re-render list should not cause memory leak', done => {
+    const model = {items: [{name: 'one'}, {name: 'two'}, {name: 'three'}], show: true};
+    component = StageComponent
+      .withResources(['resources/reorderable-repeat'])
+      .inView('<div if.bind="show"><div style="height: 50px;w idth: 100px;" reorderable-repeat.for="obj of items">\${obj.name}</div></div>')
+      .boundTo(model);
+
+    component.create(bootstrap).then(() => {
+      const dndService = component.viewModel.view.controllers[0].viewModel.dndService;
+      expect(dndService.dndSources.length).toBe(3);
+      expect(dndService.dndTargets.length).toBe(3);
+
+      nq(() => model.show = false);
+      nq(() => {
+        expect(dndService.dndSources.length).toBe(0);
+        expect(dndService.dndTargets.length).toBe(0);
+      });
+      nq(() => model.show = true);
+      nq(() => {
+        expect(dndService.dndSources.length).toBe(3);
+        expect(dndService.dndTargets.length).toBe(3);
+      });
+      nq(done);
+    });
+  });
+
   it('reorders', done => {
     component = StageComponent
       .withResources(['resources/reorderable-repeat'])
