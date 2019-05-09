@@ -2,7 +2,7 @@ import {ReorderableGroupMap} from 'resources/reorderable-group-map';
 
 describe('ReorderableGroupMap', () => {
   let map;
-  let numbers = [1,2,3];
+  let numbers = [1, 2, 3];
   let letters = ['a', 'b'];
 
   beforeEach(() => {

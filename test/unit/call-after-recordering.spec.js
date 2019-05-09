@@ -101,7 +101,6 @@ describe('reorderable-repeat: primitive array', () => {
       nq(done);
     });
   });
-
 });
 
 describe('reorderable-repeat: objects', () => {
@@ -197,5 +196,4 @@ describe('reorderable-repeat: objects', () => {
       nq(done);
     });
   });
-
 });

@@ -20,7 +20,7 @@ describe('reorderable-repeat: primitive array', () => {
   it('render empty list', done => {
     component = StageComponent
       .withResources(['resources/reorderable-repeat'])
-      .inView(`<div style="height: 50px; width: 100px;" reorderable-repeat.for="obj of items">\${obj}</div>`)
+      .inView('<div style="height: 50px; width: 100px;" reorderable-repeat.for="obj of items">\${obj}</div>')
       .boundTo({items: []});
 
     component.create(bootstrap).then(() => {
@@ -39,7 +39,7 @@ describe('reorderable-repeat: primitive array', () => {
   it('render list', done => {
     component = StageComponent
       .withResources(['resources/reorderable-repeat'])
-      .inView(`<div style="height: 50px;w idth: 100px;" reorderable-repeat.for="obj of items">\${obj}</div>`)
+      .inView('<div style="height: 50px;w idth: 100px;" reorderable-repeat.for="obj of items">\${obj}</div>')
       .boundTo({items: ['one', 'two', 'three']});
 
     component.create(bootstrap).then(() => {
@@ -59,7 +59,7 @@ describe('reorderable-repeat: primitive array', () => {
   it('reorders', done => {
     component = StageComponent
       .withResources(['resources/reorderable-repeat'])
-      .inView(`<div style="height: 50px;w idth: 100px;" reorderable-repeat.for="obj of items">\${obj}</div>`)
+      .inView('<div style="height: 50px;w idth: 100px;" reorderable-repeat.for="obj of items">\${obj}</div>')
       .boundTo({items: ['one', 'two', 'three']});
 
     component.create(bootstrap).then(() => {
@@ -191,7 +191,7 @@ describe('reorderable-repeat: primitive array', () => {
   it('reorders duplicated strings', done => {
     component = StageComponent
       .withResources(['resources/reorderable-repeat'])
-      .inView(`<div style="height: 50px;w idth: 100px;" reorderable-repeat.for="obj of items">\${obj}</div>`)
+      .inView('<div style="height: 50px;w idth: 100px;" reorderable-repeat.for="obj of items">\${obj}</div>')
       .boundTo({items: ['one', 'one', 'three']});
 
     component.create(bootstrap).then(() => {

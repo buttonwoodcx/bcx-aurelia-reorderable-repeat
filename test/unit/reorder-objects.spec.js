@@ -20,7 +20,7 @@ describe('reorderable-repeat: objects', () => {
   it('render empty list', done => {
     component = StageComponent
       .withResources(['resources/reorderable-repeat'])
-      .inView(`<div style="height: 50px; width: 100px;" reorderable-repeat.for="obj of items">\${obj.name}</div>`)
+      .inView('<div style="height: 50px; width: 100px;" reorderable-repeat.for="obj of items">\${obj.name}</div>')
       .boundTo({items: []});
 
     component.create(bootstrap).then(() => {
@@ -39,14 +39,14 @@ describe('reorderable-repeat: objects', () => {
   it('render list', done => {
     component = StageComponent
       .withResources(['resources/reorderable-repeat'])
-      .inView(`<div style="height: 50px;w idth: 100px;" reorderable-repeat.for="obj of items">\${obj.name}</div>`)
+      .inView('<div style="height: 50px;w idth: 100px;" reorderable-repeat.for="obj of items">\${obj.name}</div>')
       .boundTo({items: [{name: 'one'}, {name: 'two'}, {name: 'three'}]});
 
     component.create(bootstrap).then(() => {
       const viewModel = component.viewModel;
 
       nq(() => expect(viewModel.viewCount()).toEqual(3));
-      nq(() => viewModel.items.splice(1,1));
+      nq(() => viewModel.items.splice(1, 1));
       nq(() => {
         expect(viewModel.viewCount()).toEqual(2);
         expect(viewModel.view(0).bindingContext.obj).toEqual({name: 'one'});
@@ -59,7 +59,7 @@ describe('reorderable-repeat: objects', () => {
   it('reorders', done => {
     component = StageComponent
       .withResources(['resources/reorderable-repeat'])
-      .inView(`<div style="height: 50px;w idth: 100px;" reorderable-repeat.for="obj of items">\${obj.name}</div>`)
+      .inView('<div style="height: 50px;w idth: 100px;" reorderable-repeat.for="obj of items">\${obj.name}</div>')
       .boundTo({items: [{name: 'one'}, {name: 'two'}, {name: 'three'}]});
 
     component.create(bootstrap).then(() => {
@@ -216,7 +216,7 @@ describe('reorderable-repeat: objects', () => {
     let model = {items: []};
     component = StageComponent
       .withResources(['resources/reorderable-repeat'])
-      .inView(`<div style="height: 50px;w idth: 100px;" reorderable-repeat.for="obj of items">\${obj.name}</div>`)
+      .inView('<div style="height: 50px;w idth: 100px;" reorderable-repeat.for="obj of items">\${obj.name}</div>')
       .boundTo(model);
 
     component.create(bootstrap).then(() => {
@@ -382,7 +382,7 @@ describe('reorderable-repeat: objects', () => {
   it('reorders duplicated strings', done => {
     component = StageComponent
       .withResources(['resources/reorderable-repeat'])
-      .inView(`<div style="height: 50px;w idth: 100px;" reorderable-repeat.for="obj of items">\${obj.name}</div>`)
+      .inView('<div style="height: 50px;w idth: 100px;" reorderable-repeat.for="obj of items">\${obj.name}</div>')
       .boundTo({items: [{name: 'one'}, {name: 'one'}, {name: 'three'}]});
 
     component.create(bootstrap).then(() => {

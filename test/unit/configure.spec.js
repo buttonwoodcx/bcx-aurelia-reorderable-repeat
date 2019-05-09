@@ -14,7 +14,7 @@ class ConfigStub {
 }
 
 describe('the Aurelia configuration', () => {
-  var mockedConfiguration;
+  let mockedConfiguration;
 
   beforeEach(() => {
     mockedConfiguration = new ConfigStub();
@@ -32,5 +32,4 @@ describe('the Aurelia configuration', () => {
       ReorderableAfterReordering
     ]);
   });
-
 });
