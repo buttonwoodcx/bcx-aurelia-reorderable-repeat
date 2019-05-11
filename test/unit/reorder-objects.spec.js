@@ -1,6 +1,8 @@
 import {createAssertionQueue, fireEvent} from './utils';
 import {StageComponent} from 'aurelia-testing';
 import {bootstrap} from 'aurelia-bootstrapper';
+import {Container} from 'aurelia-dependency-injection';
+import {DndService} from 'bcx-aurelia-dnd';
 import $ from 'jquery';
 
 const nq = createAssertionQueue();
@@ -64,7 +66,7 @@ describe('reorderable-repeat: objects', () => {
       .boundTo(model);
 
     component.create(bootstrap).then(() => {
-      const dndService = component.viewModel.view.controllers[0].viewModel.dndService;
+      const dndService = Container.instance.get(DndService);
       expect(dndService.dndSources.length).toBe(3);
       expect(dndService.dndTargets.length).toBe(3);
 
