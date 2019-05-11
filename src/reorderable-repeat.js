@@ -224,7 +224,7 @@ export class ReorderableRepeat extends AbstractRepeater {
     this._subsribers.forEach(s => s.dispose());
     this._subsribers = [];
 
-    this.removeAllViews(true, !this.viewsRequireLifecycle);
+    this.removeAllViews(true, true);
     this.scope = null;
     this.items = null;
     this.matcherBinding = null;
