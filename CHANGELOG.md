@@ -1,3 +1,12 @@
+## [1.2.2](https://github.com/buttonwoodcx/bcx-aurelia-reorderable-repeat/compare/v1.2.1...v1.2.2) (2019-05-11)
+
+
+### Bug Fixes
+
+* **reorderable-repeat:** ensure source and target removed from dnd service ([478adc0](https://github.com/buttonwoodcx/bcx-aurelia-reorderable-repeat/commit/478adc0))
+
+
+
 ## [1.2.1](https://github.com/buttonwoodcx/bcx-aurelia-reorderable-repeat/compare/v1.2.0...v1.2.1) (2019-04-25)
 
 
