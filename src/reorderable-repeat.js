@@ -275,6 +275,12 @@ export class ReorderableRepeat extends AbstractRepeater {
   _itemsMutated() {
     if (this.intention === null) {
       this.patchedItems = [...this.items];
+
+      const views = this.views();
+      for (let index = 0; index < views.length; index++) {
+        const view = views[index];
+        this.updateBindings(view);
+      }
     } else {
       this.intention = null;
     }
@@ -336,6 +342,9 @@ export class ReorderableRepeat extends AbstractRepeater {
   }
 
   moveView(sourceIndex, targetIndex) {
+    const { isProcessing } = this.dndService;
+    if (isProcessing) return;
+
     this.viewSlot.move(sourceIndex, targetIndex);
   }
 
