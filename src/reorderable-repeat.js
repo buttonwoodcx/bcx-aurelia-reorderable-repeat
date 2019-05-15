@@ -292,6 +292,12 @@ export class ReorderableRepeat extends AbstractRepeater {
     }
 
     this.strategy.instanceChanged(this, this.patchedItems);
+    this.taskQueue.queueMicroTask(() => {
+      this.views().forEach(view => {
+        this._unRegisterDnd(view);
+        this._registerDnd(view);
+      });
+    });
   }
 
   _captureAndRemoveMatcherBinding() {
@@ -325,14 +331,12 @@ export class ReorderableRepeat extends AbstractRepeater {
     let view = this.viewFactory.create();
     view.bind(bindingContext, overrideContext);
     this.viewSlot.add(view);
-    this._registerDnd(view);
   }
 
   insertView(index, bindingContext, overrideContext) {
     let view = this.viewFactory.create();
     view.bind(bindingContext, overrideContext);
     this.viewSlot.insert(index, view);
-    this._registerDnd(view);
   }
 
   moveView(sourceIndex, targetIndex) {
@@ -355,8 +359,6 @@ export class ReorderableRepeat extends AbstractRepeater {
   }
 
   updateBindings(view) {
-    this._unRegisterDnd(view);
-
     let j = view.bindings.length;
     while (j--) {
       updateOneTimeBinding(view.bindings[j]);
@@ -369,8 +371,6 @@ export class ReorderableRepeat extends AbstractRepeater {
         updateOneTimeBinding(binding);
       }
     }
-
-    this._registerDnd(view);
   }
 
   _additionalAttribute(view, attribute) {
