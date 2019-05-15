@@ -1,3 +1,12 @@
+## [1.2.3](https://github.com/buttonwoodcx/bcx-aurelia-reorderable-repeat/compare/v1.2.2...v1.2.3) (2019-05-15)
+
+
+### Bug Fixes
+
+* fix logic on subviews require lifecycle ([f8ba847](https://github.com/buttonwoodcx/bcx-aurelia-reorderable-repeat/commit/f8ba847)), closes [#11](https://github.com/buttonwoodcx/bcx-aurelia-reorderable-repeat/issues/11)
+
+
+
 ## [1.2.2](https://github.com/buttonwoodcx/bcx-aurelia-reorderable-repeat/compare/v1.2.1...v1.2.2) (2019-05-11)
 
 
