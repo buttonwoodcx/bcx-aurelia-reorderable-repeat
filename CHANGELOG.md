@@ -1,3 +1,12 @@
+# [1.3.0](https://github.com/buttonwoodcx/bcx-aurelia-reorderable-repeat/compare/v1.2.3...v1.3.0) (2019-09-09)
+
+
+### Features
+
+* support 2nd parameter "change" in multi-list after-reordering callback ([0e7841c](https://github.com/buttonwoodcx/bcx-aurelia-reorderable-repeat/commit/0e7841c))
+
+
+
 ## [1.2.3](https://github.com/buttonwoodcx/bcx-aurelia-reorderable-repeat/compare/v1.2.2...v1.2.3) (2019-05-15)
 
 
