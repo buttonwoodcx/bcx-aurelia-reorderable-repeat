@@ -15,21 +15,25 @@ export class App {
   animals = ['Cow', 'Horse', 'Sheep', 'Goat'];
   insects = ['Grasshopper', 'Fly', 'Dragonfly', 'Frog'];
 
-  objArrayReordered(objArray) {
+  objArrayReordered(objArray, change) {
     /* eslint no-console: 0 */
     console.log(JSON.stringify(objArray));
+    console.log('change', change);
   }
 
-  fruitsOrdered(list) {
+  fruitsOrdered(list, change) {
     console.log('newFruits: ' + list);
+    console.log('change', change);
   }
 
-  animalsOrdered(list) {
+  animalsOrdered(list, change) {
     console.log('animals: ' + list);
+    console.log('change', change);
   }
 
-  insectsOrdered(list) {
+  insectsOrdered(list, change) {
     console.log('insects: ' + list);
+    console.log('change', change);
   }
 
   constructor(ea) {

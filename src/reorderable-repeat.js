@@ -169,12 +169,16 @@ export class ReorderableRepeat extends AbstractRepeater {
         // no change
         if (fromRepeaterId === toRepeaterId && fromIndex === toIndex) return;
 
+        const change = {item, fromIndex, toIndex};
+
         if (repeaterId === fromRepeaterId) {
           this.items.splice(fromIndex, 1);
+          change.removedFromThisList = true;
         }
 
         if (repeaterId === toRepeaterId) {
           this.items.splice(toIndex, 0, item);
+          change.insertedToThisList = true;
         }
 
         const afterReordering = this._reorderableAfterReorderingFunc();
@@ -182,11 +186,7 @@ export class ReorderableRepeat extends AbstractRepeater {
           // in group mode, wait for all models updated
           // before hitting callback
           this.taskQueue.queueMicroTask(() => {
-            if (fromRepeaterId === toRepeaterId && fromRepeaterId === repeaterId) {
-              afterReordering(this.items, {fromIndex, toIndex});
-            } else {
-              afterReordering(this.items);
-            }
+            afterReordering(this.items, change);
           });
         }
       }),
