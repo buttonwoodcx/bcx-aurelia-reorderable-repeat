@@ -442,6 +442,10 @@ export class ReorderableRepeat extends AbstractRepeater {
     } else if (typeof func === 'string') {
       let funcCall = this.scope.overrideContext.bindingContext[func];
 
+      if(!funcCall){
+        funcCall = this.scope.overrideContext.parentOverrideContext.bindingContext[func];
+      }
+
       if (typeof funcCall === 'function') {
         return funcCall.bind(this.scope.overrideContext.bindingContext);
       }
