@@ -14,6 +14,7 @@ Thumbs.db
 
 # Compiled files
 /dist
+/scripts
 /index.html
 /.nyc_output
 /coverage
