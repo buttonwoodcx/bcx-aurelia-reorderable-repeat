@@ -55,7 +55,8 @@
     "merge2": "^1.3.0",
     "nyc": "^15.0.0",
     "postcss-url": "^8.0.0",
-    "promise-polyfill": "^8.1.3"
+    "promise-polyfill": "^8.1.3",
+    "standard-changelog": "^2.0.21"
   },
   "dependencies": {
     "aurelia-event-aggregator": "^1.0.3",
@@ -73,6 +74,8 @@
     "build": "gulp clean && cross-env NODE_ENV=production gulp build-plugin",
     "prepare": "npm run build",
     "preversion": "npm test",
+    "version": "standard-changelog && git add CHANGELOG.md",
+    "postversion": "git push && git push --tags && npm publish",
     "clear-cache": "gulp clear-cache",
     "test": "browser-do --jasmine --static . < run-tests.html",
     "browser-test": "npm run build:test && browser-do --jasmine --browser chrome --static . < run-tests.html"
