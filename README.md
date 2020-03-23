@@ -2,6 +2,8 @@
 
 An Aurelia repeater supports drag & drop reordering automatically.
 
+https://buttonwoodcx.github.io/doc-bcx-aurelia-dnd/reorderable-repeat
+
 ## Install Package
 
 `npm i bcx-aurelia-reorderable-repeat` or `yarn add bcx-aurelia-reorderable-repeat`
