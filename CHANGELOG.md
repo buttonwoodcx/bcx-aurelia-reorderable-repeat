@@ -1,3 +1,12 @@
+## [1.3.2](https://github.com/buttonwoodcx/bcx-aurelia-reorderable-repeat/compare/v1.3.1...v1.3.2) (2020-03-23)
+
+
+### Bug Fixes
+
+* fix main path ([5947da6](https://github.com/buttonwoodcx/bcx-aurelia-reorderable-repeat/commit/5947da66b44a723e99b215e30ca267cc59411f15))
+
+
+
 ## [1.3.1](https://github.com/buttonwoodcx/bcx-aurelia-reorderable-repeat/compare/v1.3.0...v1.3.1) (2020-03-23)
 
 
