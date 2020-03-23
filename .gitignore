@@ -4,20 +4,16 @@ Thumbs.db
 
 # Editors
 .idea
-.vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
+.vscode
 
 # Dependencies
-node_modules
-package-lock.json
+/node_modules
+/package-lock.json
+/yarn.lock
+/pnpm-lock.yaml
 
 # Compiled files
-/scripts
-/src/environment.js
-/src/environment.ts
 /dist
-/test/coverage-jest
-/test/coverage-karma
+/index.html
+/.nyc_output
+/coverage
