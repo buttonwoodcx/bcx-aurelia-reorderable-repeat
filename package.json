@@ -14,8 +14,7 @@
   },
   "license": "MIT",
   "author": "Chunpeng Huo",
-  "main": "dist/commonjs/index.js",
-  "module": "dist/native-modules/index.js",
+  "main": "dist/index.js",
   "files": [
     "dist"
   ],
