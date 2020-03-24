@@ -1,33 +1,29 @@
 import {ReorderableGroupMap} from '../src/reorderable-group-map';
+import test from 'tape-promise/tape';
 
-describe('ReorderableGroupMap', () => {
-  let map;
-  let numbers = [1, 2, 3];
-  let letters = ['a', 'b'];
+const numbers = [1, 2, 3];
+const letters = ['a', 'b'];
 
-  beforeEach(() => {
-    map = new ReorderableGroupMap();
-  });
+test('ReorderableGroupMap: ignores non-group-repeater', async t => {
+  const map = new ReorderableGroupMap();
+  map.add({type: 'id', repeaterId: 'id', items: numbers});
+  t.notOk(map.get(numbers));
+});
 
-  it('ignores non-group-repeater', () => {
-    map.add({type: 'id', repeaterId: 'id', items: numbers});
-    expect(map.get(numbers)).toBeUndefined();
-  });
+test('ReorderableGroupMap: set and remove group repeater', async t => {
+  const map = new ReorderableGroupMap();
+  const r1 = {type: 'group', repeaterId: 'id', items: numbers};
+  const r2 = {type: 'group', repeaterId: 'id2', items: letters};
+  map.add(r1);
+  map.add(r2);
+  t.deepEqual(map.get(numbers), {group: 'group', repeaterId: 'id'});
+  t.deepEqual(map.get(letters), {group: 'group', repeaterId: 'id2'});
 
-  it('set and remove group repeater', () => {
-    let r1 = {type: 'group', repeaterId: 'id', items: numbers};
-    let r2 = {type: 'group', repeaterId: 'id2', items: letters};
-    map.add(r1);
-    map.add(r2);
-    expect(map.get(numbers)).toEqual({group: 'group', repeaterId: 'id'});
-    expect(map.get(letters)).toEqual({group: 'group', repeaterId: 'id2'});
+  map.remove(r1);
+  t.notOk(map.get(numbers));
+  t.deepEqual(map.get(letters), {group: 'group', repeaterId: 'id2'});
 
-    map.remove(r1);
-    expect(map.get(numbers)).toBeUndefined();
-    expect(map.get(letters)).toEqual({group: 'group', repeaterId: 'id2'});
-
-    map.remove(r2);
-    expect(map.get(numbers)).toBeUndefined();
-    expect(map.get(letters)).toBeUndefined();
-  });
+  map.remove(r2);
+  t.notOk(map.get(numbers));
+  t.notOk(map.get(letters));
 });

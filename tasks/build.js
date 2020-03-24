@@ -16,7 +16,7 @@ function buildJs(src) {
   const transpile = babel();
 
   return gulp.src(src, {sourcemaps: true, since: gulp.lastRun(build)})
-  .pipe(gulpif(!isProduction, plumber()))
+  .pipe(gulpif(!isProduction && !isTest, plumber()))
   .pipe(transpile);
 }
 

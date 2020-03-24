@@ -1,26 +1,3 @@
-// async queue
-export function createAssertionQueue(timeout = 0) {
-  let queue = [];
-
-  let next;
-  next = () => {
-    if (queue.length) {
-      setTimeout(() => {
-        let func = queue.shift();
-        func();
-        next();
-      }, timeout);
-    }
-  };
-
-  return (func) => {
-    queue.push(func);
-    if (queue.length === 1) {
-      next();
-    }
-  };
-}
-
 // copied from dragula test/lib/events.js
 export function fireEvent(el, type, options) {
   const o = options || {};
@@ -31,4 +8,10 @@ export function fireEvent(el, type, options) {
   function apply(key) {
     e[key] = o[key];
   }
+}
+
+export function delay(ms = 0) {
+  return new Promise(resolve => {
+    setTimeout(resolve, ms);
+  });
 }

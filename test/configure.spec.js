@@ -6,30 +6,24 @@ import {ReorderableGroupFor} from '../src/reorderable-group-for';
 import {ReorderableDndPreview} from '../src/reorderable-dnd-preview';
 import {ReorderableDndHandlerSelector} from '../src/reorderable-dnd-handler-selector';
 import {ReorderableAfterReordering} from '../src/reorderable-after-reordering';
+import test from 'tape-promise/tape';
 
 class ConfigStub {
-  globalResources(...resources) {
+  globalResources(resources) {
     this.resources = resources;
   }
 }
 
-describe('the Aurelia configuration', () => {
-  let mockedConfiguration;
-
-  beforeEach(() => {
-    mockedConfiguration = new ConfigStub();
-    configure(mockedConfiguration);
-  });
-
-  it('should register a global resource', () => {
-    expect(mockedConfiguration.resources).toContain([
-      ReorderableRepeat,
-      ReorderableDirection,
-      ReorderableGroup,
-      ReorderableGroupFor,
-      ReorderableDndPreview,
-      ReorderableDndHandlerSelector,
-      ReorderableAfterReordering
-    ]);
-  });
+test('Aurelia configuration should register a global resource', async t => {
+  const mockedConfiguration = new ConfigStub();
+  configure(mockedConfiguration);
+  t.deepEqual(mockedConfiguration.resources, [
+    ReorderableRepeat,
+    ReorderableDirection,
+    ReorderableGroup,
+    ReorderableGroupFor,
+    ReorderableDndPreview,
+    ReorderableDndHandlerSelector,
+    ReorderableAfterReordering
+  ]);
 });
