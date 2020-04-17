@@ -1,3 +1,12 @@
+## [1.3.3](https://github.com/buttonwoodcx/bcx-aurelia-reorderable-repeat/compare/v1.3.2...v1.3.3) (2020-04-17)
+
+
+### Bug Fixes
+
+* proper support of ESC cancelling ([c3a9549](https://github.com/buttonwoodcx/bcx-aurelia-reorderable-repeat/commit/c3a9549dbdc577a8d0d66bbaaaf8fdb46026aa8a))
+
+
+
 ## [1.3.2](https://github.com/buttonwoodcx/bcx-aurelia-reorderable-repeat/compare/v1.3.1...v1.3.2) (2020-03-23)
 
 
