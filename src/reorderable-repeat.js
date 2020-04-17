@@ -5,7 +5,8 @@ import {
   observable,
   BindingEngine,
   BindingBehavior,
-  ValueConverter
+  ValueConverter,
+  getContextFor
 } from 'aurelia-binding';
 import {
   BoundViewFactory,
@@ -427,19 +428,20 @@ export class ReorderableRepeat extends AbstractRepeater {
     if (!func) {
       return null;
     } else if (typeof func === 'string') {
-      let funcCall = this.scope.overrideContext.bindingContext[func];
+      const context = getContextFor(func, this.scope);
+      let funcCall = context[func];
 
       if (typeof funcCall === 'function') {
-        return funcCall.bind(this.scope.overrideContext.bindingContext);
+        return funcCall.bind(context);
       }
-      throw new Error("'reorderable-dnd-preview' must be a function or evaluate to one");
+      throw new Error("'reorderable-dnd-preview' must be a function or evaluate to a function");
     } else if (func.sourceExpression) {
       // TODO test preview
       return (item, scope) => {
         return func.sourceExpression.evaluate(scope);
       };
     } else {
-      throw new Error("'reorderable-dnd-preview' must be a function or evaluate to one");
+      throw new Error("'reorderable-dnd-preview' must be a function or evaluate to a function");
     }
   }
 
@@ -449,16 +451,17 @@ export class ReorderableRepeat extends AbstractRepeater {
     if (!func) {
       return null;
     } else if (typeof func === 'string') {
-      let funcCall = this.scope.overrideContext.bindingContext[func];
+      const context = getContextFor(func, this.scope);
+      let funcCall = context[func];
 
       if (typeof funcCall === 'function') {
-        return funcCall.bind(this.scope.overrideContext.bindingContext);
+        return funcCall.bind(context);
       }
-      throw new Error("'reorderable-after-reordering' must be a function or evaluate to one");
+      throw new Error("'reorderable-after-reordering' must be a function or evaluate to a function");
     } else if (func.sourceExpression) {
       return () => func.sourceExpression.evaluate(this.scope);
     } else {
-      throw new Error("'reorderable-after-reordering' must be a function or evaluate to one");
+      throw new Error("'reorderable-after-reordering' must be a function or evaluate to a function");
     }
   }
 

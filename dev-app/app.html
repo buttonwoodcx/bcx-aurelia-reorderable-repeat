@@ -77,5 +77,16 @@
         </table>
       </div>
     </div>
+
+    <h2>Nested Repeat</h2>
+    <div class="groups">
+      <div class="group" repeat.for="group of groups">
+        <h4>${group.name}</h4>
+        <div class="box"
+           reorderable-repeat.for="s of group.items"
+           reorderable-after-reordering="logGroupItems"
+           reorderable-group="lifes2">${s}</div>
+      </div>
+    </div>
   </div>
 </template>

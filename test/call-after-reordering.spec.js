@@ -231,3 +231,96 @@ test('reorderable-repeat: with multiple lists call after reordering with string'
   t.deepEqual(change1, {item: {value: 2}, fromIndex: 1, toIndex: 2, removedFromThisList: true});
   t.deepEqual(change2, {item: {value: 2}, fromIndex: 1, toIndex: 2, insertedToThisList: true});
 });
+
+test('reorderable-repeat: objects call after reordering with string, with nested binding context', async t => {
+  let seenItems;
+  let change;
+  function action(items, c) {
+    seenItems = items;
+    change = c;
+  }
+
+  component = StageComponent
+    .withResources(['../src/reorderable-repeat', '../src/reorderable-after-reordering'])
+    .inView(`
+      <div repeat.for="group of groups">
+        <div style="height: 50px; width: 100px;"
+          reorderable-repeat.for="obj of group.items"
+          reorderable-after-reordering="action">
+          \${obj.name}
+        </div>
+      </div>`)
+    .boundTo({
+      groups: [
+        {items: [{name: 'one'}, {name: 'two'}, {name: 'three'}]}
+      ],
+      action
+    });
+
+  await component.create(bootstrap);
+  const reorderableRepeat = component.viewModel.view(0).controllers[0].viewModel;
+
+  await delay();
+  fireEvent(reorderableRepeat.view(0).firstChild, 'mousedown', {which: 1, clientX: 20, clientY: 20});
+  await delay();
+  // first small movement, this is where dnd starts
+  fireEvent(documentElement, 'mousemove', {which: 1, clientX: 20, clientY: 21});
+  await delay();
+  // move to bottom half of 2nd element
+  fireEvent(documentElement, 'mousemove', {which: 1, clientX: 20, clientY: 76});
+  await delay();
+  // drop on bottom half of 2nd element
+  fireEvent(documentElement, 'mouseup', {which: 1, clientX: 20, clientY: 76});
+  await delay();
+  t.notOk(reorderableRepeat.dndService.isProcessing);
+  await delay();
+  t.deepEqual(seenItems, [{name: 'two'}, {name: 'one'}, {name: 'three'}]);
+  t.deepEqual(change, {item: {name: 'one'}, fromIndex: 0, toIndex: 1, removedFromThisList: true, insertedToThisList: true});
+});
+
+test('reorderable-repeat: objects call after reordering with call binding, with deep nested binding context', async t => {
+  let seenItems;
+  function action(items) {
+    seenItems = items;
+  }
+
+  component = StageComponent
+    .withResources(['../src/reorderable-repeat', '../src/reorderable-after-reordering'])
+    .inView(`
+      <div with.bind="inner">
+        <div with.bind="group">
+          <div style="height: 50px; width: 100px;"
+            reorderable-repeat.for="obj of items"
+            reorderable-after-reordering.call="action(items)">
+            \${obj.name}
+          </div>
+        </div>
+      </div>`)
+    .boundTo({
+      inner: {
+        group: {
+          items: [{name: 'one'}, {name: 'two'}, {name: 'three'}]
+        }
+      },
+      action
+    });
+
+  await component.create(bootstrap);
+  const reorderableRepeat = component.viewModel.view.controllers[0].viewModel.view.controllers[0].viewModel;
+
+  await delay();
+  fireEvent(reorderableRepeat.view(0).firstChild, 'mousedown', {which: 1, clientX: 20, clientY: 20});
+  await delay();
+  // first small movement, this is where dnd starts
+  fireEvent(documentElement, 'mousemove', {which: 1, clientX: 20, clientY: 21});
+  await delay();
+  // move to bottom half of 2nd element
+  fireEvent(documentElement, 'mousemove', {which: 1, clientX: 20, clientY: 76});
+  await delay();
+  // drop on bottom half of 2nd element
+  fireEvent(documentElement, 'mouseup', {which: 1, clientX: 20, clientY: 76});
+  await delay();
+  t.notOk(reorderableRepeat.dndService.isProcessing);
+  await delay();
+  t.deepEqual(seenItems, [{name: 'two'}, {name: 'one'}, {name: 'three'}]);
+});

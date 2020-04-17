@@ -15,6 +15,12 @@ export class App {
   animals = ['Cow', 'Horse', 'Sheep', 'Goat'];
   insects = ['Grasshopper', 'Fly', 'Dragonfly', 'Frog'];
 
+  groups = [
+    {name: 'Fruits', items: this.fruits},
+    {name: 'Animals', items: this.animals},
+    {name: 'Insects', items: this.insects},
+  ]
+
   objArrayReordered(objArray, change) {
     /* eslint no-console: 0 */
     console.log(JSON.stringify(objArray));
@@ -33,6 +39,11 @@ export class App {
 
   insectsOrdered(list, change) {
     console.log('insects: ' + list);
+    console.log('change', change);
+  }
+
+  logGroupItems(list, change) {
+    console.log('group items: ' + list);
     console.log('change', change);
   }
 
