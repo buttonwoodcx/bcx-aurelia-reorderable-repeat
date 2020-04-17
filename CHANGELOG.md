@@ -1,3 +1,12 @@
+## [1.3.4](https://github.com/buttonwoodcx/bcx-aurelia-reorderable-repeat/compare/v1.3.3...v1.3.4) (2020-04-17)
+
+
+### Bug Fixes
+
+* fix failed binding for after-reordering and dnd-preview in nested context ([446eaa5](https://github.com/buttonwoodcx/bcx-aurelia-reorderable-repeat/commit/446eaa51e73ff1475052c220542f94fc345d85d1)), closes [#16](https://github.com/buttonwoodcx/bcx-aurelia-reorderable-repeat/issues/16) [#15](https://github.com/buttonwoodcx/bcx-aurelia-reorderable-repeat/issues/15)
+
+
+
 ## [1.3.3](https://github.com/buttonwoodcx/bcx-aurelia-reorderable-repeat/compare/v1.3.2...v1.3.3) (2020-04-17)
 
 
