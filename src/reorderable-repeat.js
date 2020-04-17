@@ -153,6 +153,13 @@ export class ReorderableRepeat extends AbstractRepeater {
           classes.rm(v.firstChild, 'reorderable-repeat-dragging-me');
         });
       }),
+      this.ea.subscribe('dnd:didCancel', () => {
+        this.intention = null;
+        this.views().forEach(v => {
+          classes.rm(v.firstChild, 'reorderable-repeat-reordering');
+          classes.rm(v.firstChild, 'reorderable-repeat-dragging-me');
+        });
+      }),
       this.ea.subscribe('dnd:didEnd', () => {
         this.views().forEach(v => {
           classes.rm(v.firstChild, 'reorderable-repeat-reordering');
@@ -247,6 +254,8 @@ export class ReorderableRepeat extends AbstractRepeater {
       }
 
       this.patchedItems = patched;
+    } else {
+      this.patchedItems = [...this.items];
     }
   }
 

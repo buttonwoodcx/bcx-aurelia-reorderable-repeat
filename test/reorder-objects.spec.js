@@ -512,3 +512,88 @@ test('reorderable-repeat: reorders duplicated strings', async t => {
   t.notOk(viewModel.dndService.isProcessing);
 });
 
+
+test('reorderable-repeat: cancels reordering', async t => {
+  component = StageComponent
+    .withResources(['reorderable-repeat'])
+    .inView('<div style="height: 50px;w idth: 100px;" reorderable-repeat.for="obj of items">${obj.name}</div>')
+    .boundTo({items: [{name: 'one'}, {name: 'two'}, {name: 'three'}]});
+
+  await component.create(bootstrap);
+  const viewModel = component.viewModel;
+  await delay();
+  t.equal(viewModel.viewCount(), 3);
+  t.notOk($(viewModel.view(0).firstChild).hasClass('reorderable-repeat-dragging-me'));
+  t.notOk($(viewModel.view(1).firstChild).hasClass('reorderable-repeat-dragging-me'));
+  t.notOk($(viewModel.view(2).firstChild).hasClass('reorderable-repeat-dragging-me'));
+  t.notOk($(viewModel.view(0).firstChild).hasClass('reorderable-repeat-reordering'));
+  t.notOk($(viewModel.view(1).firstChild).hasClass('reorderable-repeat-reordering'));
+  t.notOk($(viewModel.view(2).firstChild).hasClass('reorderable-repeat-reordering'));
+  t.notOk(viewModel.dndService.isProcessing);
+  await delay();
+  fireEvent(viewModel.view(0).firstChild, 'mousedown', {which: 1, clientX: 20, clientY: 20});
+  await delay();
+  // first small movement, this is where dnd starts
+  fireEvent(documentElement, 'mousemove', {which: 1, clientX: 20, clientY: 21});
+  await delay();
+  t.equal(viewModel.viewCount(), 3);
+  t.ok($(viewModel.view(0).firstChild).hasClass('reorderable-repeat-dragging-me'));
+  t.notOk($(viewModel.view(1).firstChild).hasClass('reorderable-repeat-dragging-me'));
+  t.notOk($(viewModel.view(2).firstChild).hasClass('reorderable-repeat-dragging-me'));
+  t.ok($(viewModel.view(0).firstChild).hasClass('reorderable-repeat-reordering'));
+  t.ok($(viewModel.view(1).firstChild).hasClass('reorderable-repeat-reordering'));
+  t.ok($(viewModel.view(2).firstChild).hasClass('reorderable-repeat-reordering'));
+  t.deepEqual(viewModel.view(0).bindingContext.obj, {name: 'one'});
+  t.deepEqual(viewModel.view(1).bindingContext.obj, {name: 'two'});
+  t.deepEqual(viewModel.view(2).bindingContext.obj, {name: 'three'});
+  t.ok(viewModel.dndService.isProcessing);
+  t.deepEqual(viewModel.items, [{name: 'one'}, {name: 'two'}, {name: 'three'}]);
+  await delay();
+  // move to upper half of 2nd element
+  fireEvent(documentElement, 'mousemove', {which: 1, clientX: 20, clientY: 74});
+  await delay();
+  // no change yet.
+  t.equal(viewModel.viewCount(), 3);
+  t.ok($(viewModel.view(0).firstChild).hasClass('reorderable-repeat-dragging-me'));
+  t.notOk($(viewModel.view(1).firstChild).hasClass('reorderable-repeat-dragging-me'));
+  t.notOk($(viewModel.view(2).firstChild).hasClass('reorderable-repeat-dragging-me'));
+  t.ok($(viewModel.view(0).firstChild).hasClass('reorderable-repeat-reordering'));
+  t.ok($(viewModel.view(1).firstChild).hasClass('reorderable-repeat-reordering'));
+  t.ok($(viewModel.view(2).firstChild).hasClass('reorderable-repeat-reordering'));
+  t.deepEqual(viewModel.view(0).bindingContext.obj, {name: 'one'});
+  t.deepEqual(viewModel.view(1).bindingContext.obj, {name: 'two'});
+  t.deepEqual(viewModel.view(2).bindingContext.obj, {name: 'three'});
+  t.ok(viewModel.dndService.isProcessing);
+  t.deepEqual(viewModel.items, [{name: 'one'}, {name: 'two'}, {name: 'three'}]);
+  await delay();
+  // move to bottom half of 2nd element
+  fireEvent(documentElement, 'mousemove', {which: 1, clientX: 20, clientY: 76});
+  await delay();
+  // swapped.
+  t.equal(viewModel.viewCount(), 3);
+  t.notOk($(viewModel.view(0).firstChild).hasClass('reorderable-repeat-dragging-me'));
+  t.ok($(viewModel.view(1).firstChild).hasClass('reorderable-repeat-dragging-me'));
+  t.notOk($(viewModel.view(2).firstChild).hasClass('reorderable-repeat-dragging-me'));
+  t.ok($(viewModel.view(0).firstChild).hasClass('reorderable-repeat-reordering'));
+  t.ok($(viewModel.view(1).firstChild).hasClass('reorderable-repeat-reordering'));
+  t.ok($(viewModel.view(2).firstChild).hasClass('reorderable-repeat-reordering'));
+  t.deepEqual(viewModel.view(0).bindingContext.obj, {name: 'two'});
+  t.deepEqual(viewModel.view(1).bindingContext.obj, {name: 'one'});
+  t.deepEqual(viewModel.view(2).bindingContext.obj, {name: 'three'});
+  t.ok(viewModel.dndService.isProcessing);
+  t.deepEqual(viewModel.items, [{name: 'one'}, {name: 'two'}, {name: 'three'}]);
+  await delay();
+
+  // Cancel with ESC
+  fireEvent(documentElement, 'keydown', {key: 'Escape'});
+  await delay();
+  t.equal(viewModel.viewCount(), 3);
+  t.notOk($(viewModel.view(0).firstChild).hasClass('reorderable-repeat-dragging-me'));
+  t.notOk($(viewModel.view(1).firstChild).hasClass('reorderable-repeat-dragging-me'));
+  t.notOk($(viewModel.view(2).firstChild).hasClass('reorderable-repeat-dragging-me'));
+  t.notOk($(viewModel.view(0).firstChild).hasClass('reorderable-repeat-reordering'));
+  t.notOk($(viewModel.view(1).firstChild).hasClass('reorderable-repeat-reordering'));
+  t.notOk($(viewModel.view(2).firstChild).hasClass('reorderable-repeat-reordering'));
+  t.notOk(viewModel.dndService.isProcessing);
+  t.deepEqual(viewModel.items, [{name: 'one'}, {name: 'two'}, {name: 'three'}]);
+});
