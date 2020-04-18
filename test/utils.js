@@ -10,7 +10,7 @@ export function fireEvent(el, type, options) {
   }
 }
 
-export function delay(ms = 0) {
+export function delay(ms = 10) {
   return new Promise(resolve => {
     setTimeout(resolve, ms);
   });
