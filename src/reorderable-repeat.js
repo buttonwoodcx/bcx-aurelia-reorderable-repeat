@@ -387,16 +387,22 @@ export class ReorderableRepeat extends AbstractRepeater {
     if (view && view.firstChild && view.firstChild.au && view.firstChild.au[attribute]) {
       return view.firstChild.au[attribute].instruction.attributes[attribute];
     }
+    // Fall back to plain string attribute
+    return this._getPlainAttribute(attribute);
+  }
+
+  _getPlainAttribute(name) {
+    // only get the string value before view rendering
+    if (this.viewFactory && this.viewFactory.viewFactory) {
+      const node = this.viewFactory.viewFactory.template.firstChild;
+      if (node && node.hasAttribute(name)) {
+        return node.getAttribute(name);
+      }
+    }
   }
 
   _reorderableGroup() {
-    // only support static group, in order to get the value before view rendering
-    if (this.viewFactory && this.viewFactory.viewFactory) {
-      const node = this.viewFactory.viewFactory.template.firstChild;
-      if (node && node.hasAttribute('reorderable-group')) {
-        return node.getAttribute('reorderable-group');
-      }
-    }
+    return this._getPlainAttribute('reorderable-group');
   }
 
   _reorderableDirection(view) {
