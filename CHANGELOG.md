@@ -1,3 +1,12 @@
+## [1.3.5](https://github.com/buttonwoodcx/bcx-aurelia-reorderable-repeat/compare/v1.3.4...v1.3.5) (2020-05-09)
+
+
+### Bug Fixes
+
+* fix missing after-reordering call when items length was zero ([5f3e9ac](https://github.com/buttonwoodcx/bcx-aurelia-reorderable-repeat/commit/5f3e9aca964b77d5d1c15cb40629cae510469f82)), closes [#18](https://github.com/buttonwoodcx/bcx-aurelia-reorderable-repeat/issues/18)
+
+
+
 ## [1.3.4](https://github.com/buttonwoodcx/bcx-aurelia-reorderable-repeat/compare/v1.3.3...v1.3.4) (2020-04-17)
 
 
