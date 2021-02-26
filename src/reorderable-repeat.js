@@ -19,7 +19,6 @@ import {
 } from 'aurelia-templating';
 import {
   getItemsSourceExpression,
-  unwrapExpression,
   isOneTime,
   updateOneTimeBinding,
   viewsRequireLifecycle,
@@ -86,6 +85,7 @@ export class ReorderableRepeat extends AbstractRepeater {
 
   @observable intention = null;
   @observable patchedItems;
+  @observable type = null;
 
   /**
  * Creates an instance of Repeat.
@@ -102,7 +102,8 @@ export class ReorderableRepeat extends AbstractRepeater {
       viewsRequireLifecycle: viewsRequireLifecycle(viewFactory)
     });
 
-    this.repeaterId = repeaterDndType(seed);
+    this.repeaterId = seed;
+    this.type = this.repeaterId;
     seed += 1;
 
     this.ea = ea;
@@ -129,8 +130,8 @@ export class ReorderableRepeat extends AbstractRepeater {
       throw new Error('oneTime binding is not supported in reorderable-repeat');
     }
     this.viewsRequireLifecycle = viewsRequireLifecycle(viewFactory);
-    const group = this._reorderableGroup();
-    this.type = group ? repeaterDndType(group) : this.repeaterId;
+
+    this.group = this._reorderableGroup();
   }
 
   call(context, changes) {
@@ -171,7 +172,7 @@ export class ReorderableRepeat extends AbstractRepeater {
         const {item, fromIndex, fromRepeaterId, toIndex, toRepeaterId} = this.intention;
         this.intention = null;
 
-        const repeaterId = this.repeaterId;
+        const repeaterId = repeaterDndType(this.repeaterId);
         if (repeaterId !== fromRepeaterId && repeaterId !== toRepeaterId) return;
 
         // no change
@@ -199,7 +200,7 @@ export class ReorderableRepeat extends AbstractRepeater {
         }
       }),
       this.ea.subscribe('reorderable-group:intention-changed', intention => {
-        if (intention.type !== this.type) return;
+        if (intention.type !== repeaterDndType(this.type)) return;
 
         // avoid double trigger of intentionChanged;
         if (this.intention &&
@@ -213,10 +214,16 @@ export class ReorderableRepeat extends AbstractRepeater {
         this.intention = intention;
       })
     ];
+    if (typeof this.group === 'string') {
+      this.type = this.group;
+    } else if (this.group) {
+      // group is a BindingExpression
+      this.group.targetProperty = 'type',
+      this._typeBinding = this.group.createBinding(this);
+      this._typeBinding.bind(this.scope);
+    }
     this.patchedItems = [...this.items];
     this.patchedItemsChanged();
-
-    this.groupMap.add(this);
   }
 
   /**
@@ -224,6 +231,10 @@ export class ReorderableRepeat extends AbstractRepeater {
   */
   unbind() {
     this.groupMap.remove(this);
+    if (this._typeBinding) {
+      this._typeBinding.unbind();
+      delete this._typeBinding;
+    }
 
     if (this.arrayObserver) {
       this.arrayObserver.dispose();
@@ -240,7 +251,7 @@ export class ReorderableRepeat extends AbstractRepeater {
 
   intentionChanged(newIntention) {
     if (newIntention) {
-      const repeaterId = this.repeaterId;
+      const repeaterId = repeaterDndType(this.repeaterId);
 
       const {item, fromIndex, fromRepeaterId, toIndex, toRepeaterId} = newIntention;
 
@@ -261,7 +272,7 @@ export class ReorderableRepeat extends AbstractRepeater {
   }
 
   // every time the items property changes.
-  itemsChanged(newVal, oldVal) {
+  itemsChanged() {
     // still bound?
     if (!this.scope) {
       return;
@@ -291,8 +302,20 @@ export class ReorderableRepeat extends AbstractRepeater {
   }
 
   patchedItemsChanged() {
+    this._reload();
+  }
+
+  typeChanged() {
+    this._reload();
+  }
+
+  _reload() {
     // still bound?
     if (!this.scope) {
+      return;
+    }
+
+    if (!this.patchedItems) {
       return;
     }
 
@@ -303,10 +326,12 @@ export class ReorderableRepeat extends AbstractRepeater {
 
     this.strategy.instanceChanged(this, this.patchedItems);
     this.taskQueue.queueMicroTask(() => {
+      this.groupMap.remove(this);
       this.views().forEach(view => {
         this._unRegisterDnd(view);
         this._registerDnd(view);
       });
+      this.groupMap.add(this);
     });
   }
 
@@ -402,6 +427,19 @@ export class ReorderableRepeat extends AbstractRepeater {
   }
 
   _reorderableGroup() {
+    if (this.viewFactory && this.viewFactory.viewFactory) {
+      const node = this.viewFactory.viewFactory.template.firstChild;
+      const targetId = node.getAttribute('au-target-id');
+      const instruction = this.viewFactory.viewFactory.instructions[targetId];
+      if (instruction) {
+        const bi = instruction.behaviorInstructions.find(bi => bi.attrName === 'reorderable-group');
+        if (bi && bi.attributes && bi.attributes['reorderable-group'] && bi.attributes['reorderable-group'].sourceExpression) {
+          // a binding expression
+          return bi.attributes['reorderable-group'];
+        }
+      }
+    }
+
     return this._getPlainAttribute('reorderable-group');
   }
 
@@ -443,7 +481,7 @@ export class ReorderableRepeat extends AbstractRepeater {
       throw new Error("'reorderable-dnd-preview' must be a function or evaluate to a function");
     } else if (func.sourceExpression) {
       // TODO test preview
-      return (item, scope) => {
+      return (_, scope) => {
         return func.sourceExpression.evaluate(scope);
       };
     } else {
@@ -472,9 +510,10 @@ export class ReorderableRepeat extends AbstractRepeater {
   }
 
   _dndHover(location, index, direction) {
+    const repeaterId = repeaterDndType(this.repeaterId);
     // bypass hovering on itself
     if (this.intention &&
-        this.intention.toRepeaterId === this.repeaterId &&
+        this.intention.toRepeaterId === repeaterId &&
         this.intention.toIndex === index) {
       return;
     }
@@ -501,7 +540,7 @@ export class ReorderableRepeat extends AbstractRepeater {
     // check half size to avoid endless bouncing of swapping two items.
     if (inLeastHalf ||
         // or starting on itself
-        (!this.intention && model.repeaterId === this.repeaterId && index === model.index)) {
+        (!this.intention && model.repeaterId === repeaterId && index === model.index)) {
       // hover over top half, user wants to move smth before this item.
       this._updateIntention(index, true);
     } else {
@@ -521,14 +560,13 @@ export class ReorderableRepeat extends AbstractRepeater {
       handler = el.querySelector(handlerSelector);
     }
 
-    const type = this.type;
-    const repeaterId = this.repeaterId;
+    const repeaterId = repeaterDndType(this.repeaterId);
 
     const direction = this._reorderableDirection(view);
     const _previewFunc = this._dndPreviewFunc(view);
 
     this.dndService.addSource({
-      dndModel: () => ({type: type, index, item, repeaterId: repeaterId}),
+      dndModel: () => ({type: repeaterDndType(this.type), index, item, repeaterId}),
       dndPreview: _previewFunc && (() => _previewFunc(item, view)),
       dndElement: el
     }, handler && {handler});
@@ -536,7 +574,7 @@ export class ReorderableRepeat extends AbstractRepeater {
     this.dndService.addTarget({
       dndElement: el,
       dndCanDrop: (model) => {
-        if (model.type !== type) return false;
+        if (model.type !== repeaterDndType(this.type)) return false;
 
         const {intention} = this;
         const inSameGroup = model.repeaterId === repeaterId;
@@ -580,9 +618,9 @@ export class ReorderableRepeat extends AbstractRepeater {
   _updateIntention(targetIndex, beforeTarget) {
     const {isProcessing, model} = this.dndService;
     if (!isProcessing) return;
-    if (model.type !== this.type) return;
+    if (model.type !== repeaterDndType(this.type)) return;
 
-    const repeaterId = this.repeaterId;
+    const repeaterId = repeaterDndType(this.repeaterId);
     const isUsingGroup = model.type !== model.repeaterId;
     const inSameGroup = model.repeaterId === repeaterId;
 

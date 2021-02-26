@@ -4,6 +4,7 @@ import {DndService} from 'bcx-aurelia-dnd';
 import {EventAggregator} from 'aurelia-event-aggregator';
 // import {TaskQueue} from 'aurelia-task-queue';
 import {ReorderableGroupMap} from './reorderable-group-map';
+import repeaterDndType from './repeater-dnd-type';
 
 const example = 'reorderable-group-for.bind="arrayModel"';
 
@@ -28,15 +29,13 @@ export class ReorderableGroupFor {
 
     this._subsribers = [
       this.ea.subscribe('dnd:willStart', () => {
-        if (!this.repeaterId) {
-          const repeaterInfo = this.groupMap.get(value);
-          if (repeaterInfo) {
-            this.group = repeaterInfo.group;
-            this.repeaterId = repeaterInfo.repeaterId;
-          } else {
-            this.group = null;
-            this.repeaterId = null;
-          }
+        const repeaterInfo = this.groupMap.get(value);
+        if (repeaterInfo) {
+          this.group = repeaterDndType(repeaterInfo.group());
+          this.repeaterId = repeaterDndType(repeaterInfo.repeaterId);
+        } else {
+          this.group = null;
+          this.repeaterId = null;
         }
 
         this.resetIntention();

@@ -45,7 +45,7 @@ function reload(done) {
 
 // Watch all files for rebuild and reload browserSync.
 function watch() {
-  return gulp.watch('src/**/*', gulp.series(build, reload));
+  return gulp.watch('{dev-app,src}/**/*', gulp.series(build, reload));
 }
 
 module.exports = gulp.series(
