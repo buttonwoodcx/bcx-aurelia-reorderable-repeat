@@ -11,14 +11,16 @@ export class App {
     {name: 'Cherry'}
   ];
 
+  group = 'lifes';
+
   fruits = ['Apple', 'Pineapple', 'Banana'];
   animals = ['Cow', 'Horse', 'Sheep', 'Goat'];
   insects = ['Grasshopper', 'Fly', 'Dragonfly', 'Frog'];
 
   groups = [
-    {name: 'Fruits', items: this.fruits},
-    {name: 'Animals', items: this.animals},
-    {name: 'Insects', items: this.insects},
+    {name: 'Numbers', items: [1, 2, 3]},
+    {name: 'Letters', items: ['a', 'b', 'c']},
+    {name: 'Punctuations', items: ['%', '+', '[']}
   ]
 
   objArrayReordered(objArray, change) {

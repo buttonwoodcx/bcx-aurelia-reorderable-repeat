@@ -30,22 +30,26 @@
     <h2>Group of repeaters, support across lists reordering</h2>
 
     <div class="groups">
+      <select value.bind="group">
+        <option value="lifes">lifes</option>
+        <option value="not-insects">not-insects</option>
+      </select>
       <div class="group" reorderable-group-for.bind="fruits">
-        <h4>Fruits</h4>
+        <h4>Fruits (group: ${group})</h4>
         <div class="box"
              reorderable-repeat.for="s of fruits"
              reorderable-after-reordering="fruitsOrdered"
-             reorderable-group="lifes">${s}</div>
+             reorderable-group.bind="group">${s}</div>
       </div>
       <div class="group" reorderable-group-for.bind="animals">
-        <h4>Animals</h4>
+        <h4>Animals (group: ${group})</h4>
         <div class="box"
              reorderable-repeat.for="s of animals"
              reorderable-after-reordering="animalsOrdered"
-             reorderable-group="lifes">${s}</div>
+             reorderable-group.bind="group">${s}</div>
       </div>
       <div class="group" reorderable-group-for.bind="insects">
-        <h4>Insects</h4>
+        <h4>Insects (group: lifes)</h4>
         <div class="box"
              reorderable-repeat.for="s of insects"
              reorderable-after-reordering="insectsOrdered"
@@ -80,13 +84,13 @@
 
     <h2>Nested Repeat</h2>
     <div class="groups">
-      <div class="group" repeat.for="group of groups">
+      <div class="group" repeat.for="group of groups" reorderable-group-for.bind="group.items">
         <h4>${group.name}</h4>
         <div class="box"
            reorderable-repeat.for="s of group.items"
            reorderable-after-reordering="logGroupItems"
-           reorderable-group="lifes2">${s}</div>
+           reorderable-group="symbols">${s}</div>
       </div>
-    </div>
+    </div> 
   </div>
 </template>
