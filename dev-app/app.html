@@ -46,7 +46,7 @@
         <div class="box"
              reorderable-repeat.for="s of animals"
              reorderable-after-reordering="animalsOrdered"
-             reorderable-group.bind="group">${s}</div>
+             reorderable-group="${group}">${s}</div>
       </div>
       <div class="group" reorderable-group-for.bind="insects">
         <h4>Insects (group: lifes)</h4>
