@@ -159,7 +159,7 @@ test('reorderable-group: supports dynamic group binding', async t => {
           <div style="height: 50px; width: 50px;" reorderable-repeat.for="o of numbers" reorderable-group.bind="changableGroup">$\{o.value}</div>
         </div>
         <div id="letters" style="width: 50px; display: inline-block; vertical-align: top;">
-          <div style="height: 50px; width: 50px;" reorderable-repeat.for="o of letters" reorderable-group.bind="changableGroup">$\{o.value}</div>
+          <div style="height: 50px; width: 50px;" reorderable-repeat.for="o of letters" reorderable-group="\${changableGroup}">$\{o.value}</div>
         </div>
         <div id="punctuations" style="width: 50px; display: inline-block; vertical-align: top;top;">
           <div style="height: 50px; width: 50px;" reorderable-repeat.for="o of punctuations" reorderable-group="g">$\{o.value}</div>
