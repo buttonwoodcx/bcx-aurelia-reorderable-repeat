@@ -1,3 +1,12 @@
+# [1.4.0](https://github.com/buttonwoodcx/bcx-aurelia-reorderable-repeat/compare/v1.3.5...v1.4.0) (2021-03-01)
+
+
+### Features
+
+* support binding on reorderable-group ([b6f7635](https://github.com/buttonwoodcx/bcx-aurelia-reorderable-repeat/commit/b6f76355c4ded4c32ce8e39f720f9600e1801156)), closes [#20](https://github.com/buttonwoodcx/bcx-aurelia-reorderable-repeat/issues/20)
+
+
+
 ## [1.3.5](https://github.com/buttonwoodcx/bcx-aurelia-reorderable-repeat/compare/v1.3.4...v1.3.5) (2020-05-09)
 
 
