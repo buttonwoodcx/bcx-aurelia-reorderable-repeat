@@ -217,7 +217,7 @@ export class ReorderableRepeat extends AbstractRepeater {
     if (typeof this.group === 'string') {
       this.type = this.group;
     } else if (this.group) {
-      // group is a BindingExpression
+      // group is a binding expression or interpolation binding expression.
       this.group.targetProperty = 'type',
       this._typeBinding = this.group.createBinding(this);
       this._typeBinding.bind(this.scope);
@@ -433,9 +433,12 @@ export class ReorderableRepeat extends AbstractRepeater {
       const instruction = this.viewFactory.viewFactory.instructions[targetId];
       if (instruction) {
         const bi = instruction.behaviorInstructions.find(bi => bi.attrName === 'reorderable-group');
-        if (bi && bi.attributes && bi.attributes['reorderable-group'] && bi.attributes['reorderable-group'].sourceExpression) {
-          // a binding expression
-          return bi.attributes['reorderable-group'];
+        if (bi) {
+          const exp = bi.attributes && bi.attributes['reorderable-group'];
+          if (exp && typeof exp.createBinding === 'function') {
+            // binding expression or interpolation binding expression.
+            return exp;
+          }
         }
       }
     }
