@@ -3,7 +3,9 @@ export class ReorderableGroupMap {
 
   add(repeater) {
     const {repeaterId, items} = repeater;
-    this._map.set(items, {group: () => repeater.type, repeaterId});
+    if(items) {
+      this._map.set(items, {group: () => repeater.type, repeaterId});
+    }
   }
 
   remove(repeater) {
