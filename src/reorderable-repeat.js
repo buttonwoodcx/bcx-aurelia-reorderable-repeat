@@ -326,6 +326,11 @@ export class ReorderableRepeat extends AbstractRepeater {
 
     this.strategy.instanceChanged(this, this.patchedItems);
     this.taskQueue.queueMicroTask(() => {
+      // avoid this async task after unbind
+      if (!this.scope) {
+        return;
+      }
+
       this.groupMap.remove(this);
       this.views().forEach(view => {
         this._unRegisterDnd(view);
