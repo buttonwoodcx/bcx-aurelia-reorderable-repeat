@@ -1,3 +1,12 @@
+## [1.4.1](https://github.com/buttonwoodcx/bcx-aurelia-reorderable-repeat/compare/v1.4.0...v1.4.1) (2021-05-01)
+
+
+### Bug Fixes
+
+* avoid possible async reload logic after unbind ([43911c8](https://github.com/buttonwoodcx/bcx-aurelia-reorderable-repeat/commit/43911c882b43f527c03df0e2fb63bcfbaf59da1b)), closes [#22](https://github.com/buttonwoodcx/bcx-aurelia-reorderable-repeat/issues/22)
+
+
+
 # [1.4.0](https://github.com/buttonwoodcx/bcx-aurelia-reorderable-repeat/compare/v1.3.5...v1.4.0) (2021-03-01)
 
 
