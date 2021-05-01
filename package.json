@@ -68,7 +68,7 @@
     "start": "gulp",
     "build:dev": "gulp clean && gulp build-plugin",
     "build": "gulp clean && cross-env NODE_ENV=production gulp build-plugin",
-    "prepare": "npm run build",
+    "prepublishOnly": "npm run build",
     "preversion": "npm test",
     "version": "standard-changelog && git add CHANGELOG.md",
     "postversion": "git push && git push --tags && npm publish",
