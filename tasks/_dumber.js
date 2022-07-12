@@ -1,7 +1,7 @@
-const dumber = require('gulp-dumber');
-const auDepsFinder = require('aurelia-deps-finder');
-const fs = require('fs');
-const {isProduction, isTest, outputDir} = require('./_env');
+const dumber = require("gulp-dumber");
+const auDepsFinder = require("aurelia-deps-finder");
+const fs = require("fs");
+const { isProduction, isTest, outputDir } = require("./_env");
 
 // Read more in https://dumber.js.org
 module.exports = dumber({
@@ -9,7 +9,7 @@ module.exports = dumber({
   // src: 'src',
 
   // requirejs baseUrl, dumber default is "/dist"
-  baseUrl: '/' + outputDir,
+  baseUrl: "/" + outputDir,
 
   // can turn off cache for production build
   // cache: !isProduction,
@@ -29,22 +29,18 @@ module.exports = dumber({
 
   // prepend before amd loader.
   // dumber-module-loader is injected automatically by dumber bundler after prepends.
-  prepend: [
-    // Promise polyfill for IE
-    "node_modules/promise-polyfill/dist/polyfill.min.js"
-  ],
+  // prepend: [ ],
 
   // append after amd loader and all module definitions in entry bundle.
   append: [
     // Kick off all test files.
     // Note dumber-module-loader requirejs call accepts regex which loads all matched module ids!
     // Note all module ids are relative to dumber option "src" (default to 'src') folder.
-    isTest && "requirejs(['../test/setup', /^\\.\\.\\/test\\/.+\\.spec$/]);"
+    isTest && "requirejs(['../test/setup', /^\\.\\.\\/test\\/.+\\.spec$/]);",
   ],
 
   // Explicit dependencies, can use either "deps" (short name) or "dependencies" (full name).
-  deps: [
-  ],
+  deps: [],
 
   // Code split is intuitive and flexible.
   // You provide a function to return a bundle name for every single module.
@@ -62,9 +58,9 @@ module.exports = dumber({
   //   for npm package file "node_modules/@scoped/foo/bar.js", the package name is "@scoped/foo"
 
   // Here we skip code splitting in test mode.
-  codeSplit: isTest ? undefined : function(moduleId, packageName) {
+  codeSplit: isTest ? undefined : function (moduleId, packageName) {
     // Here for any local src, put into app-bundle
-    if (!packageName) return 'app-bundle';
+    if (!packageName) return "app-bundle";
     // The codeSplit func does not need to return a valid bundle name.
     // For any undefined return, dumber put the module into entry bundle,
     // this means no module can skip bundling.
@@ -81,12 +77,12 @@ module.exports = dumber({
   //   "other-bundle.js": "other-bundle.js"
   // }
   // If you turned on hash, you need this callback to update index.html
-  onManifest: isTest ? undefined : function(filenameMap) {
+  onManifest: isTest ? undefined : function (filenameMap) {
     // Update index.html entry-bundle.js with entry-bundle.hash...js
-    console.log('Update index.html with ' + filenameMap['entry-bundle.js']);
-    const indexHtml = fs.readFileSync('_index.html').toString()
-      .replace('entry-bundle.js', filenameMap['entry-bundle.js']);
+    console.log("Update index.html with " + filenameMap["entry-bundle.js"]);
+    const indexHtml = fs.readFileSync("_index.html").toString()
+      .replace("entry-bundle.js", filenameMap["entry-bundle.js"]);
 
-    fs.writeFileSync('index.html', indexHtml);
-  }
+    fs.writeFileSync("index.html", indexHtml);
+  },
 });

@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "declaration": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "sourceMap": true,
+    "target": "es5",
+    "moduleResolution": "node",
+    "baseUrl": "src",
+    "resolveJsonModule": true,
+    "importHelpers": false,
+    "paths": { "resources": [""] },
+    "allowJs": true
+  },
+  "include": [
+    "src",
+    "dev-app",
+    "test"
+  ]
+}

@@ -1,55 +1,34 @@
-const gulp = require('gulp');
-const bs = require('browser-sync').create();
-const historyApiFallback = require('connect-history-api-fallback/lib');
-const clean = require('./clean');
-const build = require('./build');
+const gulp = require("gulp");
+const devServer = require("./dev-server");
+const clean = require("./clean");
+const build = require("./build");
 
-// Use browserSync as dev server
 const serve = gulp.series(
   build,
   function startServer(done) {
-    bs.init({
-      ghostMode: false,
-      online: false,
+    // Open a browser window when not in CI environment.
+    devServer.run({
+      port: 9000,
       open: !process.env.CI,
-      logLevel: 'silent', // or 'debug'
-      server: {
-        baseDir: ['.'],
-        middleware: [
-          // connect-history-api-fallback is a tool to help SPA dev.
-          // So in dev mode, http://localhost:port/some/route will get
-          // the same /index.html as content, instead off 404 at /some/route.html
-          historyApiFallback(),
-          function(req, res, next) {
-            res.setHeader('Access-Control-Allow-Origin', '*');
-            next();
-          }
-        ]
-      }
-    }, function(err, bs) {
-      if (err) return done(err);
-      let urls = bs.options.get('urls').toJS();
-      console.log(`Application Available At: ${urls.local}`);
-      console.log(`BrowserSync Available At: ${urls.ui}`);
-      done();
     });
-  }
-)
+    done();
+  },
+);
 
-// Reload browserSync
+// Reload dev server
 function reload(done) {
-  console.log('Refreshing the browser');
-  bs.reload();
+  console.log("Reloading the browser");
+  devServer.reload();
   done();
 }
 
-// Watch all files for rebuild and reload browserSync.
+// Watch all files for rebuild and reload dev server.
 function watch() {
-  return gulp.watch('{dev-app,src}/**/*', gulp.series(build, reload));
+  gulp.watch("{src,dev-app}/**/*", gulp.series(build, reload));
 }
 
 module.exports = gulp.series(
   clean,
   serve,
-  watch
+  watch,
 );
