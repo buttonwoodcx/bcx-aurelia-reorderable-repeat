@@ -1,3 +1,12 @@
+# [1.5.0](https://github.com/buttonwoodcx/bcx-aurelia-reorderable-repeat/compare/v1.4.1...v1.5.0) (2022-07-12)
+
+
+### Bug Fixes
+
+* play nice with aurelia es2015 and es2017 dist files ([29eceb1](https://github.com/buttonwoodcx/bcx-aurelia-reorderable-repeat/commit/29eceb1e061109c1746fb384893085a47f753e45)), closes [#25](https://github.com/buttonwoodcx/bcx-aurelia-reorderable-repeat/issues/25)
+
+
+
 ## [1.4.1](https://github.com/buttonwoodcx/bcx-aurelia-reorderable-repeat/compare/v1.4.0...v1.4.1) (2021-05-01)
 
 
