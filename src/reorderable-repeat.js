@@ -147,7 +147,6 @@ export class ReorderableRepeat extends AbstractRepeater {
     this.scope = { bindingContext, overrideContext };
     this.matcherBinding = this._captureAndRemoveMatcherBinding();
     this.arrayObserver = this.bindingEngine.collectionObserver(this.items).subscribe(this._itemsMutated.bind(this));
-    console.log('bind items', this.items);
     this._subsribers = [
       this.ea.subscribe('dnd:willStart', () => {
         this.intention = null;
